@@ -1,4 +1,4 @@
-###Under developement
+### Under developement
 # Schoolary
 
 A **Laravel-based** School Management System where students can check their marks, enroll in courses, and manage their academic progress.
