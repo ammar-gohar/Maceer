@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Barryvdh\Debugbar\Facades\Debugbar as FacadesDebugbar;
+use DebugBar\DebugBar;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -36,5 +39,19 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
+    }
+
+    protected function credentials(Request $request)
+    {
+
+        if(filter_var($request->email, FILTER_VALIDATE_EMAIL)){
+            $cred['email'] = $request->email;
+        } else if (strlen((string) $request->email) == 14) {
+            $cred['national_id'] = $request->email;
+        };
+
+        $cred['password'] = $request->password;
+
+        return $cred;
     }
 }
