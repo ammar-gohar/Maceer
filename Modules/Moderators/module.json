@@ -1,0 +1,11 @@
+{
+    "name": "Moderators",
+    "alias": "moderators",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Moderators\\Providers\\ModeratorsServiceProvider"
+    ],
+    "files": []
+}

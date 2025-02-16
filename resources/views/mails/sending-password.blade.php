@@ -1,5 +1,5 @@
 <x-mail::message>
-# Order Shipped
+# Your Schoolary account
 
 Hello, {{ $name }}
 Your account on Schoolary is now ready with passord <span style="background: lightgray; padding: 0.25rem 0.5rem;">{{ $password }}</span>.

@@ -1,0 +1,10 @@
+{
+    "Admin": true,
+    "Moderator": true,
+    "Student": true,
+    "Admins": true,
+    "Moderators": true,
+    "Students": true,
+    "Professors": true,
+    "Roles": true
+}

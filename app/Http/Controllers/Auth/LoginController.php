@@ -43,15 +43,10 @@ class LoginController extends Controller
 
     protected function credentials(Request $request)
     {
-
-        if(filter_var($request->email, FILTER_VALIDATE_EMAIL)){
-            $cred['email'] = $request->email;
-        } else if (strlen((string) $request->email) == 14) {
-            $cred['national_id'] = $request->email;
-        };
-
-        $cred['password'] = $request->password;
-
-        return $cred;
+        return [
+            'national_id' => $request->email,
+            'password'    => $request->password,
+        ];
     }
+
 }
