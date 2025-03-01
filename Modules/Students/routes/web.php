@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Modules\Students\Http\Controllers\StudentsController;
 
-use Modules\Students\Livewire\Pages\StudentsCreate;
+use Modules\Students\Livewire\Pages\StudentCreate;
 use Modules\Students\Livewire\Pages\StudentsIndex;
+use Modules\Students\Livewire\Pages\StudentEdit;
+use Modules\Students\Livewire\Pages\StudentShow;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,13 +21,22 @@ use Modules\Students\Livewire\Pages\StudentsIndex;
 
 Route::group([
     'prefix'     => 'students',
-    'middleware' => 'auth',
+    'middleware' => ['auth', 'permission:students.*'],
 ], function () {
-    // Route::resource('students', StudentsController::class)->names('students');
-    Route::get('/', StudentsIndex::class)->name('students.index');
+    Route::get('/', StudentsIndex::class)
+        ->name('students.index')
+        ->middleware(['permission:students.index']);
 
-    Route::get('/create', StudentsCreate::class)->name('students.create');
+    Route::get('/create', StudentCreate::class)
+        ->name('students.create')
+        ->middleware(['permission:students.create']);
 
-    Route::get('/edit/{student:national_id}', StudentsCreate::class)->name('students.edit');
+    Route::get('/{national_id}', StudentShow::class)
+        ->name('students.show')
+        ->middleware(['permission:students.show']);
+
+    Route::get('/edit/{national_id}', StudentEdit::class)
+        ->name('students.edit')
+        ->middleware(['permission:students.edit']);
 
 });

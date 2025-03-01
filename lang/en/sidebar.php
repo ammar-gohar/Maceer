@@ -3,23 +3,37 @@
 return [
     'admins' => [
         'title'  => 'Admins',
-        'show'   => 'Show admins',
+        'index'   => 'Show admins',
         'create' => 'Add an admin',
         'edit'   => 'Edit an admin',
     ],
 
     'moderators' => [
         'title'  => 'Moderators',
-        'show'   => 'Show moderators',
+        'index'   => 'Show moderators',
         'create' => 'Add a moderator',
         'edit'   => 'Edit a moderator',
     ],
 
+    'professors' => [
+        'title'  => 'Professors',
+        'index'   => 'Show Professors',
+        'create' => 'Add a Professor',
+        'edit'   => 'Edit a Professor',
+    ],
+
     'students' => [
         'title'  => 'Students',
-        'show'   => 'Show students',
-        'create' => 'Add a students',
+        'index'   => 'Show students',
+        'create' => 'Add a student',
         'edit'   => 'Edit a student',
+    ],
+
+    'roles' => [
+        'title'  => 'Roles',
+        'index'   => 'Show Roles',
+        'create' => 'Add a Role',
+        'edit'   => 'Edit a Role',
     ],
 
 ];

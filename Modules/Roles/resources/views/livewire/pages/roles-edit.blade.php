@@ -1,22 +1,12 @@
-<div class="mx-auto my-4 card card-info card-outline" style="width: 90%;">
-    <!--begin::Header-->
-    <div class="px-4 card-header d-flex justify-content-between align-items-center">
-        <div class="card-title w-50">@lang('forms.add_role')</div>
-        <div class="text-end w-50">
-            <a wire:navigate href="{{ route('roles.index') }}" class="btn btn-info ms-auto">@lang('sidebar.roles.index')</a>
-        </div>
-    </div>
-    <!--end::Header-->
-    @if ($status)
-        <div class="alert alert-success w-75 mx-auto mt-2">
-            @lang('modules.roles.success.update')
-        </div>
-    @endif
+<x-page title="modules.roles.edit" module="roles" show-index-button="true">
+
+    <x-success-message :status="$status" module="roles" operation="update" />
+
     <!--begin::Form-->
-    <form wire:submit='save()' action="post">
-      <!--begin::Body-->
-      @csrf
-      <div class="card-body">
+    <form wire:submit='update()' action="post">
+        <!--begin::Body-->
+        @csrf
+        <div class="card-body">
         <div class="mb-3 row">
             <label for="roleName" class="col-sm-2 col-form-label">@lang('forms.name')</label>
             <div class="col-sm-10">
@@ -50,16 +40,16 @@
                 @error('permissions')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
-          </div>
+            </div>
         </div>
-      </div>
-      <!--end::Body-->
-      <!--begin::Footer-->
-      <div class="card-footer">
-        <button type="submit" class="btn btn-info">@lang('forms.create')</button>
+        </div>
+        <!--end::Body-->
+        <!--begin::Footer-->
+        <div class="card-footer">
+        <button type="submit" class="btn btn-secondary">@lang('forms.create')</button>
         <button type="submit" class="btn float-end">Cancel</button>
-      </div>
-      <!--end::Footer-->
+        </div>
+        <!--end::Footer-->
     </form>
     <!--end::Form-->
-</div>
+</x-page>

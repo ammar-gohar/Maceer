@@ -6,5 +6,8 @@
     "Moderators": true,
     "Students": true,
     "Professors": true,
-    "Roles": true
+    "Roles": true,
+    "Courses": true,
+    "Grades": true,
+    "Enrollments": true
 }

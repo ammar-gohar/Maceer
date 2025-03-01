@@ -11,5 +11,6 @@ return [
     'male'   => 'Male:',
     'remember_me' => 'Remember Me',
     'sign_in' => 'Log In',
-    'forgot_pswrd' => 'Forgot password?'
+    'forgot_pswrd' => 'Forgot password?',
+    'password' => 'Password:',
 ];

@@ -8,25 +8,46 @@ use Livewire\Form;
 
 class UserForm extends Form
 {
-    #[Validate('bail|required|string|max:50|regex:/[A-z]/')]
+
+    public $id;
+
     public $first_name;
 
-    #[Validate('bail|required|string|max:50|regex:/[A-z]/')]
     public $middle_name;
 
-    #[Validate('bail|required|string|max:50|regex:/[A-z]/')]
     public $last_name;
 
-    #[Validate('bail|required|digits:14|unique:users,national_id|integer|regex:/[0-9]/')]
     public $national_id;
 
-    #[Validate('bail|required|digits:11|unique:users,phone|regex:/[0-9]/')]
     public $phone;
 
-    #[Validate('bail|required|email|max:255|unique:users,email')]
     public $email;
 
-    #[Validate('bail|required|string|in:m,f')]
-    public $gender = 'm';
+    public $gender = '';
+
+    public function rules()
+    {
+        return [
+            'first_name'  => 'bail|required|string|max:50',
+            'middle_name' => 'bail|required|string|max:50',
+            'last_name'   => 'bail|required|string|max:50',
+            'national_id' => 'bail|required|digits:14|integer|regex:/[0-9]/|unique:users,national_id,' . $this->id ?? '',
+            'phone'       => 'bail|required|digits:11|regex:/[0-9]/|unique:users,phone,' . $this->id ?? '',
+            'email'       => 'bail|required|email|max:255|unique:users,email,' . $this->id ?? '',
+            'gender'      => 'bail|required|string|in:m,f',
+        ];
+    }
+
+    public function fillVars(User $user)
+    {
+        $this->id = $user->id;
+        $this->first_name = $user->first_name;
+        $this->middle_name = $user->middle_name;
+        $this->last_name = $user->last_name;
+        $this->national_id = $user->national_id;
+        $this->phone = $user->phone;
+        $this->email = $user->email;
+        $this->gender = $user->gender;
+    }
 
 }

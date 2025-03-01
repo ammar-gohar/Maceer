@@ -3,6 +3,7 @@
 namespace Modules\Students\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentsController extends Controller
@@ -12,7 +13,9 @@ class StudentsController extends Controller
      */
     public function index()
     {
-        return view('students::livewire.pages.students-index');
+        $students = User::role('student')->with(['student'])->get();
+
+        return response()->json($students, 200);
     }
 
     /**

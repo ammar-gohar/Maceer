@@ -5,15 +5,20 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\App;
+use Laravel\Sanctum\HasApiTokens;
+use Modules\Courses\Models\Course;
+use Modules\Enrollments\Models\Enrollment;
+use Modules\Students\Models\Student;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -46,11 +51,35 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function fullName() {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
     }
 
-    public function translatedPermissions()
+    public function student(): HasOne
     {
-        return App::isLocale('ar') ? $this->permissions->name_ar : $this->permissions->name_en;
+        return $this->hasOne(Student::class);
     }
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'student_id');
+    }
+
+    public function currentSemesterEnrollments()
+    {
+        return $this->whereHas('enrollments', function ($q) {
+            $q
+                ->where('year', \Carbon\Carbon::thisYear())
+                ->where('semester', 2);
+        });
+    }
+
+    // public function professor(): HasOne
+    // {
+    //     return $this->hasOne(Student::class);
+    // }
+    // public function moderator(): HasOne
+    // {
+    //     return $this->hasOne(Student::class);
+    // }
+
 }

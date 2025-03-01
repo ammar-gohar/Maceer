@@ -20,12 +20,14 @@ class DatabaseSeeder extends Seeder
             'last_name'  => 'Admin',
             'national_id'=> '12345678910112',
             'email'      => 'admin@example.com',
+            'gender'     => 'm',
             'phone'      => '12345678910',
             'password'   => Hash::make('password')
         ]);
 
         $this->call([
             \Modules\Roles\Database\Seeders\RolesDatabaseSeeder::class,
+            \Modules\Grades\Database\Seeders\GradesDatabaseSeeder::class,
         ]);
     }
 }

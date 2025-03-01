@@ -4,15 +4,18 @@ namespace Modules\Roles\Livewire\Pages;
 
 use Illuminate\Support\Facades\App;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Spatie\Permission\Models\Role;
 
 class RolesIndex extends Component
 {
 
+    use WithPagination;
+
     public function deleteRole(int $id)
     {
         $role = Role::findOrFail($id);
-        if($role->name == 'Super Admin'){
+        if($role->undeleteble){
             return;
         } else {
             $role->delete();

@@ -1,6 +1,5 @@
-<div class="mx-auto my-4 card" style="width: 90%;">
-    <div class="card-header"><h3 class="card-title">@lang('sidebar.roles.index')</h3></div>
-    <!-- /.card-header -->
+<x-page title="modules.roles.index" module="roles" show-create-button="true">
+
     <div class="card-body">
         <table class="table table-bordered">
         <thead>
@@ -20,15 +19,8 @@
         </table>
     </div>
     <!-- /.card-body -->
-    {{ $roles->links() }}
-    {{-- <div class="clearfix card-footer">
-        <ul class="m-0 pagination pagination-sm float-end">
-        <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-        </ul>
-    </div> --}}
-</div>
-<!-- /.card -->
+    <div class="clearfix card-footer">
+        {{ $roles->links() }}
+    </div>
+    
+</x-page>

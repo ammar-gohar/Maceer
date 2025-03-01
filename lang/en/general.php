@@ -5,4 +5,6 @@ return [
     'show' => 'Show',
     'edit' => 'Edit',
     'delete' => 'Delete',
+    'lang' => 'English',
+    'login' => 'Login'
 ];

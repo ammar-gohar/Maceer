@@ -42,15 +42,6 @@
       crossorigin="anonymous"
     />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
-    <!--begin::Required Plugin(AdminLTE)-->
-    @if (App::isLocale('ar'))
-        @vite(['resources/css/adminlte.rtl.css'])
-        @vite(['resources/js/adminlte.js'])
-    @else
-        @vite(['resources/css/adminlte.css'])
-        @vite(['resources/js/adminlte.js'])
-    @endif
-    <!--end::Required Plugin(AdminLTE)-->
     <!-- apexcharts -->
     <link
       rel="stylesheet"
@@ -69,53 +60,33 @@
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  </head>
-  <!--end::Head-->
-  <!--begin::Body-->
-  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-    <!--begin::App Wrapper-->
-    <div class="app-wrapper">
+    @if (App::isLocale('ar'))
+        <link rel="stylesheet" href="/css/adminlte.rtl.css">
+    @else
+        <link rel="stylesheet" href="/css/adminlte.css">
+    @endif
 
-        @unless(Route::is(['login', 'password.*']))
-            <livewire:includes.sidebar>
-        @endunless
-        @includeWhen(!Route::is(['login', 'password.*']), 'includes._header')
+    @livewireStyles
 
-      <!--begin::App Main-->
-      <main class="pb-0 app-main">
-
-        {{ $slot }}
-
-      </main>
-      <!--end::App Main-->
-
-      @includeWhen(!Route::is(['login', 'password.*']), 'includes._footer')
-
-    </div>
-    <!--end::App Wrapper-->
-
-
-            <!--begin::Script-->
+    <!--begin::Script-->
 
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script
       src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
       integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
       crossorigin="anonymous"
+      defer
     ></script>
     <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
-    <script
+    {{-- <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
       crossorigin="anonymous"
-    ></script>
+      defer
+    ></script> --}}
+
     <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
     <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-      crossorigin="anonymous"
-    ></script>
-    {{-- <script
     defer
     >
       const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
@@ -136,10 +107,48 @@
           });
         }
       });
-    </script> --}}
+    </script>
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->
 
+    <script src="/js/adminlte.js" defer></script>
+
+  </head>
+  <!--end::Head-->
+  <!--begin::Body-->
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    <!--begin::App Wrapper-->
+    <div class="app-wrapper">
+
+
+        {{-- @unless(Route::is(['login', 'password.*']))
+            <livewire:includes.sidebar>
+        @endunless --}}
+        @includeWhen(!Route::is(['login', 'password.*']), 'includes._sidebar')
+        @includeWhen(!Route::is(['login', 'password.*']), 'includes._header')
+
+      <!--begin::App Main-->
+      <main class="pb-0 app-main">
+
+        {{ $slot }}
+
+      </main>
+      <!--end::App Main-->
+
+      @includeWhen(!Route::is(['login', 'password.*']), 'includes._footer')
+
+    </div>
+    <!--end::App Wrapper-->
+
+    @livewireScripts
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous" defer></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
+        integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
   </body>
   <!--end::Body-->
 </html>

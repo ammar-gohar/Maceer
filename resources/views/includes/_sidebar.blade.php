@@ -66,6 +66,14 @@
         </x-sidebar-list>
         {{-- end::Roles sidebar --}}
 
+        {{-- Courses sidebar --}}
+        <x-sidebar-list module="courses" icon="fa-board">
+            <x-sidebar-item icon="fa-board" route="courses.index" />
+            <x-sidebar-item icon="fa-plus" route="courses.create" />
+            <x-sidebar-item icon="fa-calender" route="courses.schedule" />
+        </x-sidebar-list>
+        {{-- end::Roles sidebar --}}
+
         <!--end::Sidebar Menu-->
 
       </nav>

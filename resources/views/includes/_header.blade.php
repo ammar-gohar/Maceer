@@ -18,6 +18,20 @@
       <!--begin::End Navbar Links-->
       <ul class="navbar-nav ms-auto">
 
+        <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="mx-2">@lang('general.lang')</span><i class="bi bi-globe2"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item @if(App::isLocale('ar')) bg-secondary-subtle @endif" href="/language/ar">العربية</a>
+                </li>
+                <li>
+                    <a class="dropdown-item @if(App::isLocale('en')) bg-secondary-subtle @endif" href="/language/en">English</a>
+                </li>
+            </ul>
+        </div>
+
         <!--begin::Notifications Dropdown Menu-->
         <li class="nav-item dropdown">
           <a class="nav-link" data-bs-toggle="dropdown" href="#">
@@ -78,7 +92,7 @@
               />
 
               <p>
-                {{ Auth::user()->fullName() }} - Admin
+                {{ Auth::user()->fullName() }} - {{ Auth::user()->roles->first()->name }}
                 <small>Header professor</small>
               </p>
             </li>
@@ -86,10 +100,10 @@
 
             <!--begin::Menu Footer-->
             <li class="user-footer">
-                <a class="btn btn-default btn-flat">Profile</a>
+                <a class="btn btn-default btn-flat">@lang('general.profile')</a>
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
-                    <button class="btn btn-default btn-flat float-end d-inline">Sign out</button>
+                    <button class="btn btn-default btn-flat float-end d-inline">@lang('general.logout')</button>
                 </form>
             </li>
             <!--end::Menu Footer-->

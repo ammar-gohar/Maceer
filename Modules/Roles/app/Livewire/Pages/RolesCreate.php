@@ -4,23 +4,22 @@ namespace Modules\Roles\Livewire\Pages;
 
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\App;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
-
 class RolesCreate extends Component
 {
 
     public $name;
+    public $name_ar;
     public $permissions = [];
     public $status = false;
 
     protected function rules()
     {
-        $lang = App::isLocale('ar') ? '_ar' : '';
         return [
-            'name' => ['bail', 'required', 'unique:roles,name', 'unique:roles,name_ar', 'min:3', 'string'],
+            'name' => ['bail', 'required', 'unique:roles,name', 'unique:roles,name_ar', 'min:3', 'string', 'regex:/[A-z]/'],
+            'name_ar' => ['bail', 'required', 'unique:roles,name', 'unique:roles,name_ar', 'min:3', 'string'],
             'permissions' => ['bail', 'array', 'exists:permissions,id'],
         ];
     }
@@ -29,15 +28,10 @@ class RolesCreate extends Component
     {
         $data = $this->validate();
 
-        if(App::isLocale('ar')){
-            $attributes['name_ar'] = $data['name'];
-            $attributes['name'] = null;
-        } else {
-            $attributes['name'] = $data['name'];
-            $attributes['name_ar'] = null;
-        }
-
-        $role = Role::create($attributes);
+        $role = Role::create([
+            'name' => $data['name'],
+            'name_ar' => $data['name_ar'],
+        ]);
 
         if($data['permissions']){
             $role->permissions()->sync($data['permissions']);
@@ -47,15 +41,17 @@ class RolesCreate extends Component
 
     }
 
-    public function goToRoles()
+    public function addModulePermissions($module)
     {
-        return $this->redirect('/roles', navigate:true);
+        dd($module);
+        $this->permissions = array_merge($this->permissions, $module->pluck('id'));
+        dd($this->permissions);
     }
 
     public function render()
     {
         return view('roles::livewire.pages.roles-create', [
-            'permissionsModules' => Permission::all()->sortBy('name_'.App::currentLocale())->groupBy('module'),
+            'permissionsModules' => Permission::all()->sortBy('id')->groupBy('module'),
         ]);
     }
 }

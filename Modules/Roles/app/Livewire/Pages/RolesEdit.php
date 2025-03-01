@@ -12,7 +12,7 @@ class RolesEdit extends Component
 {
     public Role $role;
     public $name;
-    public $permissions;
+    public $permissions = [];
     public $status = false;
 
     public function mount(int $id)
@@ -35,7 +35,7 @@ class RolesEdit extends Component
         ];
     }
 
-    public function save()
+    public function update()
     {
 
         if($this->role->name == 'Super Admin'){
@@ -46,10 +46,8 @@ class RolesEdit extends Component
 
         if(App::isLocale('ar')){
             $attributes['name_ar'] = $data['name'];
-            $attributes['name'] = null;
         } else {
             $attributes['name'] = $data['name'];
-            $attributes['name_ar'] = null;
         }
 
         $this->role->update($attributes);
