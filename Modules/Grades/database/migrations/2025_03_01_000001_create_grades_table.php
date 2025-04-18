@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('grades', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary()->unique();
             $table->string('grade')->unique();
             $table->float('gpa', 2);
             $table->integer('max_percentage');
             $table->integer('min_percentage');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

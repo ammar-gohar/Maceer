@@ -5,24 +5,26 @@ namespace Modules\Roles\Livewire\Pages;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Modules\Roles\Models\Permission;
+use Modules\Roles\Models\Role;
 
 class RolesEdit extends Component
 {
     public Role $role;
     public $name;
+    public $name_ar;
     public $permissions = [];
     public $status = false;
 
-    public function mount(int $id)
+    public function mount(string $id)
     {
         $role = Role::with(['permissions'])->findOrFail($id);
         if ($role->name == 'Super Admin') {
             return $this->redirect('/roles', navigate: true);
         }
         $this->role = $role;
-        $this->name = App::isLocale('ar') ? $role->name_ar : $role->name;
+        $this->name = $role->name;
+        $this->name_ar = $role->name_ar;
         $this->permissions = $role->permissions()->pluck('id');
     }
 
@@ -33,6 +35,16 @@ class RolesEdit extends Component
             'name' => ['bail', 'required', 'unique:roles,name,'.$this->role->id, 'unique:roles,name_ar,'.$this->role->id, 'min:3', 'string'],
             'permissions' => ['bail', 'array', 'exists:permissions,id'],
         ];
+    }
+
+    public function delete()
+    {
+        $role = $this->role;
+        if($role->undeleteble){
+            return;
+        } else {
+            $role->delete();
+        }
     }
 
     public function update()

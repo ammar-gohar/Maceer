@@ -15376,4 +15376,8 @@ html.maximized-card {
   width: 32px;
 }
 
+.fl-wrapper {
+    z-index: 9999 !important;
+}
+
 /*# sourceMappingURL=adminlte.css.map */

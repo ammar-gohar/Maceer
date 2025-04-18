@@ -37,19 +37,16 @@ class StudentCreate extends Component
         $student->student()->create([
             'level' => $this->level,
             'gpa' => $this->gpa,
-            'earned_credits' => $this->earned_credits,
         ]);
 
-        // Mail::to($student->email)->send(new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password));
+        Mail::to($student->email)->queue(new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails');
 
-        $this->status = true;
-
-        return;
+        notyf()->success(__('modules.students.success.store'));
 
     }
 
     public function render()
     {
-        return view('students::livewire.pages.student-create');
+        return view('students::livewire.pages.student-create')->title(__('modules.students.create'));
     }
 }

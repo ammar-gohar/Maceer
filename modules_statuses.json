@@ -9,5 +9,7 @@
     "Roles": true,
     "Courses": true,
     "Grades": true,
-    "Enrollments": true
+    "Enrollments": true,
+    "Halls": true,
+    "Semesters": true
 }

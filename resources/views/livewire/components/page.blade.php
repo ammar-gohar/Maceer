@@ -3,13 +3,13 @@
     <div class="px-4 card-header d-flex">
         <div class="my-auto card-title">@lang($title)</div>
         @if ($showCreateButton)
-            <a wire:navigate href="{{ route($module . '.create') }}" class="float-end btn btn-primary">@lang('sidebar.' . $module . '.create')</a>
+            <a href="{{ route($module . '.create') }}" class="float-end btn btn-primary">@lang('sidebar.' . $module . '.create')</a>
         @endif
         @if ($showIndexButton)
-            <a wire:navigate href="{{ route($module . '.index') }}" class="float-end btn btn-primary">@lang('sidebar.' . $module . '.index')</a>
+            <a href="{{ route($module . '.index') }}" class="float-end btn btn-primary">@lang('sidebar.' . $module . '.index')</a>
         @endif
         @if ($showEditButton)
-            <a wire:navigate href="{{ route($module . '.edit') }}" class="float-end btn btn-warning">@lang('sidebar.' . $module . '.edit')</a>
+            <a href="{{ route($module . '.edit') }}" class="float-end btn btn-warning">@lang('sidebar.' . $module . '.edit')</a>
         @endif
     </div>
     <!--end::Header-->

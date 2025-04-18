@@ -1,0 +1,11 @@
+{
+    "name": "Semesters",
+    "alias": "semesters",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Semesters\\Providers\\SemestersServiceProvider"
+    ],
+    "files": []
+}

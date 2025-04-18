@@ -4,18 +4,28 @@ namespace Modules\Roles\Livewire\Pages;
 
 use Illuminate\Support\Facades\App;
 use Livewire\Component;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Modules\Roles\Models\Permission;
+use Modules\Roles\Models\Role;
 
 class RolesShow extends Component
 {
 
     public Role $role;
 
-    public function mount(int $id)
+    public function mount(string $id)
     {
         $this->role = Role::findOrFail($id);
         $this->role->translatedName = App::isLocale('ar') ? $this->role->name_ar : $this->role->name;
+    }
+
+    public function delete()
+    {
+        $role = $this->role;
+        if($role->undeleteble){
+            return;
+        } else {
+            $role->delete();
+        }
     }
 
     public function render()

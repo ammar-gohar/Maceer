@@ -83,7 +83,7 @@
           <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 
             <!--begin::User Image-->
-            <li class="user-header text-bg-primary">
+            <li class="user-header text-bg-dark">
 
               <img
                 src="../../dist/assets/img/user2-160x160.jpg"
@@ -92,15 +92,15 @@
               />
 
               <p>
-                {{ Auth::user()->fullName() }} - {{ Auth::user()->roles->first()->name }}
-                <small>Header professor</small>
+                {{ Auth::user()->fullName() }}
+                <small>{{ App::isLocale('ar') ? Auth::user()->roles->first()->name_ar : Auth::user()->roles->first()->name }}</small>
               </p>
             </li>
             <!--end::User Image-->
 
             <!--begin::Menu Footer-->
             <li class="user-footer">
-                <a class="btn btn-default btn-flat">@lang('general.profile')</a>
+                <a class="btn btn-secondary btn-flat">@lang('general.profile')</a>
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
                     <button class="btn btn-default btn-flat float-end d-inline">@lang('general.logout')</button>

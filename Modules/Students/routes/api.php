@@ -14,8 +14,8 @@ use Modules\Students\Http\Controllers\StudentsController;
  *
 */
 
-Route::group([
-    'middleware' => 'auth:sanctum',
-], function () {
-    Route::apiResource('students', StudentsController::class)->names('students');
-});
+// Route::group([
+//     'middleware' => 'auth:sanctum',
+// ], function () {
+//     Route::apiResource('students', StudentsController::class)->names('students');
+// });

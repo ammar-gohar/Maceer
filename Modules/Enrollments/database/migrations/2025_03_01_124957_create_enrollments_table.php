@@ -12,16 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('enrollments', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('student_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->uuid('id')->primary()->unique();
+            $table->uuid('course_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->uuid('student_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->float('midterm_exam', 1)->nullable();
             $table->float('final_exam', 1)->nullable();
             $table->float('total_mark', 1)->nullable();
             $table->float('totla_mark_percentage', 2)->nullable();
-            $table->foreignId('grade_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('year');
-            $table->enum('semester', [1, 2]);
+            $table->uuid('grade_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->boolean('is_approved')->nullable();
             $table->timestamps();
         });
     }

@@ -2,7 +2,7 @@
 
     <div class="card-body">
         @if ($students->count() > 0)
-            <table class="table table-bordered">
+            <table class="table table-bordered table-striped" style="overflow-x: scroll;">
                 <thead>
                     <tr>
                         <th class="text-center">#</th>
@@ -21,8 +21,8 @@
                 </tbody>
             </table>
         @else
-            <div class="text-center alert alert-warning">
-                <h3>@lang('modules.students.empty')</h3>
+            <div class="text-center alert alert-secondary fw-none">
+                <h3 class="my-0 fw-normal">@lang('modules.students.empty')</h3>
             </div>
         @endif
     </div>

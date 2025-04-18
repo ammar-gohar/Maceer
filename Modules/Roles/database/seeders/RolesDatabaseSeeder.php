@@ -3,8 +3,8 @@
 namespace Modules\Roles\Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Modules\Roles\Models\Permission;
+use Modules\Roles\Models\Role;
 
 class RolesDatabaseSeeder extends Seeder
 {
@@ -44,7 +44,7 @@ class RolesDatabaseSeeder extends Seeder
             'undeleteble' => 1
         ]);
 
-        \App\Models\User::findOrFail(1)->assignRole($role);
+        \App\Models\User::firstOrfail()->assignRole($role);
 
         Permission::create([
             'name'    => 'students.index',
@@ -197,6 +197,42 @@ class RolesDatabaseSeeder extends Seeder
             'name_ar' => 'تسجيل مقررات',
             'name_en' => 'Enrolling in courses',
             'module'  => 'Courses',
+        ]);
+
+        //************************************************************************** */
+        Permission::create([
+            'name'    => 'halls.view',
+            'name_ar' => 'عرض القاعات',
+            'name_en' => 'View halls',
+            'module'  => 'Halls',
+        ]);
+
+        Permission::create([
+            'name'    => 'halls.create',
+            'name_ar' => 'إضافة قاعة',
+            'name_en' => 'Create a hall',
+            'module'  => 'Halls',
+        ]);
+
+        Permission::create([
+            'name'    => 'halls.update',
+            'name_ar' => 'تحديث القاعة',
+            'name_en' => 'Update a hall',
+            'module'  => 'Halls',
+        ]);
+
+        Permission::create([
+            'name'    => 'halls.delete',
+            'name_ar' => 'حذف القاعة',
+            'name_en' => 'Delete a hall',
+            'module'  => 'Halls',
+        ]);
+
+        Permission::create([
+            'name'    => 'halls.manage_status',
+            'name_ar' => 'إدارة حالة القاعة',
+            'name_en' => 'Manage hall status',
+            'module'  => 'Halls',
         ]);
 
         $this->call([]);

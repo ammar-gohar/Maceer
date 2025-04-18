@@ -5,8 +5,8 @@ namespace Modules\Roles\Livewire\Pages;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Support\Facades\App;
 use Livewire\Component;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use Modules\Roles\Models\Permission;
+use Modules\Roles\Models\Role;
 class RolesCreate extends Component
 {
 
@@ -14,13 +14,14 @@ class RolesCreate extends Component
     public $name_ar;
     public $permissions = [];
     public $status = false;
+    public $prevPermissions = [];
 
     protected function rules()
     {
         return [
             'name' => ['bail', 'required', 'unique:roles,name', 'unique:roles,name_ar', 'min:3', 'string', 'regex:/[A-z]/'],
             'name_ar' => ['bail', 'required', 'unique:roles,name', 'unique:roles,name_ar', 'min:3', 'string'],
-            'permissions' => ['bail', 'array', 'exists:permissions,id'],
+            'permissions' => ['bail', 'array'],
         ];
     }
 
@@ -39,13 +40,6 @@ class RolesCreate extends Component
 
         return $this->status = true;
 
-    }
-
-    public function addModulePermissions($module)
-    {
-        dd($module);
-        $this->permissions = array_merge($this->permissions, $module->pluck('id'));
-        dd($this->permissions);
     }
 
     public function render()

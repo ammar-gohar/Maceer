@@ -14,6 +14,6 @@ use Modules\Moderators\Http\Controllers\ModeratorsController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('moderators', ModeratorsController::class)->names('moderators');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('moderators', ModeratorsController::class)->names('moderators');
+// });

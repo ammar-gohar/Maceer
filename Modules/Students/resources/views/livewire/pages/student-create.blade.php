@@ -1,7 +1,5 @@
 <x-page module="students" title="sidebar.students.create" show-index-button="true">
 
-    <x-success-message :status="$status" module="students" operation="store" />
-
     <!--begin::Form-->
     <form wire:submit='store()'>
         @csrf
@@ -25,7 +23,7 @@
                 <x-form-input name="phone" wire_model="form.phone" dir="ltr"/>
                 <!--end::Col-->
                 <!--begin::Col-->
-                <x-form-input name="email" wire_model="form.email" dir="ltr"/>
+                <x-form-input name="email" type="email" wire_model="form.email" dir="ltr"/>
                 <!--end::Col-->
                 <!--begin::Col-->
                 <div class="col-md-6">
@@ -48,7 +46,7 @@
                 </div>
                 <!--end::Col-->
                 <!--begin::Col-->
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <label for="level" class="form-label">@lang('forms.level')</label>
                     <div class="input-group">
                         <select
@@ -68,13 +66,7 @@
                             {{ $message }}
                         </div>
                     @enderror
-                </div>
-                <!--end::Col-->
-                <!--begin::Col-->
-                <x-form-input name="gpa" type="number" wire_model="gpa" dir="ltr" min="0" max="4" step="0.01" />
-                <!--end::Col-->
-                <!--begin::Col-->
-                <x-form-input name="earned_credits" type="number" wire_model="earned_credits" dir="ltr" min="0" max="180" />
+                </div> --}}
                 <!--end::Col-->
             </div>
             <!--end::Row-->
@@ -82,7 +74,13 @@
         <!--end::Body-->
         <!--begin::Footer-->
         <div class="mt-3 card-footer">
-            <button type="submit" class="btn btn-dark" type="submit">@lang('forms.create')</button>
+            <button type="submit" class="btn btn-dark" type="submit" wire:loading.attr='disabled' wire:target='store'>
+                <div class="mx-2 spinner-border spinner-border-sm" role="status" wire:loading wire:target='store'>
+                    <span class="text-sm visually-hidden"></span>
+                </div>
+                <span wire:loading wire:target='store'>@lang('forms.creating')</span>
+                <span wire:loading.remove wire:target='store'>@lang('forms.create')</span>
+            </button>
             <button type="reset" class="border btn btn-light" type="submit">@lang('forms.reset')</button>
         </div>
         <!--end::Footer-->

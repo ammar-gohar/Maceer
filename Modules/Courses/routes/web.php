@@ -34,11 +34,11 @@ Route::group([
             ->middleware('permission:courses.create')
             ->name('courses.create');
 
-        Route::get('/{id}', CoursesShow::class)
+        Route::get('/{code}', CoursesShow::class)
             ->middleware('permission:courses.show')
             ->name('courses.show');
 
-        Route::get('/{id}/edit', CoursesEdit::class)
+        Route::get('/{code}/edit', CoursesEdit::class)
             ->middleware('permission:courses.edit')
             ->name('courses.edit');
     });

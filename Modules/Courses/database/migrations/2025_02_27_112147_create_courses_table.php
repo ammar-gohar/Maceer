@@ -12,14 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('courses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary()->unique();
             $table->string('code')->unique();
             $table->string('name')->unique();
             $table->string('name_ar')->unique();
-            $table->integer('min_credits');
+            $table->integer('min_credits')->default(0);
+            $table->integer('credits');
+            $table->enum('requirement', ['university', 'faculty', 'specialization']);
+            $table->enum('type', ['core', 'elected']);
             $table->integer('full_mark')->default(100);
             $table->string('level');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

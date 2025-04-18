@@ -22,14 +22,20 @@
                     @foreach ($permissionsModules as $module => $modulePermissions)
                         <div class="mb-5" wire:key='{{ $module }}'>
                             <div class="form-check ps-3">
-                                <input class="form-check-input" type="checkbox" id="{{ $module.'Permissions' }}" value="{{ $modulePermissions->pluck('id') }}" wire:model.change="permissions">
+                                <input class="form-check-input" type="checkbox" id="{{ $module.'Permissions' }}" onclick="checkAllCheckboxes('{{ $module }}', this)">
                                 <label class="form-check-label" for="{{ $module.'Permissions' }}">
                                     @lang('sidebar.'.strtolower($module).'.title')
                                 </label>
                             </div>
                             @foreach ($modulePermissions as $permission)
                                 <div class="ps-5 form-check" wire:key='{{ $permission->id }}'>
-                                    <input class="form-check-input" type="checkbox" id="{{ $module.$loop->iteration }}" value="{{ $permission->id }}" wire:model='permissions'>
+                                    <input
+                                        class="form-check-input {{ $module . '-checkbox' }}"
+                                        type="checkbox"
+                                        id="{{ $module.$loop->iteration }}"
+                                        value="{{ $permission->id }}"
+                                        wire:model='permissions'
+                                        onclick="nestedCheckbox('{{ $module }}')">
                                     <label class="form-check-label" for="{{ $module.$loop->iteration }}">
                                     {{ App::isLocale('ar') ? $permission->name_ar : $permission->name_en }}
                                     </label>
@@ -47,7 +53,13 @@
 
         <!--begin::Footer-->
         <div class="card-footer">
-            <button type="submit" class="btn btn-dark">@lang('forms.create')</button>
+            <button type="submit" class="btn btn-dark" type="submit">
+                <div class="mx-2 spinner-border spinner-border-sm" role="status" wire:loading wire:target='save'>
+                    <span class="text-sm visually-hidden"></span>
+                </div>
+                <span wire:loading wire:target='save'>@lang('forms.creating')</span>
+                <span wire:loading.remove wire:target='save'>@lang('forms.create')</span>
+            </button>
             <button type="reset" class="border btn btn-light">@lang('forms.reset')</button>
         </div>
         <!--end::Footer-->
@@ -55,3 +67,31 @@
     </form>
     <!--end::Form-->
 </x-page>
+
+<script>
+    function checkAllCheckboxes(module, parentCheckbox) {
+        const checkboxes = [...document.getElementsByClassName(`${module}-checkbox`)];
+        if (parentCheckbox.checked){
+            checkboxes.map((e) => {
+                e.checked = true;
+            })
+        } else {
+            checkboxes.map((e) => {
+                e.checked = false;
+            })
+        }
+    }
+
+    function nestedCheckbox(module) {
+        const checkboxes = [...document.getElementsByClassName(`${module}-checkbox`)];
+        if (checkboxes.every((e) => {
+            return e.checked;
+        })) {
+            console.log('yes');
+            document.getElementById(`${module}Permissions`).checked = true;
+        } else {
+            console.log('no');
+            document.getElementById(`${module}Permissions`).checked = false;
+        }
+    }
+</script>

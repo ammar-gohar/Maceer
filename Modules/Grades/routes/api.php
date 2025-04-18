@@ -14,6 +14,6 @@ use Modules\Grades\Http\Controllers\GradesController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('grades', GradesController::class)->names('grades');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('grades', GradesController::class)->names('grades');
+// });

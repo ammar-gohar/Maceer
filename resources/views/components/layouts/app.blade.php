@@ -1,10 +1,10 @@
-@props(['title' => 'Schoolary'])
+@props(['title' => 'Maceer'])
 <!doctype html>
 <html lang="{{ App::currentLocale() }}" dir="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}">
   <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{{ $title }}</title>
+    <title>{{ $title }} | {{ App::isLocale('ar') ? 'مَسِير' : 'Maceer' }}</title>
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="title" content="{{ $title }}" />
@@ -113,6 +113,8 @@
 
     <script src="/js/adminlte.js" defer></script>
 
+    @stack('styles')
+
   </head>
   <!--end::Head-->
   <!--begin::Body-->
@@ -149,6 +151,7 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     ></script>
+
   </body>
   <!--end::Body-->
 </html>

@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('moderators', function (Blueprint $table) {
-            $table->id();
-            
+            $table->uuid('id')->primary()->unique();
+            $table->uuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

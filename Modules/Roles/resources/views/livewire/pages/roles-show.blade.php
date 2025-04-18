@@ -1,13 +1,13 @@
-<x-page show-index-button="true" show-edit-button="{{ $role->id }}" title="modules.roles.show" module="roles">
+<x-page show-index-button="true" show-edit-button="{{ $role->id }}" title="modules.roles.show" module="roles" show-delete-form="true" undeleteble="{{ $role->undeleteble }}">
     <!--begin::Body-->
     <div class="card-body">
         <div class="mb-3 row">
             <livewire:components.show-item label="forms.name_ar" :data="$role->name_ar" />
             <livewire:components.show-item label="forms.name_en" :data="$role->name" />
-            @if ($role->name="Super Admin")
+            @if ($role->name == "Super Admin")
                 <livewire:components.show-item label="forms.permissions" data="*">
             @else
-                    <livewire:components.show-item label="forms.permissions" data="">
+                <livewire:components.show-item label="forms.permissions" data="">
             @endif
             <div class="col-sm-10 offset-sm-2">
                 @unless ($role->name == "Super Admin")

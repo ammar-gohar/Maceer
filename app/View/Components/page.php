@@ -16,6 +16,7 @@ class page extends Component
         public $showIndexButton = false,
         public $showCreateButton = false,
         public $showEditButton = false,
+        public $showDeleteButton = false,
 
         public $title = '',
         public $module = '',

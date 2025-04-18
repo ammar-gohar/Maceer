@@ -1,4 +1,4 @@
-<x-layouts.app title="{{ __('general.login') }} | Schoolary" >
+<x-layouts.app title="{{ __('general.login') }}" >
 
     <div class="login-page bg-body-dark">
         <div class="dropdown">
@@ -14,10 +14,10 @@
                 </li>
             </ul>
         </div>
-        <div class="login-box" style="width:500px;">
+        <div class="login-box" style="max-width: 500px; width: 85%;">
             <div class="card card-outline card-dark">
                 <div class="card-header">
-                    <h1 class="mb-0 text-center"><b>Schoolary</h1>
+                    <h1 class="mb-0 text-center"><b>{{ App::isLocale('ar') ? 'مَسير' : 'Maceer' }}</h1>
                 </div>
                 <div class="card-body login-card-body">
                 <form action="{{ route('login') }}" method="post">
@@ -33,6 +33,9 @@
                         <div class="form-floating">
                             <input id="password" type="password" name="password" class="form-control" placeholder="" />
                             <label for="password">@lang('forms.password')</label>
+                            @error('email')
+                                <span class="text-danger">* {{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
                     </div>

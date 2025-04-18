@@ -4,7 +4,7 @@ namespace Modules\Roles\Livewire;
 
 use Illuminate\Support\Facades\App;
 use Livewire\Component;
-use Spatie\Permission\Models\Role;
+use Modules\Roles\Models\Role;
 
 class RolesItem extends Component
 {

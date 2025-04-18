@@ -12,11 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->uuid('id')->primary()->unique();
+            $table->uuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('level')->default('freshman');
             $table->float('gpa', 2)->default(0.00);
-            $table->integer('earned_credits')->default(0);
+            $table->integer('elected_earned_credits')->default(0);
+            $table->integer('core_earned_credits')->default(0);
+            $table->integer('total_earned_credits')->default(0);
             $table->integer('maximum_credits_to_enroll')->default(18);
             $table->timestamps();
         });

@@ -14,6 +14,6 @@ use Modules\Professors\Http\Controllers\ProfessorsController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('professors', ProfessorsController::class)->names('professors');
-});
+// Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
+//     Route::apiResource('professors', ProfessorsController::class)->names('professors');
+// });

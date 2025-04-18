@@ -82,7 +82,13 @@
         <!--end::Body-->
         <!--begin::Footer-->
         <div class="mt-3 card-footer">
-            <button type="submit" class="btn btn-dark" type="submit">@lang('general.edit')</button>
+            <button type="submit" class="btn btn-dark" type="submit">
+                <div class="mx-2 spinner-border spinner-border-sm" role="status" wire:loading wire:target='update'>
+                    <span class="text-sm visually-hidden"></span>
+                </div>
+                <span wire:loading wire:target='update'>@lang('forms.updating')</span>
+                <span wire:loading.remove wire:target='update'>@lang('forms.update')</span>
+            </button>
         </div>
         <!--end::Footer-->
     </form>

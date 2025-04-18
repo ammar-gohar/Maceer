@@ -1,8 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Professors\Http\Controllers\ProfessorsController;
+use Modules\professors\Http\Controllers\professorsController;
 
+use Modules\Professors\Livewire\{
+    ProfessorsList,
+    Pages\ProfessorsCreate,
+    Pages\ProfessorsEdit,
+    Pages\ProfessorsIndex,
+    Pages\ProfessorsShow,
+};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +21,24 @@ use Modules\Professors\Http\Controllers\ProfessorsController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('professors', ProfessorsController::class)->names('professors');
+Route::group([
+    'prefix'     => 'professors',
+    'middleware' => ['auth', 'permission:professors.*'],
+], function () {
+    Route::get('/', ProfessorsIndex::class)
+        ->name('professors.index')
+        ->middleware(['permission:professors.index']);
+
+    Route::get('/create', ProfessorsCreate::class)
+        ->name('professors.create')
+        ->middleware(['permission:professors.create']);
+
+    Route::get('/{national_id}', ProfessorsShow::class)
+        ->name('professors.show')
+        ->middleware(['permission:professors.show']);
+
+    Route::get('/edit/{national_id}', ProfessorsEdit::class)
+        ->name('professors.edit')
+        ->middleware(['permission:professors.edit']);
+
 });
