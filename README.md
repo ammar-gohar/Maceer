@@ -1,5 +1,5 @@
 ### Under developement
-# Schoolary
+# Maceer
 
 A **Laravel-based** School Management System where students can check their marks, enroll in courses, and manage their academic progress.
 
