@@ -63,7 +63,6 @@ php artisan migrate --seed
 
 ```bash
 php artisan serve
-npm run dev
 ```
 Visit: [**http://127.0.0.1:8000**](http://127.0.0.1:8000)
 
