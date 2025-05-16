@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Enrollments\Models\Enrollment;
+use Modules\Levels\Models\Level;
+use Modules\Students\Models\Student;
 
 // use Modules\Courses\Database\Factories\CourseFactory;
 
@@ -22,14 +24,38 @@ class Course extends Model
      */
     protected $guarded = [];
 
-    public function professors()
+    public function requests()
     {
-        return $this->belongsToMany(User::class, 'course_professor');
+        return $this->belongsToMany(Student::class, 'course_requests', 'course_id', 'request_id');
     }
 
     public function enrollments()
     {
         return $this->hasMany(Enrollment::class);
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
+
+    public function current_semester_schedule()
+    {
+        return $this->hasMany(Schedule::class)->whereHas('semester', function ($q) {
+            $q->where('is_current', 1);
+        });
+    }
+
+    public function current_semester_enrollments()
+    {
+        return $this->hasMany(Enrollment::class)->whereHas('semester', function ($q) {
+            $q->where('is_current', 1);
+        });
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(Level::class, 'level_id');
     }
 
     public function currentSemesterEnrollemnts()

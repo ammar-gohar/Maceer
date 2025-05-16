@@ -33,6 +33,7 @@ class RolesEdit extends Component
         $lang = App::isLocale('ar') ? '_ar' : '';
         return [
             'name' => ['bail', 'required', 'unique:roles,name,'.$this->role->id, 'unique:roles,name_ar,'.$this->role->id, 'min:3', 'string'],
+            'name_ar' => ['bail', 'required', 'unique:roles,name,'.$this->role->id, 'unique:roles,name_ar,'.$this->role->id, 'min:3', 'string'],
             'permissions' => ['bail', 'array', 'exists:permissions,id'],
         ];
     }
@@ -57,7 +58,7 @@ class RolesEdit extends Component
         $data = $this->validate();
 
         if(App::isLocale('ar')){
-            $attributes['name_ar'] = $data['name'];
+            $attributes['name_ar'] = $data['name_ar'];
         } else {
             $attributes['name'] = $data['name'];
         }

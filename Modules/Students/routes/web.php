@@ -21,7 +21,7 @@ use Modules\Students\Livewire\Pages\StudentShow;
 
 Route::group([
     'prefix'     => 'students',
-    'middleware' => ['auth', 'permission:students.*'],
+    'middleware' => ['auth'],
 ], function () {
     Route::get('/', StudentsIndex::class)
         ->name('students.index')

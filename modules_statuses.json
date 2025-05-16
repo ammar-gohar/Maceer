@@ -11,5 +11,6 @@
     "Grades": true,
     "Enrollments": true,
     "Halls": true,
-    "Semesters": true
+    "Semesters": true,
+    "Levels": true
 }

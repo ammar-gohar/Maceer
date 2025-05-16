@@ -2,5 +2,5 @@
     <td class="text-center">{{ $course->code }}</td>
     <td dir="ltr">{{ $course->name }}</td>
     <td>{{ $course->name_ar }}</td>
-    <td>{{ $course->level }}</td>
+    <td>{{ $course->level->name }}</td>
 </x-modules-list>

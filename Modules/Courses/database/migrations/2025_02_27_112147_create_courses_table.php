@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('requirement', ['university', 'faculty', 'specialization']);
             $table->enum('type', ['core', 'elected']);
             $table->integer('full_mark')->default(100);
-            $table->string('level');
+            $table->string('level_id');
             $table->timestamps();
             $table->softDeletes();
         });

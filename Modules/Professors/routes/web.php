@@ -23,7 +23,7 @@ use Modules\Professors\Livewire\{
 
 Route::group([
     'prefix'     => 'professors',
-    'middleware' => ['auth', 'permission:professors.*'],
+    'middleware' => ['auth'],
 ], function () {
     Route::get('/', ProfessorsIndex::class)
         ->name('professors.index')

@@ -43,6 +43,10 @@ return [
         'create' => 'إضافة مقرر',
         'edit'   => 'تعديل المقرر',
         'schedule' => 'الجدول الدراسي',
+        'requests' => 'طلبات المقررات',
+        'my-courses' => 'مقرراتي',
+        'student-show' => 'مقررات الفصل الحالي',
+        'professor-show' => 'مقررات التدريس',
     ],
 
     'halls' => [

@@ -14,7 +14,7 @@ class RolesDatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $role = Role::create([
+        Role::create([
             'name'    => 'Super Admin',
             'name_ar' => 'مشرف عام',
             'undeleteble' => 1
@@ -27,14 +27,14 @@ class RolesDatabaseSeeder extends Seeder
         ]);
 
         Role::create([
-            'name'    => 'student',
-            'name_ar' => 'طالب',
+            'name'    => 'professor',
+            'name_ar' => 'معلم',
             'undeleteble' => 1
         ]);
 
         Role::create([
-            'name'    => 'professor',
-            'name_ar' => 'معلم',
+            'name'    => 'student',
+            'name_ar' => 'طالب',
             'undeleteble' => 1
         ]);
 
@@ -44,7 +44,7 @@ class RolesDatabaseSeeder extends Seeder
             'undeleteble' => 1
         ]);
 
-        \App\Models\User::firstOrfail()->assignRole($role);
+        // PERMISSIONS =========================================================
 
         Permission::create([
             'name'    => 'students.index',
@@ -170,7 +170,7 @@ class RolesDatabaseSeeder extends Seeder
         ]);
         Permission::create([
             'name'    => 'courses.create',
-            'name_ar' => 'إضافة دور',
+            'name_ar' => 'إضافة مقرر',
             'name_en' => 'Create a courses',
             'module'  => 'Courses',
         ]);
@@ -187,15 +187,45 @@ class RolesDatabaseSeeder extends Seeder
             'module'  => 'Courses',
         ]);
         Permission::create([
-            'name'    => 'courses.schedule',
+            'name'    => 'schedule.index',
             'name_ar' => 'الاطلاع على الجدول الدراسي',
             'name_en' => 'Show schedule',
+            'module'  => 'Courses',
+        ]);
+        Permission::create([
+            'name'    => 'schedule.edit',
+            'name_ar' => 'التعديل على الجدول الدراسي',
+            'name_en' => 'Edit schedule',
             'module'  => 'Courses',
         ]);
         Permission::create([
             'name'    => 'courses.enrollment',
             'name_ar' => 'تسجيل مقررات',
             'name_en' => 'Enrolling in courses',
+            'module'  => 'Courses',
+        ]);
+        Permission::create([
+            'name'    => 'courses.student.show',
+            'name_ar' => 'مشاهدة المقررات الفصل كطالب',
+            'name_en' => 'Showing smester courses as a student',
+            'module'  => 'Courses',
+        ]);
+        Permission::create([
+            'name'    => 'courses.professor.show',
+            'name_ar' => 'مشاهدة المقررات الفصل كمعلم',
+            'name_en' => 'Showing semseter courses as a professor',
+            'module'  => 'Courses',
+        ]);
+        Permission::create([
+            'name'    => 'courses.requests.stats',
+            'name_ar' => 'الاطلاع على نتائج طلبات المقررات',
+            'name_en' => 'Showing courses requests stats',
+            'module'  => 'Courses',
+        ]);
+        Permission::create([
+            'name'    => 'courses.professor-show',
+            'name_ar' => 'مشاهدة المقررات الفصل كمعلم',
+            'name_en' => 'Showing semseter courses as a professor',
             'module'  => 'Courses',
         ]);
 
@@ -233,6 +263,13 @@ class RolesDatabaseSeeder extends Seeder
             'name_ar' => 'إدارة حالة القاعة',
             'name_en' => 'Manage hall status',
             'module'  => 'Halls',
+        ]);
+
+        Permission::create([
+            'name'    => 'semester.settings',
+            'name_ar' => 'إعدادات الفصل الدراسي',
+            'name_en' => 'Semester settings',
+            'module'  => 'Semesters',
         ]);
 
         $this->call([]);

@@ -21,7 +21,7 @@ use Modules\Roles\Livewire\Pages\{
 
 Route::group([
     'prefix' => 'roles',
-    'middleware' => ['auth', 'permission:roles.*'],
+    'middleware' => ['auth'],
 ], function () {
     Route::get('/', RolesIndex::class)->name('roles.index')->middleware('permission:roles.index');
     Route::get('/create', RolesCreate::class)->name('roles.create')->middleware('permission:roles.create');

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Modules\Levels\Models\Level;
 
 class StudentCreate extends Component
 {
@@ -35,11 +36,13 @@ class StudentCreate extends Component
         $student = User::create($data);
         $student->assignRole('student');
         $student->student()->create([
-            'level' => $this->level,
+            'level_id' => Level::where('number', 1)->first()->id,
             'gpa' => $this->gpa,
         ]);
 
-        Mail::to($student->email)->queue(new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails');
+        Mail::to($student->email)->queue((new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails'));
+
+        $this->reset();
 
         notyf()->success(__('modules.students.success.store'));
 

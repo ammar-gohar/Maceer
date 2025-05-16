@@ -15,8 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary()->unique();
             $table->string('grade')->unique();
             $table->float('gpa', 2);
-            $table->integer('max_percentage');
-            $table->integer('min_percentage');
+            $table->float('max_percentage', 2);
+            $table->float('min_percentage', 2);
             $table->timestamps();
             $table->softDeletes();
         });

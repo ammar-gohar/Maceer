@@ -18,7 +18,7 @@ use Modules\Halls\Livewire\Pages\HallsShow;
 |
 */
 Route::group([
-    'middleware' => ['auth', 'permission:halls.*'],
+    'middleware' => ['auth'],
 ], function () {
 
     Route::group([

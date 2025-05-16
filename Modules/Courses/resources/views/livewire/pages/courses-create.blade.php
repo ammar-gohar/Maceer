@@ -36,14 +36,13 @@
                                 class="form-select @error('level') is-invalid @enderror"
                                 wire:model='level'
                                 required>
-                                <option value="freshman" {{ $level == 'freshman' ? 'selected' : '' }}>Freshman</option>
-                                <option value="sophomore" {{ $level == 'sophomore' ? 'selected' : '' }}>Sophomore</option>
-                                <option value="junior" {{ $level == 'junior' ? 'selected' : '' }}>Junior</option>
-                                <option value="senior-1" {{ $level == 'senior-1' ? 'selected' : '' }}>Senior-1</option>
-                                <option value="senior-2" {{ $level == 'senior-2' ? 'selected' : '' }}>Senior-2</option>
+                                <option value="">{{ App::isLocale('ar') ? 'اختر مستوى' : 'Choose a level' }}</option>
+                                @foreach ($levels as $lvl)
+                                    <option value="{{ $lvl->id }}" {{ $level == $lvl->id ? 'selected' : '' }}>{{ $lvl->name }}</option>
+                                @endforeach
                             </select>
                         </div>
-                        @error('form.level')
+                        @error('level')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -52,7 +51,7 @@
                     <!--end::Col-->
                     <!--begin::Col-->
                     <div class="col-md-6">
-                        <label for="level" class="form-label">@lang('type')</label>
+                        <label for="level" class="form-label">@lang('forms.type')</label>
                         <div class="input-group">
                             <select
                                 name="type"

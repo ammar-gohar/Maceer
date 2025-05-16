@@ -1,31 +1,42 @@
 <x-page title="sidebar.courses.schedule" module="courses">
-    <div class="container card-body" style="overflow-x: scroll;">
+    <div class="container card-body">
         <div class="row">
           <div class="col-md-12">
-            <div class="schedule-table">
+            <div class="my-3">
+                <div class="d-flex justify-content-between mb-2">
+                    <h5>@lang('modules.students.credits_to_enroll'): {{ Auth::user()->student->maximum_credits_to_enroll - $student_enrolled_credits }}</h5>
+                    <h5>@lang('modules.students.gpa'): {{ Auth::user()->student->gpa }}</h5>
+                    <h5>@lang('modules.students.total_earned_credits'): {{ Auth::user()->student->gpa }}</h5>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <h6>@lang('modules.students.head_professor'):</h6>
+                    <h6 class="text-danger">@lang('modules.courses.enrollment_end'):</h6>
+                </div>
+            </div>
+            <div class="schedule-table" style="overflow-x: scroll;">
               <table class="bg-white">
                 <thead>
                   <tr class="bg-dark">
                     <th class="last">@lang('sidebar.courses.title')</th>
-                    <th dir="ltr">
+                    <th>
                         1 - 2 <br>
-                        <span style="font-size: 15px;">09:00 - 10:50 am</span>
+                        <span style="font-size: 12px;">09:00 - 10:50 {{ App::isLocale('ar') ? 'ص' : 'am' }}</span>
                     </th>
-                    <th dir="ltr">
+                    <th>
                         3 - 4 <br>
-                        <span style="font-size: 15px;">10:50 - 12:40 pm</span>
+                        <span style="font-size: 12px;">10:50 - 12:40 {{ App::isLocale('ar') ? 'م' : 'pm' }}</span>
                     </th>
-                    <th dir="ltr">
+                    <th>
                         5 - 6 <br>
-                        <span style="font-size: 15px;">01:00 - 02:50 pm</span>
+                        <span style="font-size: 12px;">01:00 - 02:50 {{ App::isLocale('ar') ? 'م' : 'pm' }}</span>
                     </th>
-                    <th dir="ltr">
+                    <th>
                         7 - 8 <br>
-                        <span style="font-size: 15px;">02:50 - 03:40 am</span>
+                        <span style="font-size: 12px;">02:50 - 03:40 {{ App::isLocale('ar') ? 'م' : 'pm' }}</span>
                     </th>
-                    <th dir="ltr">
-                        9- 1 0 <br>
-                        <span style="font-size: 15px;">03:40 - 04:30 pm</span>
+                    <th>
+                        9 - 10 <br>
+                        <span style="font-size: 12px;">03:40 - 04:30 {{ App::isLocale('ar') ? 'م' : 'pm' }}</span>
                     </th>
                   </tr>
                 </thead>
@@ -33,192 +44,332 @@
                     <tr>
                         <td class="day">@lang('general.saturday')</td>
 
-                        <td>
+                        @for($i = 1; $i < 10; $i += 2)
+                            <td wire:key='saturday-{{ $i }}' style="min-width: 140px;">
+                                @if (isset($schedules['saturday']))
+                                    @foreach ($schedules['saturday']->where('start_period', $i) as $course)
+                                        <div class="active" style="width:fit-content;" wire:key='saturday-{{ $i }}-{{ $loop->iteration }}'>
+                                            @php
+                                                $courseEnrollment = Auth::user()->enrollments->where('course_id', $course->course->id)->first();
+                                            @endphp
+                                            <div>
+                                                <h4
+                                                    @class([
+                                                        'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
+                                                        'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
+                                                        ])
+                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                        </td>
+                                                <p>{{ $course->professor->fullName() }}</p>
 
-                        <td>
-                        </td>
+                                                <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                        <td>
-                        </td>
+                                                <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
 
-                        <td>
-                        </td>
-
-                        <td>
-                        </td>
+                                                @if ($courseEnrollment && $courseEnrollment->final_gpa)
+                                                    <span>({{ $courseEnrollment->final_gpa }})</span>
+                                                @endif
+                                            </div>
+                                            @if(!$courseEnrollment && $course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
+                                                <div class="hover text-white">
+                                                    @lang('modules.courses.enrolled_already')
+                                                </div>
+                                            @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
+                                                <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
+                                                    <h4>@lang('forms.create')</h4>
+                                                </button>
+                                            @else
+                                                <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
+                                                    <h4>@lang('forms.delete')</h4>
+                                                </button>
+                                            @endif
+                                        </div>
+                                        @unless ($loop->last)
+                                            <hr>
+                                        @endunless
+                                    @endforeach
+                                @endif
+                            </td>
+                        @endfor
 
                     </tr>
-                  <tr>
-                    <td class="day">@lang('general.sunday')</td>
+                    <tr>
+                        <td class="day">@lang('general.sunday')</td>
 
-                    <td>
-                        <div class="active">
-                            <h4>Weight Loss</h4>
-                            <p>10 am - 11 am</p>
-                            <div class="hover">
-                                <h4>Weight Loss</h4>
-                                <p>10 am - 11 am</p>
-                                <span>Wayne Ponce</span>
-                            </div>
-                        </div>
+                        @for($i = 1; $i < 10; $i += 2)
+                            <td wire:key='sunday-{{ $i }}' style="min-width: 140px;">
+                                @if (isset($schedules['sunday']))
+                                    @foreach ($schedules['sunday']->where('start_period', $i) as $course)
+                                        <div class="active" style="width:fit-content;" wire:key='sunday-{{ $i }}-{{ $loop->iteration }}'>
+                                            @php
+                                                $courseEnrollment = Auth::user()->enrollments->where('course_id', $course->course->id)->first();
+                                            @endphp
+                                            <div>
+                                                <h4
+                                                    @class([
+                                                        'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
+                                                        'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
+                                                        ])
+                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                        <hr>
+                                                <p>{{ $course->professor->fullName() }}</p>
 
-                        <div class="active">
-                            <h4>Weight Loss</h4>
-                            <p>10 am - 11 am</p>
-                            <div class="hover">
-                                <h4>Weight Loss</h4>
-                                <p>10 am - 11 am</p>
-                                <span>Wayne Ponce</span>
-                            </div>
-                        </div>
+                                                <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                        <hr>
+                                                <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
 
-                    </td>
+                                                @if ($courseEnrollment && $courseEnrollment->final_gpa)
+                                                    <span>({{ $courseEnrollment->final_gpa }})</span>
+                                                @endif
+                                            </div>
+                                            @if($course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
+                                                <div class="hover text-white">
+                                                    @lang('modules.courses.enrolled_already')
+                                                </div>
+                                            @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
+                                                <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
+                                                    <h4>@lang('forms.create')</h4>
+                                                </button>
+                                            @else
+                                                <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
+                                                    <h4>@lang('forms.delete')</h4>
+                                                </button>
+                                            @endif
+                                        </div>
+                                        @unless ($loop->last)
+                                            <hr>
+                                        @endunless
+                                    @endforeach
+                                @endif
+                            </td>
+                        @endfor
 
-                    <td>
-                    </td>
+                    </tr>
 
-                    <td>
-                    </td>
+                    <tr>
+                        <td class="day">@lang('general.monday')</td>
 
-                    <td>
-                    </td>
+                        @for($i = 1; $i < 10; $i += 2)
+                            <td wire:key='monday-{{ $i }}' style="min-width: 140px;">
+                                @if (isset($schedules['monday']))
+                                    @foreach ($schedules['monday']->where('start_period', $i) as $course)
+                                        <div class="active" style="width:fit-content;" wire:key='monday-{{ $i }}-{{ $loop->iteration }}'>
+                                            @php
+                                                $courseEnrollment = Auth::user()->enrollments->where('course_id', $course->course->id)->first();
+                                            @endphp
+                                            <div>
+                                                <h4
+                                                    @class([
+                                                        'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
+                                                        'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
+                                                        ])
+                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                    <td>
-                    </td>
-                  </tr>
+                                                <p>{{ $course->professor->fullName() }}</p>
 
-                  <tr>
-                    <td class="day">@lang('general.monday')</td>
+                                                <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                    <td>
-                    </td>
+                                                <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
 
-                    <td>
-                    </td>
+                                                @if ($courseEnrollment && $courseEnrollment->final_gpa)
+                                                    <span>({{ $courseEnrollment->final_gpa }})</span>
+                                                @endif
+                                            </div>
+                                            @if($course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
+                                                <div class="hover text-white">
+                                                    @lang('modules.courses.enrolled_already')
+                                                </div>
+                                            @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
+                                                <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
+                                                    <h4>@lang('forms.create')</h4>
+                                                </button>
+                                            @else
+                                                <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
+                                                    <h4>@lang('forms.delete')</h4>
+                                                </button>
+                                            @endif
+                                        </div>
+                                        @unless ($loop->last)
+                                            <hr>
+                                        @endunless
+                                    @endforeach
+                                @endif
+                            </td>
+                        @endfor
 
-                    <td>
-                    </td>
+                    </tr>
 
-                    <td>
-                    </td>
+                    <tr>
+                        <td class="day">@lang('general.tuesday')</td>
 
-                    <td>
-                    </td>
-                  </tr>
+                        @for($i = 1; $i < 10; $i += 2)
+                            <td wire:key='tuesday-{{ $i }}' style="min-width: 140px;">
+                                @if (isset($schedules['tuesday']))
+                                    @foreach ($schedules['tuesday']->where('start_period', $i) as $course)
+                                        <div class="active" style="width:fit-content;" wire:key='tuesday-{{ $i }}-{{ $loop->iteration }}'>
+                                            @php
+                                                $courseEnrollment = Auth::user()->enrollments->where('course_id', $course->course->id)->first();
+                                            @endphp
+                                            <div>
+                                                <h4
+                                                    @class([
+                                                        'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
+                                                        'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
+                                                        ])
+                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                  <tr>
-                    <td class="day">@lang('general.tuesday')</td>
+                                                <p>{{ $course->professor->fullName() }}</p>
 
-                    <td>
-                    </td>
+                                                <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                    <td>
-                    </td>
+                                                <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
 
-                    <td>
-                    </td>
+                                                @if ($courseEnrollment && $courseEnrollment->final_gpa)
+                                                    <span>({{ $courseEnrollment->final_gpa }})</span>
+                                                @endif
+                                            </div>
+                                            @if($course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
+                                                <div class="hover text-white">
+                                                    @lang('modules.courses.enrolled_already')
+                                                </div>
+                                            @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
+                                                <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
+                                                    <h4>@lang('forms.create')</h4>
+                                                </button>
+                                            @else
+                                                <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
+                                                    <h4>@lang('forms.delete')</h4>
+                                                </button>
+                                            @endif
+                                        </div>
+                                        @unless ($loop->last)
+                                            <hr>
+                                        @endunless
+                                    @endforeach
+                                @endif
+                            </td>
+                        @endfor
 
-                    <td>
-                    </td>
+                    </tr>
 
-                    <td>
-                    </td>
-                  </tr>
+                    <tr>
+                        <td class="day">@lang('general.wednesday')</td>
 
-                  <tr>
-                    <td class="day">@lang('wednesday')</td>
+                        @for($i = 1; $i < 10; $i += 2)
+                            <td wire:key='wednesday-{{ $i }}' style="min-width: 140px;">
+                                @if (isset($schedules['wednesday']))
+                                    @foreach ($schedules['wednesday']->where('start_period', $i) as $course)
+                                        <div class="active" style="width:fit-content;" wire:key='wednesday-{{ $i }}-{{ $loop->iteration }}'>
+                                            @php
+                                                $courseEnrollment = Auth::user()->enrollments->where('course_id', $course->course->id)->first();
+                                            @endphp
+                                            <div>
+                                                <h4
+                                                    @class([
+                                                        'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
+                                                        'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
+                                                        ])
+                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                    <td>
-                    </td>
+                                                <p>{{ $course->professor->fullName() }}</p>
 
-                    <td>
-                    </td>
+                                                <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                    <td>
-                    </td>
+                                                <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
 
-                    <td>
-                    </td>
+                                                @if ($courseEnrollment && $courseEnrollment->final_gpa)
+                                                    <span>({{ $courseEnrollment->final_gpa }})</span>
+                                                @endif
+                                            </div>
+                                            @if($course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
+                                                <div class="hover text-white">
+                                                    @lang('modules.courses.enrolled_already')
+                                                </div>
+                                            @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
+                                                <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
+                                                    <h4>@lang('forms.create')</h4>
+                                                </button>
+                                            @else
+                                                <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
+                                                    <h4>@lang('forms.delete')</h4>
+                                                </button>
+                                            @endif
+                                        </div>
+                                        @unless ($loop->last)
+                                            <hr>
+                                        @endunless
+                                    @endforeach
+                                @endif
+                            </td>
+                        @endfor
 
-                    <td>
-                    </td>
-                  </tr>
+                    </tr>
 
-                  <tr>
-                    <td class="day">@lang('general.thursday')</td>
+                    <tr>
 
-                    <td>
-                    </td>
+                        <td class="day">@lang('general.thursday')</td>
 
-                    <td>
-                    </td>
+                        @for($i = 1; $i < 10; $i += 2)
+                            <td wire:key='thursday-{{ $i }}' style="min-width: 140px;">
+                                @if (isset($schedules['thursday']))
+                                    @foreach ($schedules['thursday']->where('start_period', $i) as $course)
+                                        <div class="active" style="width:fit-content;" wire:key='thursday-{{ $i }}-{{ $loop->iteration }}'>
+                                            @php
+                                                $courseEnrollment = Auth::user()->enrollments->where('course_id', $course->course->id)->first();
+                                            @endphp
+                                            <div>
+                                                <h4
+                                                    @class([
+                                                        'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
+                                                        'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
+                                                        ])
+                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                    <td>
-                    </td>
+                                                <p>{{ $course->professor->fullName() }}</p>
 
-                    <td>
-                    </td>
+                                                <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                    <td>
-                    </td>
-                  </tr>
+                                                <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
+
+                                                @if ($courseEnrollment && $courseEnrollment->final_gpa)
+                                                    <span>({{ $courseEnrollment->final_gpa }})</span>
+                                                @endif
+                                            </div>
+                                            @if($course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
+                                                <div class="hover text-white">
+                                                    @lang('modules.courses.enrolled_already')
+                                                </div>
+                                            @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
+                                                <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
+                                                    <h4>@lang('forms.create')</h4>
+                                                </button>
+                                            @else
+                                                <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
+                                                    <h4>@lang('forms.delete')</h4>
+                                                </button>
+                                            @endif
+                                        </div>
+                                        @unless ($loop->last)
+                                            <hr>
+                                        @endunless
+                                    @endforeach
+                                @endif
+                            </td>
+                        @endfor
+
+                    </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-
-      @if ($showModal)
-        <div class="modal" style="display: block; background: rgb(0,0,0,0.6);">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="px-3 modal-header">
-                        <h5 class="modal-title">@lang('modules.courses.add_schedule') {{ $showModal[0] . ' ' . $showModal[1] }}</h5>
-                        <button type="button" class="btn-close" wire:click='close_modal()'></button>
-                    </div>
-                    <form wire:submit='add_schedule()' class="row form-group">
-                        <div class="px-4 modal-body">
-                            <div class="mb-3">
-                                <label for="course">@lang('modules.courses.course')</label>
-                                <select wire:model='courseId' class="col-12 form-select">
-                                    @foreach ($courses as $course)
-                                        <option value="{{ $course->id }}" {{ $course->id == $courseId ? 'selected' : '' }}>{{ App::isLocale('ar') ? $course->name_ar : $course->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="course">@lang('modules.halls.hall')</label>
-                                <select wire:model='hallId' class="col-12 form-select">
-                                    @foreach ($halls as $hall)
-                                        <option value="{{ $hall->id }}" {{ $hall->id == $hallId ? 'selected' : '' }}>{{ $hall->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="course">@lang('modules.courses.course')</label>
-                                <select wire:model='professorId' class="col-12 form-select">
-                                    @foreach ($professors as $professor)
-                                        <option value="{{ $professor->id }}" {{ $professor->id == $professorId ? 'selected' : '' }}>{{ $professor->FullName() }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="px-3 modal-footer">
-                            <button type="button" class="btn btn-secondary" wire:click='close_modal()'>Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-      @endif
 </x-page>
 
 @push('styles')
@@ -268,31 +419,38 @@
             border: 1px solid #e4e4e4;
             position: relative;
             transition: all 0.3s linear 0s;
-            min-width: 165px;
+            min-width: 140px;
         }
 
         .schedule-table table tbody div.active {
             position: relative;
             transition: all 0.3s linear 0s;
-            min-width: 165px;
+            min-width: 140px;
         }
 
         .schedule-table table tbody div.active h4 {
             font-weight: 700;
             color: #000;
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 5px;
         }
 
         .schedule-table table tbody div.active p {
-            font-size: 16px;
+            font-size: 14px;
             line-height: normal;
             margin-bottom: 0;
         }
 
+        .schedule-table table tbody div.active span {
+            font-size: 16px;
+            line-height: normal;
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
         .schedule-table table tbody td .hover h4 {
             font-weight: 700;
-            font-size: 20px;
+            font-size: 18px;
             color: #ffffff;
             margin-bottom: 5px;
         }
@@ -328,7 +486,6 @@
             left: 50%;
             top: 50%;
             width: 120%;
-            height: 120%;
             transform: translate(-50%, -50%) scale(0.8);
             z-index: 99;
             background: #212529;
@@ -375,7 +532,11 @@
             }
 
             .schedule-table table tbody div.active p {
-                font-size: 15px;
+                font-size: 12px;
+            }
+
+            .schedule-table table tbody div.active span {
+                font-size: 14px;
             }
 
     </style>

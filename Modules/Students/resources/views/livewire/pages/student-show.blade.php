@@ -13,7 +13,7 @@
 
         <livewire:components.show-item label="forms.gender" :data="$student->gender == 'm' ? __('forms.male') : __('forms.female')" />
 
-        <livewire:components.show-item label="forms.level" :data="$student->student->level" />
+        <livewire:components.show-item label="forms.level" :data="$student->student->level->name" />
 
         <livewire:components.show-item label="forms.gpa" :data="$student->student->gpa" />
 

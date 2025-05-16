@@ -29,67 +29,132 @@
     <div class="sidebar-wrapper">
       <nav class="mt-2">
 
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="false">
+
+                <li class="nav-item">
+                    <a href="{{ route('home') }}" class="nav-link">
+                        <i class="nav-icon bi bi-palette"></i>
+                        <p>@lang('general.home')</p>
+                    </a>
+                </li>
+
+            </ul>
         <!--begin::Sidebar Menu-->
-        <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="false">
+        @can('semseter.settings')
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="false">
 
-            <li class="nav-item">
-                <a href="{{ route('semester') }}" class="nav-link">
-                    <i class="nav-icon bi bi-palette"></i>
-                    <p>@lang('sidebar.semester')</p>
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a href="{{ route('semester') }}" class="nav-link">
+                        <i class="nav-icon bi bi-palette"></i>
+                        <p>@lang('sidebar.semester')</p>
+                    </a>
+                </li>
 
-        </ul>
+            </ul>
+        @endcan
 
-            {{-- Admin sidebar --}}
-            <x-sidebar-list module="admins" icon="fa-user-tie">
-                <x-sidebar-item icon="fa-user-group" route="admins.index" />
-                <x-sidebar-item icon="fa-user-plus" route="admins.create" />
-            </x-sidebar-list>
-            {{-- end::admins sidebar --}}
+            @canany(['admins.index', 'admins.create'])
+                {{-- Admin sidebar --}}
+                <x-sidebar-list module="admins" icon="fa-user-tie">
+                    @can('admins.index')
+                        <x-sidebar-item icon="fa-user-group" route="admins.index" />
+                    @endcan
+                    @can('admins.create')
+                        <x-sidebar-item icon="fa-user-plus" route="admins.create" />
+                    @endcan
+                </x-sidebar-list>
+                {{-- end::admins sidebar --}}
+            @endcan
 
-            {{-- Moderators sidebar --}}
-            <x-sidebar-list module="moderators" icon="fa-user-gear">
-                <x-sidebar-item icon="fa-user-group" route="moderators.index" />
-                <x-sidebar-item icon="fa-user-plus" route="moderators.create" />
-            </x-sidebar-list>
-            {{-- end::moderators sidebar --}}
+            @canany(['moderators.index', 'moderators.create'])
+                {{-- Moderators sidebar --}}
+                <x-sidebar-list module="moderators" icon="fa-user-gear">
+                    @can('moderators.index')
+                        <x-sidebar-item icon="fa-user-group" route="moderators.index" />
+                    @endcan
+                    @can('moderators.create')
+                        <x-sidebar-item icon="fa-user-plus" route="moderators.create" />
+                    @endcan
+                </x-sidebar-list>
+                {{-- end::moderators sidebar --}}
+            @endcan
 
-            {{-- Professors sidebar --}}
-            <x-sidebar-list module="professors" icon="fa-chalkboard-user">
-                <x-sidebar-item icon="fa-user-group" route="professors.index" />
-                <x-sidebar-item icon="fa-user-plus" route="professors.create" />
-            </x-sidebar-list>
-            {{-- end::Professors sidebar --}}
+            @canany(['professors.index', 'professors.create'])
+                {{-- Professors sidebar --}}
+                <x-sidebar-list module="professors" icon="fa-chalkboard-user">
+                    @can('professors.index')
+                        <x-sidebar-item icon="fa-user-group" route="professors.index" />
+                    @endcan
+                    @can('professors.create')
+                        <x-sidebar-item icon="fa-user-plus" route="professors.create" />
+                    @endcan
+                </x-sidebar-list>
+                {{-- end::Professors sidebar --}}
+            @endcan
 
-            {{-- Students sidebar --}}
-            <x-sidebar-list module="students" icon="fa-user-graduate">
-                <x-sidebar-item icon="fa-user-group" route="students.index" />
-                <x-sidebar-item icon="fa-user-plus" route="students.create" />
-            </x-sidebar-list>
-            {{-- end::sutdents sidebar --}}
+            @canany(['students.index', 'students.create'])
+                {{-- Students sidebar --}}
+                <x-sidebar-list module="students" icon="fa-user-graduate">
+                    @can('students.index')
+                        <x-sidebar-item icon="fa-user-group" route="students.index" />
+                    @endcan
+                    @can('students.create')
+                        <x-sidebar-item icon="fa-user-plus" route="students.create" />
+                    @endcan
+                </x-sidebar-list>
+                {{-- end::sutdents sidebar --}}
+            @endcan
 
-            {{-- Roles sidebar --}}
-            <x-sidebar-list module="roles" icon="fa-gear">
-                <x-sidebar-item icon="fa-gears" route="roles.index" />
-                <x-sidebar-item icon="fa-plus" route="roles.create" />
-            </x-sidebar-list>
-            {{-- end::Roles sidebar --}}
+            @canany(['roles.index', 'roles.create'])
+                {{-- Roles sidebar --}}
+                <x-sidebar-list module="roles" icon="fa-gear">
+                    @can('roles.index')
+                        <x-sidebar-item icon="fa-gears" route="roles.index" />
+                    @endcan
+                    @can('roles.create')
+                        <x-sidebar-item icon="fa-plus" route="roles.create" />
+                    @endcan
+                </x-sidebar-list>
+                {{-- end::Roles sidebar --}}
+            @endcan
 
-            {{-- Courses sidebar --}}
-            <x-sidebar-list module="courses" icon="fa-book-open">
-                <x-sidebar-item icon="fa-list" route="courses.index" />
-                <x-sidebar-item icon="fa-plus" route="courses.create" />
-                <x-sidebar-item icon="fa-calendar-days" route="courses.schedule" />
-            </x-sidebar-list>
-            {{-- end::Courses sidebar --}}
+            @canany(['courses.index', 'courses.create', 'courses.requests', 'courses.schedule', 'courses.my-courses'])
+                {{-- Courses sidebar --}}
+                <x-sidebar-list module="courses" icon="fa-book-open">
+                    @can('courses.index')
+                        <x-sidebar-item icon="fa-list" route="courses.index" />
+                    @endcan
+                    @can('courses.create')
+                        <x-sidebar-item icon="fa-plus" route="courses.create" />
+                    @endcan
+                    @can('courses.requests')
+                        <x-sidebar-item icon="fa-list" route="courses.requests" />
+                    @endcan
+                    @can('courses.schedule')
+                        <x-sidebar-item icon="fa-calendar-days" route="courses.schedule" />
+                    @endcan
+                    @can('courses.student.show')
+                        <x-sidebar-item icon="fa-list" route="courses.student-show" />
+                    @endcan
+                    @can('courses.professor.show')
+                        <x-sidebar-item icon="fa-list" route="courses.professor-show" />
+                    @endcan
+                </x-sidebar-list>
+                {{-- end::Courses sidebar --}}
+            @endcan
 
-            {{-- Halls sidebar --}}
-            <x-sidebar-list module="halls" icon="fa-chalkboard">
-                <x-sidebar-item icon="fa-list" route="halls.index" />
-                <x-sidebar-item icon="fa-plus" route="halls.create" />
-            </x-sidebar-list>
-            {{-- end::Halls sidebar --}}
+            @canany(['halls.index', 'halls.create'])
+                {{-- Halls sidebar --}}
+                <x-sidebar-list module="halls" icon="fa-chalkboard">
+                    @can('halls.index')
+                        <x-sidebar-item icon="fa-list" route="halls.index" />
+                    @endcan
+                    @can('halls.create')
+                        <x-sidebar-item icon="fa-plus" route="halls.create" />
+                    @endcan
+                </x-sidebar-list>
+                {{-- end::Halls sidebar --}}
+            @endcan
 
         <!--end::Sidebar Menu-->
 

@@ -8,6 +8,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\Courses\Models\Course;
+use Modules\Levels\Models\Level;
 
 class CoursesCreate extends Component
 {
@@ -34,8 +35,8 @@ class CoursesCreate extends Component
     #[Validate('bail|required|min:0')]
     public $full_mark = 100;
 
-    #[Validate('bail|required|in:freshman,junior,senior-1,senior-2')]
-    public $level = 'freshman';
+    #[Validate('bail|required|exists:levels,id')]
+    public $level = '';
 
     public $requirement = 'specialization';
 
@@ -79,7 +80,7 @@ class CoursesCreate extends Component
             'type'        => $this->type,
             'requirement' => $this->requirement,
             'full_mark'   => $this->full_mark,
-            'level'       => $this->level,
+            'level_id'    => $this->level,
         ]);
 
         $course->prerequests()->sync($this->prerequests);
@@ -116,6 +117,7 @@ class CoursesCreate extends Component
                                 ->paginate(7),
 
             'chosenCourses' => Course::select(['id', 'code', 'name', 'name_ar'])->whereIn('id', $this->prerequests)->orderBy(App::isLocale('ar') ? 'name_ar' : 'name')->get(),
-        ])->title('sidebar.courses.create');
+            'levels' => Level::latest()->orderBy('name')->get(),
+        ])->title(__('sidebar.courses.create'));
     }
 }

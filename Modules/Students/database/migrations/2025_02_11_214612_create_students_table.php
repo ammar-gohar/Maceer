@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
             $table->uuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('level')->default('freshman');
+            $table->string('level_id');
             $table->float('gpa', 2)->default(0.00);
-            $table->integer('elected_earned_credits')->default(0);
+            $table->integer('unversity_elected_earned_credits')->default(0);
+            $table->integer('faculty_elected_earned_credits')->default(0);
+            $table->integer('program_elected_earned_credits')->default(0);
             $table->integer('core_earned_credits')->default(0);
             $table->integer('total_earned_credits')->default(0);
             $table->integer('maximum_credits_to_enroll')->default(18);

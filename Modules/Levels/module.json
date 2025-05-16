@@ -1,0 +1,11 @@
+{
+    "name": "Levels",
+    "alias": "levels",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Levels\\Providers\\LevelsServiceProvider"
+    ],
+    "files": []
+}

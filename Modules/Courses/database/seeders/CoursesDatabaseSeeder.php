@@ -4,6 +4,7 @@ namespace Modules\Courses\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Courses\Models\Course;
+use Modules\Levels\Models\Level;
 
 class CoursesDatabaseSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class CoursesDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $levels = Level::all();
 
         $courses = [
 
@@ -27,7 +30,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'freshman',
+                'level_id' => $levels->where('number', 1)->first()->id,
             ],
             [
                 'code' => 'GEN-C002',
@@ -38,7 +41,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'freshman',
+                'level_id' => $levels->where('number', 1)->first()->id,
             ],
             [
                 'code' => 'GEN-C101',
@@ -49,7 +52,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'GEN-C102',
@@ -60,7 +63,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'GEN-C201',
@@ -71,7 +74,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'GEN-C202',
@@ -82,7 +85,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'GEN-C301',
@@ -93,7 +96,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'senior-1',
+                'level_id' => $levels->where('number', 4)->first()->id,
             ],
 
             // ============================
@@ -108,7 +111,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 2,
                 'full_mark' => 100,
-                'level' => 'freshman',
+                'level_id' => $levels->where('number', 1)->first()->id,
             ],
             [
                 'code' => 'GEN-C103',
@@ -119,7 +122,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 2,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'GEN-C203',
@@ -130,7 +133,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 2,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'GEN-C204',
@@ -141,7 +144,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 2,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'GEN-C205',
@@ -152,7 +155,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 2,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'GEN-C206',
@@ -163,7 +166,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 2,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'GEN-C207',
@@ -174,7 +177,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 2,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
 
             // ============================
@@ -189,7 +192,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'freshman',
+                'level_id' => $levels->where('number', 1)->first()->id,
             ],
             [
                 'code' => 'FAC-C002',
@@ -200,7 +203,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'freshman',
+                'level_id' => $levels->where('number', 1)->first()->id,
             ],
             [
                 'code' => 'FAC-C003',
@@ -211,7 +214,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'freshman',
+                'level_id' => $levels->where('number', 1)->first()->id,
             ],
             [
                 'code' => 'FAC-C004',
@@ -222,7 +225,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'FAC-C005',
@@ -233,7 +236,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'FAC-C006',
@@ -244,7 +247,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'FAC-C007',
@@ -255,7 +258,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'FAC-C008',
@@ -266,7 +269,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 2,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'FAC-C009',
@@ -277,7 +280,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 2,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'FAC-C010',
@@ -288,7 +291,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'FAC-C101',
@@ -299,7 +302,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'senior-1',
+                'level_id' => $levels->where('number', 4)->first()->id,
             ],
             [
                 'code' => 'FAC-C401',
@@ -310,7 +313,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'core',
                 'credits' => 5,
                 'full_mark' => 100,
-                'level' => 'senior-2',
+                'level_id' => $levels->where('number', 5)->first()->id,
             ],
 
             // =========================
@@ -325,7 +328,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'FAC-C103',
@@ -336,7 +339,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'FAC-C104',
@@ -347,7 +350,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'FAC-C105',
@@ -358,7 +361,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 2,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'FAC-C106',
@@ -369,7 +372,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'FAC-C107',
@@ -380,7 +383,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 2,
                 'full_mark' => 100,
-                'level' => 'sophomore',
+                'level_id' => $levels->where('number', 2)->first()->id,
             ],
             [
                 'code' => 'FAC-C201',
@@ -391,7 +394,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'FAC-C202',
@@ -402,7 +405,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
             [
                 'code' => 'FAC-C203',
@@ -413,7 +416,7 @@ class CoursesDatabaseSeeder extends Seeder
                 'type' => 'elected',
                 'credits' => 3,
                 'full_mark' => 100,
-                'level' => 'junior',
+                'level_id' => $levels->where('number', 3)->first()->id,
             ],
 
             // =========================

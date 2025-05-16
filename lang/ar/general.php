@@ -17,4 +17,5 @@ return [
     'tuesday' => 'الثلاثاء',
     'wednesday' => 'الأربعاء',
     'thursday' => 'الخميس',
+    'day' => 'اليوم',
 ];

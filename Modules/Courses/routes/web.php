@@ -1,12 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Modules\Courses\Livewire\Pages\CourseRequests;
+use Modules\Courses\Livewire\Pages\CourseRequestsStats;
 use Modules\Courses\Livewire\Pages\CoursesCreate;
 use Modules\Courses\Livewire\Pages\CoursesEdit;
 use Modules\Courses\Livewire\Pages\CoursesIndex;
 use Modules\Courses\Livewire\Pages\CoursesShow;
+use Modules\Courses\Livewire\Pages\ProfessorCourses;
 use Modules\Courses\Livewire\Pages\Schedule;
-
+use Modules\Courses\Livewire\Pages\StudentCourses;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,12 +23,24 @@ use Modules\Courses\Livewire\Pages\Schedule;
 */
 
 Route::group([
-    'middleware' => ['auth', 'permission:courses.*'],
+    'middleware' => ['auth'],
 ], function () {
 
     Route::group([
         'prefix' => 'courses'
     ], function () {
+
+        Route::get('/student-courses', StudentCourses::class)
+        ->middleware('permission:courses.student.show')
+        ->name('courses.student-show');
+
+        Route::get('/professor-courses', ProfessorCourses::class)
+        ->middleware('permission:courses.professor.show')
+        ->name('courses.professor-show');
+
+        Route::get('courses/requests', CourseRequestsStats::class)
+        ->middleware(['auth', 'permission:courses.enrollment'])
+        ->name('courses.requests');
 
         Route::get('/', CoursesIndex::class)
         ->middleware('permission:courses.index')
@@ -41,6 +57,7 @@ Route::group([
         Route::get('/{code}/edit', CoursesEdit::class)
             ->middleware('permission:courses.edit')
             ->name('courses.edit');
+
     });
 
     Route::get('/schedule', Schedule::class)
@@ -48,3 +65,7 @@ Route::group([
         ->name('courses.schedule');
 
 });
+
+Route::get('/student-schedule', Schedule::class)
+    ->middleware(['role:student'])
+    ->name('courses.schedule');

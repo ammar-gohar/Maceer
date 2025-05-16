@@ -16,19 +16,19 @@
             </div>
             <div class="mb-3 row">
                 <label for="rolePerms" class="col-sm-2 col-form-label">@lang('modules.roles.permissions')</label>
-                <div class="col-sm-10 offset-sm-2">
+                <div class="col-sm-10 offset-sm-2 row">
                     @foreach ($permissionsModules as $module => $modulePermissions)
-                        <div class="mb-5">
+                        <div class="mb-5 col-lg-4">
                             <div class="form-check ps-3">
                                 <input class="form-check-input" type="checkbox" id="{{ $module.'Permissions' }}" onclick="checkAllCheckboxes('{{ $module }}', this)">
-                                <label class="form-check-label" for="{{ $module.'Permissions' }}">
+                                <label class="form-check-label fw-bold" for="{{ $module.'Permissions' }}">
                                     @lang('sidebar.'.strtolower($module).'.title')
                                 </label>
                             </div>
                             @foreach ($modulePermissions as $permission)
-                                <div class="ps-5 form-check">
+                                <div class="ps-5 form-check" wire:key='{{ $permission->id }}'>
                                     <input
-                                        class="form-check-input"
+                                        class="form-check-input {{ $module . '-checkbox' }}"
                                         type="checkbox"
                                         id="{{ $module.$loop->iteration }}"
                                         value="{{ $permission->id }}"

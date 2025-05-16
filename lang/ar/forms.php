@@ -34,7 +34,11 @@ return [
     'create' => 'أضف',
     'creating' => 'يُضاف',
 
+    'submit' => 'تأكيد',
+    'submitting' => 'انتظر',
+
     'edit' => 'تعديل',
+    'delete' => 'حذف',
 
     'update' => 'تحديث',
     'updating' => 'يُحدّث',
@@ -51,6 +55,9 @@ return [
     'credits' => 'عدد الساعات المعتمدة:',
     'requirement' => 'نوع المتطلب',
     'full_mark' => 'الدرجة الكاملة',
+    'min_credits' => 'عدد الساعات المعتمدة المطلوبة',
+    'code' => 'رمز المقرر',
+    'type' => 'نوع المادة',
 
     'add_prerequests' => 'إضافة متطلبات',
     'back_to_add' => 'العودة لبيانات المقرر',
@@ -62,4 +69,9 @@ return [
     'end_semester' => 'إنهاء الفصل الحالي',
     'semester_active' => 'الفصل الحالي سينتهي في :date',
     'want_end_semester' => 'هل تريد أن تنهي الفصل الحالي الآن؟',
+
+    'publish_midterm' => 'إعلان درجة امتحان منتصف الفصل',
+    'publish_work' => 'إعلان درجة أعمال الفصل',
+    'publish_final' => 'إعلان درجة الامتحان النهائي',
+
 ];

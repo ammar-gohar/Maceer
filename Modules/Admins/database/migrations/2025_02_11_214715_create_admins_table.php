@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
-            $table->uuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

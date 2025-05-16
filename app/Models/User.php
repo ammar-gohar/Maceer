@@ -15,6 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Modules\Courses\Models\Course;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Professors\Models\Professor;
+use Modules\Semesters\Models\Semester;
 use Modules\Students\Models\Student;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -70,13 +71,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Enrollment::class, 'student_id');
     }
 
-    public function currentSemesterEnrollments()
+    public function current_enrollments()
     {
-        return $this->whereHas('enrollments', function ($q) {
-            $q
-                ->where('year', \Carbon\Carbon::thisYear())
-                ->where('semester', 2);
-        });
+        return $this->hasMany(Enrollment::class, 'student_id')->with(['course', 'schedule'])->whereHas('semester', fn($q) => $q->where('is_current', 1));
+    }
+
+    public function current_enrolled_courses()
+    {
+        return $this->belongsToMany(Course::class, 'enrollments', 'student_id', 'course_id')
+                    ->withPivot(['semester_id'])
+                    ->wherePivot('semester_id', Semester::where('is_current', 1)->first()->id);
     }
 
     public function professor(): HasOne
