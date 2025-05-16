@@ -15,7 +15,7 @@ A **Laravel-based** School Management System where students can check their mark
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/ammar-gohar/Schoolary.git
+git clone https://github.com/ammar-gohar/Maceer.git
 cd Schoolary
 ```
 
@@ -48,9 +48,9 @@ Edit `.env` and update your database credentials:
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=schoolary
+DB_DATABASE=maceer
 DB_USERNAME=root
-DB_PASSWORD=yourpassword
+DB_PASSWORD=
 ```
 
 Run migrations:
@@ -63,7 +63,6 @@ php artisan migrate --seed
 
 ```bash
 php artisan serve
-npm run dev
 ```
 Visit: [**http://127.0.0.1:8000**](http://127.0.0.1:8000)
 
