@@ -315,9 +315,6 @@ def compress_schedule(students_data, exam_schedule, valid_days, max_days, max_at
         if result:
             return result
 
-    # If all else fails, fall back to a safe greedy assignment
-    print("⚠️ Could not optimize within attempts — falling back to safe greedy schedule.")
-
     # ✅ Greedy fallback
     compressed_schedule = {}
     courses_on_day = defaultdict(list)
@@ -337,7 +334,8 @@ def compress_schedule(students_data, exam_schedule, valid_days, max_days, max_at
             else:
                 current_day += 1
                 if current_day > max_days:
-                    print(f"Conflicts found")
+                    print("Conflicts", end="")
+                    sys.exit(1)
                     return compressed_schedule
     return compressed_schedule
 
@@ -480,15 +478,18 @@ def create_exam_schedule(csv_file):
     consecutive_stats = calculate_consecutive_exam_stats(students_data, exam_schedule, valid_days)
 
     for days, count in sorted(consecutive_stats.items(), reverse=True):
+        open("description.txt", "a").write(f"{days} consecutive days: {count} students\n")
         print(f"{days} consecutive days: {count} students")
     
     script_dir = os.path.dirname(os.path.abspath(__file__))
     pdf_output = os.path.join(script_dir, "exam_schedule.pdf")
     create_pdf_schedule(exam_schedule, valid_days, pdf_output)
 
-    if sys.argv[2].lower() == "generate_plots":
+    if args.plot == "generate_plots":
         generate_student_schedules_plot(students_data, exam_schedule, valid_days)
-        create_zip_from_paths(["student_schedules", "exam_schedule.pdf"], "output.zip")
+        create_zip_from_paths(["student_schedules", "exam_schedule.pdf", "description.txt"], "output.zip")
+    else:
+        create_zip_from_paths(["exam_schedule.pdf", "description.txt"], "output.zip")
 
     return date_schedule
 
