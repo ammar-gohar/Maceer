@@ -1,5 +1,3 @@
-# Usage: python .\exam_scheduler.py <csv_file> <generate_plots | no> <start_date> <end_date> [fridays appeneded] max [...holidays]
-
 from collections import defaultdict
 import random
 import zipfile
