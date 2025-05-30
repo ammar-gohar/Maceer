@@ -29,7 +29,7 @@ def parse_args():
     parser.add_argument("end_date", help="End date (YYYY-MM-DD)")
 
     # Optional flags
-    parser.add_argument("--fridays", choices=["all", "comma seperated dates"], help="Include Friday exams", default="")
+    parser.add_argument("--fridays", action="store_true", help="Include Friday exams")
     parser.add_argument(
         "--holidays", 
         default="",      # Default empty list if not provided
@@ -82,8 +82,7 @@ def get_exam_period():
 
 # دالة لإنشاء قائمة بالأيام الصالحة للامتحانات
 def get_valid_exam_days(start_date, end_date, holidays):
-    fridays_allowed = []
-    if args.fridays == "all":
+    if args.fridays:
         valid_days = []
         current_date = start_date
         while current_date <= end_date:
@@ -91,13 +90,11 @@ def get_valid_exam_days(start_date, end_date, holidays):
                 valid_days.append(current_date)
             current_date += timedelta(days=1)
         return valid_days
-    elif args.fridays != "":
-        fridays_allowed = args.fridays.split(",")
     valid_days = []
     current_date = start_date
     while current_date <= end_date:
         # استبعاد أيام الجمعة (weekday() == 4) والإجازات
-        if (current_date.weekday() != 4 and current_date not in holidays) or current_date in [parse_date(friday) for friday in fridays_allowed]:
+        if current_date.weekday() != 4 and current_date not in holidays:
             valid_days.append(current_date)
         current_date += timedelta(days=1)
     return valid_days
