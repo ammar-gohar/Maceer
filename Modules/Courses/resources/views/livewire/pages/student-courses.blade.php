@@ -1,4 +1,4 @@
-<x-page title="sidebar.courses.student-courses" module="courses">
+<x-page title="sidebar.courses.student-show" module="courses">
 
     <div class="container my-3">
         <div class="mb-2 row">
@@ -54,18 +54,18 @@
                     @endphp
                     @foreach ($enrolls as $enroll)
                         @php
-                            $shownColumns = [explode('-', $enroll->shown_columns)];
+                            $shownColumns = explode('-', $enroll->shown_columns);
                         @endphp
                         <tr wire:key='course-{{ $loop->iteration }}' class="text-nowrap">
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $enroll->course->code }}</td>
                             <td dir="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}">{{ $enroll->course->name }}</td>
                             <td>{{ isShown('midterm_exam', $shownColumns) ? $enroll->midterm_exam : __('modules.courses.not_revealed') }}</td>
-                            <td>{{ isShown('work_mark', $shownColumns) ? $enroll->work_mark : __('modules.courses.not_revealed') }}</td>
+                            <td>{{ isShown('work_marks', $shownColumns) ? $enroll->work_mark : __('modules.courses.not_revealed') }}</td>
                             <td>{{ isShown('final_exam', $shownColumns) ? $enroll->final_exam : __('modules.courses.not_revealed') }}</td>
                             <td>{{ isShown('total_mark', $shownColumns) ? $enroll->total_mark : __('modules.courses.not_revealed') }}</td>
-                            <td>{{ isShown('gpa', $shownColumns) ? $enroll->gpa : __('modules.courses.not_revealed') }}</td>
-                            <td>{{ isShown('grade', $shownColumns) ? $enroll->grade->name : __('modules.courses.not_revealed') }}</td>
+                            <td>{{ isShown('total_mark', $shownColumns) ? $enroll->final_gpa : __('modules.courses.not_revealed') }}</td>
+                            <td>{{ isShown('total_mark', $shownColumns) ? $enroll->grade?->grade : __('modules.courses.not_revealed') }}</td>
                         </tr>
                     @endforeach
                 </tbody>

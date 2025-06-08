@@ -5,7 +5,7 @@
     'span' => 6,
 ])
 <div class="col-md-{{ $span }}">
-    <label for="{{ $name }}" class="form-label">@lang("forms.$name")</label>
+    <label for="{{ $name }}" class="form-label">@lang("forms.$name") *</label>
     <div class="input-group">
         @if ($type == "email")
             <span class="input-group-text" id="basic-addon1">@</span>

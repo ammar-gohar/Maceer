@@ -41,7 +41,7 @@ class ProfessorCourses extends Component
         $this->shownColumns = explode('-', Enrollment::with(['course', 'student'])
                                                     ->where('semester_id', $this->semesterId)
                                                     ->where('course_id', $courseId)
-                                                    ->first()->shown_columns) ;
+                                                    ->first()?->shown_columns) ;
 
         $this->modal = [
             'enrollments' => $enrollments,
@@ -54,7 +54,7 @@ class ProfessorCourses extends Component
     public function updated($prop, $val)
     {
 
-        if($prop === 'shownColumns.0' || $prop === 'shownColumns.1' || $prop === 'shownColumns.2') {
+        if($prop === 'shownColumns.0' || $prop === 'shownColumns.1' || $prop === 'shownColumns.2' || $prop === 'shownColumns.3' || $prop === 'shownColumns.4') {
             Enrollment::with(['course', 'student'])
                                     ->where('semester_id', $this->semesterId)
                                     ->where('course_id', $this->modal['courseId'])
@@ -98,6 +98,6 @@ class ProfessorCourses extends Component
                                     //     ->where('professor_id', Auth::id())
                                     // )
                                     ->get(),
-        ])->title(__('sidebar.courses.professor-courses'));
+        ])->title(__('sidebar.courses.professor-show'));
     }
 }

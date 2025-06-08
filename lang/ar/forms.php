@@ -17,6 +17,7 @@ return [
     'male'   => 'ذكر',
     'sign_in' => 'دخول',
     'forgot_pswrd' => 'أنسيت كلمة السر؟',
+    'description' => 'الوصف',
 
     'level' => 'المرحلة:',
     'gpa' => 'GPA:',
@@ -63,6 +64,8 @@ return [
     'back_to_add' => 'العودة لبيانات المقرر',
     'edit_prerequests' => 'تعديل متطلبات المقرر',
 
+    'title' => 'العنوان',
+    'duration' => 'المدة (بالدقائق)',
     'start_date' => 'تاريخ البدء',
     'end_date' => 'تاريخ الانتهاء',
     'start_semester' => 'بدء الفصل الدراسي',
@@ -73,5 +76,9 @@ return [
     'publish_midterm' => 'إعلان درجة امتحان منتصف الفصل',
     'publish_work' => 'إعلان درجة أعمال الفصل',
     'publish_final' => 'إعلان درجة الامتحان النهائي',
+    'publish_total' => 'إعلان مجموع الدرجات',
 
+    'add_questions' => 'إضافة الأسئلة',
+    'edit_questions' => 'تعديل الأسئلة',
+    'back' => 'عودة',
 ];

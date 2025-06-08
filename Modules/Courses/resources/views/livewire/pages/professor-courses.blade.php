@@ -1,4 +1,4 @@
-<x-page title="sidebar.courses.professor-courses" module="courses">
+<x-page title="sidebar.courses.professor-show" module="courses">
 
     <div class="card-body" style="overflow-x: scroll;">
         @if ($courses->count() > 0)
@@ -20,6 +20,9 @@
                             <td class="text-center">{{ $course->name }}</td>
                             <td class="text-center">{{ $course->current_semester_enrollments_count }}</td>
                             <td>
+                                <a href="{{ route('courses.quizzes', ['courseId' => $course->id]) }}" class="btn btn-sm btn-secondary">
+                                    <i class="fa-solid fa-eye"></i> {{ App::isLocale('ar') ? 'الامتحانات' : 'Quizzes' }}
+                                </a>
                                 <button href="#" class="btn btn-sm btn-secondary" wire:click='show_modal("{{ $course->id }}", "{{ $course->name }}")'>
                                     <i class="fa-solid fa-eye"></i> {{ App::isLocale('ar') ? 'الدرجات' : 'Marks' }}
                                 </button>
@@ -57,6 +60,11 @@
                             <div class="form-check form-switch col-4">
                                 <input class="form-check-input" type="checkbox" name="publishMarks" id="publishFinal" wire:model.change='shownColumns'
                                 value="final_exam" style="font-size: 1.25rem;">
+                                <label class="form-check-label" for="publishFinal">@lang('forms.publish_final')</label>
+                            </div>
+                            <div class="form-check form-switch col-4">
+                                <input class="form-check-input" type="checkbox" name="publishMarks" id="publishFinal" wire:model.change='shownColumns'
+                                value="total_mark" style="font-size: 1.25rem;">
                                 <label class="form-check-label" for="publishFinal">@lang('forms.publish_final')</label>
                             </div>
                         </div>

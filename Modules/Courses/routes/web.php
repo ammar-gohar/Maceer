@@ -30,6 +30,14 @@ Route::group([
         'prefix' => 'courses'
     ], function () {
 
+        Route::get('/schedule', Schedule::class)
+            ->middleware('permission:courses.schedule')
+            ->name('courses.schedule');
+
+        Route::get('/student-schedule', Schedule::class)
+            ->middleware('permission:courses.student-schedule')
+            ->name('courses.student-schedule');
+
         Route::get('/student-courses', StudentCourses::class)
         ->middleware('permission:courses.student.show')
         ->name('courses.student-show');
@@ -60,12 +68,6 @@ Route::group([
 
     });
 
-    Route::get('/schedule', Schedule::class)
-        ->middleware('permission:courses.schedule')
-        ->name('courses.schedule');
-
 });
 
-Route::get('/student-schedule', Schedule::class)
-    ->middleware(['role:student'])
-    ->name('courses.schedule');
+

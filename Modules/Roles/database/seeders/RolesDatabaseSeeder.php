@@ -272,6 +272,50 @@ class RolesDatabaseSeeder extends Seeder
             'module'  => 'Semesters',
         ]);
 
+        Permission::create([
+            'name' => 'quizzes.index',
+            'name_ar' => 'عرض الامتحانات كمعلم',
+            'name_en' => 'Show quizzes list as a professor',
+            'module' => 'Quizzes',
+        ]);
+
+        Permission::create([
+            'name' => 'quizzes.show',
+            'name_ar' => 'عرض امتحان كمعلم',
+            'name_en' => 'Show a quiz as a professor',
+            'module' => 'Quizzes',
+        ]);
+
+        Permission::create([
+            'name' => 'quizzes.create',
+            'name_ar' => 'إنشاء امتحانات',
+            'name_en' => 'Create quizzes',
+            'module' => 'Quizzes',
+        ]);
+
+        Permission::create([
+            'name' => 'quizzes.edit',
+            'name_ar' => 'تعديل امتحانات',
+            'name_en' => 'Create edit',
+            'module' => 'Quizzes',
+        ]);
+
+        Permission::create([
+            'name' => 'quizzes.index-student',
+            'name_ar' => 'عرض قائمة الامتحانات كطالب',
+            'name_en' => 'Show quizzes list as a student',
+            'module' => 'Quizzes',
+        ]);
+
+        Permission::create([
+            'name' => 'quizzes.take-quiz',
+            'name_ar' => 'خوض الامتحانات',
+            'name_en' => 'Take quizzes',
+            'module' => 'Quizzes',
+        ]);
+
+        Permission::
+
         $this->call([]);
     }
 }

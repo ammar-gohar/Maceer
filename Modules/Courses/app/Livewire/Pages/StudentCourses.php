@@ -22,6 +22,6 @@ class StudentCourses extends Component
 
         return view('courses::livewire.pages.student-courses', [
             'enrolls' => Enrollment::with(['course', 'grade'])->where('student_id', Auth::user()->id)->where('semester_id', $this->semesterId)->get(),
-        ]);
+        ])->title(__('sidebar.courses.student-show'));
     }
 }

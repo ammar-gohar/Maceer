@@ -53,6 +53,19 @@
             </ul>
         @endcan
 
+        {{-- @can('semseter.settings') --}}
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="false">
+
+                <li class="nav-item">
+                    <a href="{{ route('quizzes.index-student') }}" class="nav-link">
+                        <i class="nav-icon fa fa-file-pen"></i>
+                        <p>@lang('sidebar.quizzes.index-student')</p>
+                    </a>
+                </li>
+
+            </ul>
+        {{-- @endcan --}}
+
             @canany(['admins.index', 'admins.create'])
                 {{-- Admin sidebar --}}
                 <x-sidebar-list module="admins" icon="fa-user-tie">
@@ -132,6 +145,9 @@
                     @endcan
                     @can('courses.schedule')
                         <x-sidebar-item icon="fa-calendar-days" route="courses.schedule" />
+                    @endcan
+                    @can('courses.student-schedule')
+                        <x-sidebar-item icon="fa-calendar-days" route="courses.student-schedule" />
                     @endcan
                     @can('courses.student.show')
                         <x-sidebar-item icon="fa-list" route="courses.student-show" />
