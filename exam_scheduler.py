@@ -1,8 +1,10 @@
+from collections import defaultdict
+import random
+import zipfile
 import sys
 import os
 import networkx as nx
 import pandas as pd
-from collections import defaultdict
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib import colors
@@ -12,7 +14,29 @@ from reportlab.pdfbase.ttfonts import TTFont
 import arabic_reshaper
 from bidi.algorithm import get_display
 from datetime import datetime, timedelta
+from collections import Counter
+import matplotlib.pyplot as plt
+from matplotlib.dates import DayLocator, DateFormatter
+import argparse
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Exam Scheduler Tool")
+
+    # Required positional arguments
+    parser.add_argument("csv_file", help="Path to the CSV file")
+    parser.add_argument("plot", choices=["generate_plots", "no"], help="Plot generation toggle")
+    parser.add_argument("start_date", help="Start date (YYYY-MM-DD)")
+    parser.add_argument("end_date", help="End date (YYYY-MM-DD)")
+
+    # Optional flags
+    parser.add_argument("--fridays", action="store_true", help="Include Friday exams")
+    parser.add_argument(
+        "--holidays", 
+        default="",      # Default empty list if not provided
+        help="List of holiday dates (YYYY-MM-DD)"
+    )
+
+    return parser.parse_args()
 # تسجيل خط يدعم العربي
 pdfmetrics.registerFont(TTFont('Arial', 'Arial.ttf'))  # تأكدي إن Arial.ttf موجود على جهازك
 
@@ -25,45 +49,47 @@ def parse_date(date_str):
 
 # دالة للحصول على إدخال المستخدم لتواريخ الامتحانات
 def get_exam_period():
-    print("Enter the start date of the exams (YYYY-MM-DD):")
-    start_date_str = input().strip()
+    start_date_str = args.start_date
     start_date = parse_date(start_date_str)
-    
-    print("Enter the end date of the exams (YYYY-MM-DD):")
-    end_date_str = input().strip()
+    end_date_str = args.end_date
     end_date = parse_date(end_date_str)
     
     if end_date < start_date:
         raise ValueError("The end date must be after the start date.")
     
-    print("Enter the number of required exam days:")
     try:
-        max_exam_days = int(input().strip())
-        if max_exam_days <= 0:
-            raise ValueError
+        max_exam_days = 1337
     except ValueError:
         raise ValueError("The number of days must be a positive integer.")
     
     # جمع تواريخ الإجازات
     holidays = []
-    print("Enter the holidays (YYYY-MM-DD), one per line, or press Enter to finish:")
-    while True:
-        holiday_str = input().strip()
-        if not holiday_str:
-            break
-        try:
-            holiday_date = parse_date(holiday_str)
-            if start_date <= holiday_date <= end_date:
-                holidays.append(holiday_date)
-            else:
-                print("The date is outside the exam period, ignored...")
-        except ValueError:
-            print("Incorrect date format, try again or press Enter to finish.")
-    
+    try:
+        if args.holidays != "":
+            holidays_args = args.holidays.split(",")
+            for holiday_str in holidays_args:
+                try:
+                    holiday_date = parse_date(holiday_str)
+                    if start_date <= holiday_date <= end_date:
+                        holidays.append(holiday_date)
+                    else:
+                        print("The date is outside the exam period, ignored...")
+                except ValueError:
+                    print("Incorrect date format, try again or press Enter to finish.")
+    except IndexError:
+        pass
     return start_date, end_date, max_exam_days, holidays
 
 # دالة لإنشاء قائمة بالأيام الصالحة للامتحانات
 def get_valid_exam_days(start_date, end_date, holidays):
+    if args.fridays:
+        valid_days = []
+        current_date = start_date
+        while current_date <= end_date:
+            if current_date not in holidays:
+                valid_days.append(current_date)
+            current_date += timedelta(days=1)
+        return valid_days
     valid_days = []
     current_date = start_date
     while current_date <= end_date:
@@ -152,26 +178,160 @@ def minimize_consecutive_days(students_data, exam_schedule, valid_days):
     
     return adjusted_schedule
 
+def calculate_consecutive_exam_stats(students_data, exam_schedule, valid_days):
+    date_mapping = {i + 1: valid_days[i] for i in range(len(valid_days))}
+    result_counter = Counter()
+
+    for student_name, data in students_data.items():
+        exam_days = sorted([
+            day for course in data['courses']
+            if (day := exam_schedule.get(course)) is not None
+        ])
+        
+        # Convert to actual dates for accurate gap counting
+        exam_dates = [date_mapping[day].date() for day in exam_days if day in date_mapping]
+        if not exam_dates:
+            continue
+
+        # Find the longest sequence of consecutive dates
+        max_streak = streak = 1
+        for i in range(1, len(exam_dates)):
+            if (exam_dates[i] - exam_dates[i - 1]).days == 1:
+                streak += 1
+                max_streak = max(max_streak, streak)
+            else:
+                streak = 1
+
+        result_counter[max_streak] += 1
+
+    return result_counter
+
+def find_same_day_conflicts(students_data, exam_schedule):
+    """
+    Return a dict of students who have 2+ exams on the same day:
+      { student_name: { day_int: [course1, course2, …], … }, … }
+    """
+    conflicts = {}
+    for stu, info in students_data.items():
+        day_map = {}
+        for course in info['courses']:
+            day = exam_schedule.get(course)
+            if day is None:
+                continue
+            day_map.setdefault(day, []).append(course)
+        # keep only days with multiple courses
+        bad = {d: courses for d, courses in day_map.items() if len(courses) > 1}
+        if bad:
+            conflicts[stu] = bad
+    return conflicts
+
+def create_zip_from_paths(paths, zip_name="output.zip"):
+    with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for path in paths:
+            if os.path.isfile(path):
+                arcname = os.path.basename(path)
+                zipf.write(path, arcname)
+            elif os.path.isdir(path):
+                for foldername, _, filenames in os.walk(path):
+                    for filename in filenames:
+                        file_path = os.path.join(foldername, filename)
+                        arcname = os.path.relpath(file_path, os.path.dirname(path))
+                        zipf.write(file_path, arcname)
+            else:
+                print(f"Skipped: {path} (not found)")
+
 # ضغط الجدول ليكون في عدد الأيام المحدد
-def compress_schedule(students_data, exam_schedule, valid_days, max_days):
-    current_max_day = max(exam_schedule.values())
-    if current_max_day <= max_days:
-        return exam_schedule
-    
-    schedule_items = sorted([(day, course) for course, day in exam_schedule.items()])
-    
+def compress_schedule(students_data, exam_schedule, valid_days, max_days, max_attempts=200):
+    """
+    Tries to produce a compact exam schedule with no conflicts,
+    avoiding same-day exams and long streaks. Falls back to a simple
+    greedy schedule if no good one is found.
+    """
+    global G
+
+    course_to_students = defaultdict(set)
+    for stu, info in students_data.items():
+        for c in info['courses']:
+            course_to_students[c].add(stu)
+
+    original_courses = list(exam_schedule.keys())
+    MAX_STREAK = 3  # More realistic for exam stress
+
+    def would_exceed_max_streak(days_set, candidate_day):
+        all_days = sorted(days_set | {candidate_day})
+        streak = 1
+        for i in range(1, len(all_days)):
+            if all_days[i] == all_days[i - 1] + 1:
+                streak += 1
+                if streak > MAX_STREAK:
+                    return True
+            else:
+                streak = 1
+        return False
+
+    def try_once(course_order):
+        new_schedule = {}
+        student_days = {stu: set() for stu in students_data}
+
+        for course in course_order:
+            # 1. No conflict with adjacent courses in the graph
+            days_ok = [d for d in range(1, max_days + 1)
+                       if not any(new_schedule.get(nb) == d for nb in G[course])]
+
+            # 2. No student has two exams on same day
+            days_ok = [d for d in days_ok
+                       if all(d not in student_days[stu] for stu in course_to_students[course])]
+
+            # 3. No student exceeds max streak
+            days_ok = [d for d in days_ok
+                       if all(not would_exceed_max_streak(student_days[stu], d)
+                              for stu in course_to_students[course])]
+
+            if not days_ok:
+                return None
+
+            # 4. Prefer spacing exams apart
+            def score(d):
+                gaps = []
+                for stu in course_to_students[course]:
+                    dd = student_days[stu]
+                    gaps.append(max_days if not dd else min(abs(d - d0) for d0 in dd))
+                return min(gaps)
+
+            best_day = max(days_ok, key=lambda d: (score(d), d))
+            new_schedule[course] = best_day
+            for stu in course_to_students[course]:
+                student_days[stu].add(best_day)
+
+        return new_schedule
+
+    # Attempt with best order first
+    base_order = sorted(original_courses, key=lambda c: -len(course_to_students[c]))
+    attempt_orders = [base_order]
+
+    # Then try shuffled versions
+    for _ in range(max_attempts - 1):
+        order = base_order[:]
+        random.shuffle(order)
+        attempt_orders.append(order)
+
+    for idx, order in enumerate(attempt_orders):
+        result = try_once(order)
+        if result:
+            return result
+
+    # ✅ Greedy fallback
     compressed_schedule = {}
-    current_day = 1
     courses_on_day = defaultdict(list)
-    
-    for _, course in schedule_items:
+    current_day = 1
+
+    for _, course in sorted([(exam_schedule[c], c) for c in exam_schedule]):
         while True:
             conflict = False
-            for other_course in courses_on_day[current_day]:
-                if (course, other_course) in G.edges or (other_course, course) in G.edges:
+            for other in courses_on_day[current_day]:
+                if (course, other) in G.edges or (other, course) in G.edges:
                     conflict = True
                     break
-            
             if not conflict and current_day <= max_days:
                 compressed_schedule[course] = current_day
                 courses_on_day[current_day].append(course)
@@ -179,10 +339,12 @@ def compress_schedule(students_data, exam_schedule, valid_days, max_days):
             else:
                 current_day += 1
                 if current_day > max_days:
-                    print(f"Warning: It's not possible to schedule all exams in {max_days} days while maintaining the constraints.")
+                    print("Conflicts", end="")
+                    sys.exit(1)
                     return compressed_schedule
-    
     return compressed_schedule
+
+
 
 # تحويل أرقام الأيام إلى تواريخ فعلية
 def map_days_to_dates(exam_schedule, valid_days):
@@ -238,12 +400,68 @@ def create_pdf_schedule(exam_schedule, valid_days, output_file):
     doc.build(elements)
     print(f"PDF file created: {output_file}")
 
+def generate_student_schedules_plot(students_data, exam_schedule, valid_days, output_folder="student_schedules"):
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+    
+    # Map day numbers to actual dates
+    day_to_date = {i + 1: valid_days[i].strftime('%Y-%m-%d') for i in range(len(valid_days))}
+    
+    for student_name, data in students_data.items():
+        courses = data['courses']
+        student_exams = []
+        
+        for course in courses:
+            day = exam_schedule.get(course)
+            if day and day <= len(valid_days):
+                student_exams.append((course, day_to_date[day]))
+        
+        if not student_exams:
+            continue
+
+        student_exams.sort(key=lambda x: x[1])  # Sort by date
+        
+        fig, ax = plt.subplots(figsize=(14, 1 + len(student_exams)*0.5))
+        y_labels = []
+        y_pos = []
+
+        for idx, (course, date_str) in enumerate(student_exams):
+            date = pd.to_datetime(date_str)
+            ax.barh(idx, 1, left=date, height=0.4, align='center',
+                    color='skyblue', edgecolor='black')
+            y_labels.append(course)
+            y_pos.append(idx)
+
+        ax.set_yticks(y_pos)
+        ax.set_yticklabels(y_labels, fontsize=10)
+
+        # Set x-axis to tick every 2 days
+        ax.xaxis.set_major_locator(DayLocator(interval=1))
+        ax.xaxis.set_major_formatter(DateFormatter('%d'))  # Day only
+
+        ax.set_xlabel('Day of Month', fontsize=12)
+        arabic_student_name = prepare_arabic_text(student_name)
+        ax.set_title(f"Exam Schedule for {arabic_student_name}", fontsize=14)
+        ax.grid(axis='x', linestyle='--', alpha=0.6)
+
+        # Optional: make sure labels fit well
+        plt.setp(ax.get_xticklabels(), rotation=0, ha='center')
+        plt.tight_layout(pad=2)
+
+
+        # Save the figure
+        safe_name = "".join(c if c.isalnum() else "_" for c in student_name)
+        plt.savefig(os.path.join(output_folder, f"{safe_name}.png"))
+        plt.close()
+
 # الدالة الرئيسية
 def create_exam_schedule(csv_file):
     global G
     # الحصول على تواريخ الامتحانات وأيام الإجازة
     start_date, end_date, max_exam_days, holidays = get_exam_period()
     valid_days = get_valid_exam_days(start_date, end_date, holidays)
+    if max_exam_days == 1337:
+        max_exam_days = len(valid_days)
     
     if len(valid_days) < max_exam_days:
         print(f"Error: The number of valid days ({len(valid_days)}) is less than the required number of exam days ({max_exam_days}).")
@@ -254,35 +472,43 @@ def create_exam_schedule(csv_file):
     exam_schedule = schedule_exams(G, courses)
     exam_schedule = minimize_consecutive_days(students_data, exam_schedule, valid_days)
     exam_schedule = compress_schedule(students_data, exam_schedule, valid_days, max_exam_days)
+
+    conflicts = find_same_day_conflicts(students_data, exam_schedule)
+    if conflicts:
+        print("Conflicts found")
+        sys.exit(1)
+
+
     date_schedule = map_days_to_dates(exam_schedule, valid_days)
+    consecutive_stats = calculate_consecutive_exam_stats(students_data, exam_schedule, valid_days)
+
+    for days, count in sorted(consecutive_stats.items(), reverse=True):
+        open("description.txt", "a").write(f"{days} consecutive days: {count} students\n")
+        print(f"{days} consecutive days: {count} students")
     
     script_dir = os.path.dirname(os.path.abspath(__file__))
     pdf_output = os.path.join(script_dir, "exam_schedule.pdf")
     create_pdf_schedule(exam_schedule, valid_days, pdf_output)
-    
-    total_days = max(exam_schedule.values()) if exam_schedule else 0
-    print(f"Total number of exam days: {total_days}")
-    
+
+    if args.plot == "generate_plots":
+        generate_student_schedules_plot(students_data, exam_schedule, valid_days)
+        create_zip_from_paths(["student_schedules", "exam_schedule.pdf", "description.txt"], "output.zip")
+    else:
+        create_zip_from_paths(["exam_schedule.pdf", "description.txt"], "output.zip")
+
     return date_schedule
 
 # تشغيل البرنامج
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("الاستخدام: python script.py <csv_file>")
-        print("مثال: python .\\exam_scheduler.py Test.csv")
-        sys.exit(1)
-    
-    csv_file = sys.argv[1]
-    
+    args = parse_args()
+
+    csv_file =  args.csv_file
     if not os.path.exists(csv_file):
         print(f"خطأ: ملف '{csv_file}' مش موجود في المجلد الحالي.")
         sys.exit(1)
     
     try:
         exam_schedule = create_exam_schedule(csv_file)
-        print("عينة من جدول الامتحانات:")
-        for course, date in list(exam_schedule.items())[:5]:
-            print(f"المادة {course} في تاريخ {date}")
     except FileNotFoundError:
         print(f"خطأ: ملف '{csv_file}' مش موجود.")
     except PermissionError as e:
