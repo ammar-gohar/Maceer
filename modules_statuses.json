@@ -13,5 +13,6 @@
     "Halls": true,
     "Semesters": true,
     "Levels": true,
-    "Quizzes": true
+    "Quizzes": true,
+    "Reports": true
 }

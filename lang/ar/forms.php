@@ -81,4 +81,7 @@ return [
     'add_questions' => 'إضافة الأسئلة',
     'edit_questions' => 'تعديل الأسئلة',
     'back' => 'عودة',
+
+    'include_fridays' => 'تضمين أيام الجمعة',
+    'generate' => 'إنشاء',
 ];

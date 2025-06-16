@@ -18,6 +18,11 @@ class Attemp extends Model
     protected $guarded = [];
     protected $table = 'attempts';
 
+    public function answers()
+    {
+        return $this->hasMany(Answer::class, 'attempt_id');
+    }
+
     // protected static function newFactory(): AttempFactory
     // {
     //     // return AttempFactory::new();

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Modules\Courses\Livewire\Pages\CourseLibrary;
 use Modules\Courses\Livewire\Pages\CourseRequests;
 use Modules\Courses\Livewire\Pages\CourseRequestsStats;
 use Modules\Courses\Livewire\Pages\CoursesCreate;
@@ -65,6 +66,9 @@ Route::group([
         Route::get('/{code}/edit', CoursesEdit::class)
             ->middleware('permission:courses.edit')
             ->name('courses.edit');
+
+        Route::get('/{code}/library', CourseLibrary::class)
+            ->name('courses.library');
 
     });
 

@@ -36,7 +36,7 @@ class QuizzesShowStudent extends Component
         $this->courseId = $course->id;
         $this->questions = $quiz->questions()->with('options', 'correct_option')->get()->shuffle();
 
-        if($quiz->semester_id !== $this->semesterId || Carbon::now() < $quiz->start_time || Carbon::now() > $quiz->end_time || !$quiz->is_active || !Auth::user()->current_enrolled_courses->contains('id', $quiz->course_id) || $quiz->attempts?->where('student_id', Auth::id())->first()?->submitted_at !== null)
+        if($quiz->semester_id !== $this->semesterId || Carbon::now() < $quiz->start_time || Carbon::now() > $quiz->end_time || !Auth::user()->current_enrolled_courses->contains('id', $quiz->course_id) || $quiz->attempts?->where('student_id', Auth::id())->first()?->submitted_at !== null)
         {
             return $this->redirect('/quizzes');
         }

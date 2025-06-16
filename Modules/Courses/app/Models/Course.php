@@ -10,11 +10,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Levels\Models\Level;
 use Modules\Students\Models\Student;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 // use Modules\Courses\Database\Factories\CourseFactory;
 
-class Course extends Model
+class Course extends Model implements HasMedia
 {
+
+    use InteractsWithMedia;
     use HasFactory;
     use HasUuids;
     use SoftDeletes;

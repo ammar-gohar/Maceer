@@ -25,38 +25,40 @@
                         @php
                             $studentAttempt = $quiz->studentAttempt(Auth::id())->first()
                         @endphp
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $quiz->course->name }}</td>
-                        <td dir="ltr">{{ $quiz->title }}</td>
-                        <td>{{ $studentAttempt?->score ?? __('modules.quizzes.not_taken') }}</td>
-                        <td>{{ $quiz->total_marks }}</td>
-                        <td dir="ltr">{{ \Carbon\Carbon::parse($quiz->start_time)->format('Y-m-d, h:i A') }}</td>
-                        <td dir="ltr">{{ \Carbon\Carbon::parse($quiz->end_time)->format('Y-m-d, h:i A') }}</td>
-                        <td>{{ $quiz->duration_minutes }}</td>
-                        <td>
-                            @if (\Carbon\Carbon::now() < $quiz->start_time)
-                                <div>
-                                    @lang('modules.quizzes.starts_at')
-                                    <span dir="ltr">{{ \Carbon\Carbon::parse($quiz->start_time)->format('Y-m-d, h:i A') }}</span>
-                                </div>
-                            @elseif ($studentAttempt?->submitted_at !== null)
-                                <div>
-                                    @lang('modules.quizzes.submitted_at')
-                                    <span dir="ltr">{{ \Carbon\Carbon::parse($studentAttempt->submitted_at)->format('Y-m-d, h:i A') }}</span>
-                                </div>
-                            @elseif (\Carbon\Carbon::now() > $quiz->end_time)
-                                <div>
-                                    @lang('modules.quizzes.quiz_ended')
-                                </div>
-                            @else
-                                <div>
-                                    <button type="button" class="btn btn-primary" wire:click='show_modal("{{ $quiz->id }}")'>
-                                        <i class="fa-solid fa-pen "></i>
-                                        @lang('modules.quizzes.take_quiz')
-                                    </button>
-                                </div>
-                            @endif
-                        </td>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $quiz->course->name }}</td>
+                            <td dir="ltr">{{ $quiz->title }}</td>
+                            <td>{{ $studentAttempt?->score ?? __('modules.quizzes.not_taken') }}</td>
+                            <td>{{ $quiz->total_marks }}</td>
+                            <td dir="ltr">{{ \Carbon\Carbon::parse($quiz->start_time)->format('Y-m-d, h:i A') }}</td>
+                            <td dir="ltr">{{ \Carbon\Carbon::parse($quiz->end_time)->format('Y-m-d, h:i A') }}</td>
+                            <td>{{ $quiz->duration_minutes }}</td>
+                            <td>
+                                @if (\Carbon\Carbon::now() < $quiz->start_time)
+                                    <div>
+                                        @lang('modules.quizzes.starts_at')
+                                        <span dir="ltr">{{ \Carbon\Carbon::parse($quiz->start_time)->format('Y-m-d, h:i A') }}</span>
+                                    </div>
+                                @elseif ($studentAttempt?->submitted_at !== null)
+                                    <div>
+                                        @lang('modules.quizzes.submitted_at')
+                                        <span dir="ltr">{{ \Carbon\Carbon::parse($studentAttempt->submitted_at)->format('Y-m-d, h:i A') }}</span>
+                                    </div>
+                                @elseif (\Carbon\Carbon::now() > $quiz->end_time)
+                                    <div>
+                                        @lang('modules.quizzes.quiz_ended')
+                                    </div>
+                                @else
+                                    <div>
+                                        <button type="button" class="btn btn-primary" wire:click='show_modal("{{ $quiz->id }}")'>
+                                            <i class="fa-solid fa-pen "></i>
+                                            @lang('modules.quizzes.take_quiz')
+                                        </button>
+                                    </div>
+                                @endif
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

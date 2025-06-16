@@ -88,6 +88,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Professor::class);
     }
 
+    public function current_teaching()
+    {
+        return $this->belongsToMany(Course::class, 'schedule', 'professor_id', 'course_id')
+                    ->withPivot(['semester_id'])
+                    ->wherePivot('semester_id', Semester::where('is_current', 1)->first()->id);
+    }
+
     // public function moderator(): HasOne
     // {
     //     return $this->hasOne(Student::class);

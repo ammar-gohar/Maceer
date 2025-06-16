@@ -29,7 +29,7 @@
     <div class="sidebar-wrapper">
       <nav class="mt-2">
 
-            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="false">
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
                     <a href="{{ route('home') }}" class="nav-link">
@@ -41,7 +41,7 @@
             </ul>
         <!--begin::Sidebar Menu-->
         @can('semseter.settings')
-            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="false">
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
                     <a href="{{ route('semester') }}" class="nav-link">
@@ -54,12 +54,25 @@
         @endcan
 
         {{-- @can('semseter.settings') --}}
-            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="false">
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
                     <a href="{{ route('quizzes.index-student') }}" class="nav-link">
-                        <i class="nav-icon fa fa-file-pen"></i>
+                        <i class="nav-icon fa-solid fa fa-solid fa-file-pen"></i>
                         <p>@lang('sidebar.quizzes.index-student')</p>
+                    </a>
+                </li>
+
+            </ul>
+        {{-- @endcan --}}
+
+        {{-- @can('semseter.settings') --}}
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
+
+                <li class="nav-item">
+                    <a href="{{ route('exam.schedule.generate') }}" class="nav-link">
+                        <i class="nav-icon fa-solid fa fa-solid fa-file-pen"></i>
+                        <p>@lang('sidebar.exam_schedule_generate')</p>
                     </a>
                 </li>
 
@@ -68,12 +81,12 @@
 
             @canany(['admins.index', 'admins.create'])
                 {{-- Admin sidebar --}}
-                <x-sidebar-list module="admins" icon="fa-user-tie">
+                <x-sidebar-list module="admins" icon="fa-solid fa-user-tie">
                     @can('admins.index')
-                        <x-sidebar-item icon="fa-user-group" route="admins.index" />
+                        <x-sidebar-item icon="fa-solid fa-user-group" route="admins.index" />
                     @endcan
                     @can('admins.create')
-                        <x-sidebar-item icon="fa-user-plus" route="admins.create" />
+                        <x-sidebar-item icon="fa-solid fa-user-plus" route="admins.create" />
                     @endcan
                 </x-sidebar-list>
                 {{-- end::admins sidebar --}}
@@ -81,12 +94,12 @@
 
             @canany(['moderators.index', 'moderators.create'])
                 {{-- Moderators sidebar --}}
-                <x-sidebar-list module="moderators" icon="fa-user-gear">
+                <x-sidebar-list module="moderators" icon="fa-solid fa-user-gear">
                     @can('moderators.index')
-                        <x-sidebar-item icon="fa-user-group" route="moderators.index" />
+                        <x-sidebar-item icon="fa-solid fa-user-group" route="moderators.index" />
                     @endcan
                     @can('moderators.create')
-                        <x-sidebar-item icon="fa-user-plus" route="moderators.create" />
+                        <x-sidebar-item icon="fa-solid fa-user-plus" route="moderators.create" />
                     @endcan
                 </x-sidebar-list>
                 {{-- end::moderators sidebar --}}
@@ -94,12 +107,12 @@
 
             @canany(['professors.index', 'professors.create'])
                 {{-- Professors sidebar --}}
-                <x-sidebar-list module="professors" icon="fa-chalkboard-user">
+                <x-sidebar-list module="professors" icon="fa-solid fa-chalkboard-user">
                     @can('professors.index')
-                        <x-sidebar-item icon="fa-user-group" route="professors.index" />
+                        <x-sidebar-item icon="fa-solid fa-user-group" route="professors.index" />
                     @endcan
                     @can('professors.create')
-                        <x-sidebar-item icon="fa-user-plus" route="professors.create" />
+                        <x-sidebar-item icon="fa-solid fa-user-plus" route="professors.create" />
                     @endcan
                 </x-sidebar-list>
                 {{-- end::Professors sidebar --}}
@@ -107,12 +120,12 @@
 
             @canany(['students.index', 'students.create'])
                 {{-- Students sidebar --}}
-                <x-sidebar-list module="students" icon="fa-user-graduate">
+                <x-sidebar-list module="students" icon="fa-solid fa-user-graduate">
                     @can('students.index')
-                        <x-sidebar-item icon="fa-user-group" route="students.index" />
+                        <x-sidebar-item icon="fa-solid fa-user-group" route="students.index" />
                     @endcan
                     @can('students.create')
-                        <x-sidebar-item icon="fa-user-plus" route="students.create" />
+                        <x-sidebar-item icon="fa-solid fa-user-plus" route="students.create" />
                     @endcan
                 </x-sidebar-list>
                 {{-- end::sutdents sidebar --}}
@@ -120,12 +133,12 @@
 
             @canany(['roles.index', 'roles.create'])
                 {{-- Roles sidebar --}}
-                <x-sidebar-list module="roles" icon="fa-gear">
+                <x-sidebar-list module="roles" icon="fa-solid fa-gear">
                     @can('roles.index')
-                        <x-sidebar-item icon="fa-gears" route="roles.index" />
+                        <x-sidebar-item icon="fa-solid fa-gears" route="roles.index" />
                     @endcan
                     @can('roles.create')
-                        <x-sidebar-item icon="fa-plus" route="roles.create" />
+                        <x-sidebar-item icon="fa-solid fa-plus" route="roles.create" />
                     @endcan
                 </x-sidebar-list>
                 {{-- end::Roles sidebar --}}
@@ -133,27 +146,27 @@
 
             @canany(['courses.index', 'courses.create', 'courses.requests', 'courses.schedule', 'courses.my-courses'])
                 {{-- Courses sidebar --}}
-                <x-sidebar-list module="courses" icon="fa-book-open">
+                <x-sidebar-list module="courses" icon="fa-solid fa-book-open">
                     @can('courses.index')
-                        <x-sidebar-item icon="fa-list" route="courses.index" />
+                        <x-sidebar-item icon="fa-solid fa-list" route="courses.index" />
                     @endcan
                     @can('courses.create')
-                        <x-sidebar-item icon="fa-plus" route="courses.create" />
+                        <x-sidebar-item icon="fa-solid fa-plus" route="courses.create" />
                     @endcan
                     @can('courses.requests')
-                        <x-sidebar-item icon="fa-list" route="courses.requests" />
+                        <x-sidebar-item icon="fa-solid fa-list" route="courses.requests" />
                     @endcan
                     @can('courses.schedule')
-                        <x-sidebar-item icon="fa-calendar-days" route="courses.schedule" />
+                        <x-sidebar-item icon="fa-solid fa-calendar-days" route="courses.schedule" />
                     @endcan
                     @can('courses.student-schedule')
-                        <x-sidebar-item icon="fa-calendar-days" route="courses.student-schedule" />
+                        <x-sidebar-item icon="fa-solid fa-calendar-days" route="courses.student-schedule" />
                     @endcan
                     @can('courses.student.show')
-                        <x-sidebar-item icon="fa-list" route="courses.student-show" />
+                        <x-sidebar-item icon="fa-solid fa-list" route="courses.student-show" />
                     @endcan
                     @can('courses.professor.show')
-                        <x-sidebar-item icon="fa-list" route="courses.professor-show" />
+                        <x-sidebar-item icon="fa-solid fa-list" route="courses.professor-show" />
                     @endcan
                 </x-sidebar-list>
                 {{-- end::Courses sidebar --}}
@@ -161,12 +174,12 @@
 
             @canany(['halls.index', 'halls.create'])
                 {{-- Halls sidebar --}}
-                <x-sidebar-list module="halls" icon="fa-chalkboard">
+                <x-sidebar-list module="halls" icon="fa-solid fa-chalkboard">
                     @can('halls.index')
-                        <x-sidebar-item icon="fa-list" route="halls.index" />
+                        <x-sidebar-item icon="fa-solid fa-list" route="halls.index" />
                     @endcan
                     @can('halls.create')
-                        <x-sidebar-item icon="fa-plus" route="halls.create" />
+                        <x-sidebar-item icon="fa-solid fa-plus" route="halls.create" />
                     @endcan
                 </x-sidebar-list>
                 {{-- end::Halls sidebar --}}

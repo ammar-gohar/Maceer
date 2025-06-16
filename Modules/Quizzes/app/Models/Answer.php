@@ -17,6 +17,16 @@ class Answer extends Model
      */
     protected $guarded = [];
 
+    public function attempt()
+    {
+        return $this->belongsTo(Attemp::class, 'attempt_id');
+    }
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
+
     // protected static function newFactory(): AnswerFactory
     // {
     //     // return AnswerFactory::new();

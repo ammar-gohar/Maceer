@@ -20,12 +20,15 @@
                             <td class="text-center">{{ $course->name }}</td>
                             <td class="text-center">{{ $course->current_semester_enrollments_count }}</td>
                             <td>
-                                <a href="{{ route('courses.quizzes', ['courseId' => $course->id]) }}" class="btn btn-sm btn-secondary">
-                                    <i class="fa-solid fa-eye"></i> {{ App::isLocale('ar') ? 'الامتحانات' : 'Quizzes' }}
+                                <a href="{{ route('courses.quizzes', ['courseId' => $course->id]) }}" class="btn btn-sm btn-primary" title="{{ App::isLocale('ar') ? 'الامتحانات' : 'Quizzes' }}">
+                                    <i class="fa-solid fa-file-pen"></i>
                                 </a>
-                                <button href="#" class="btn btn-sm btn-secondary" wire:click='show_modal("{{ $course->id }}", "{{ $course->name }}")'>
+                                <button type="button" class="btn btn-sm btn-secondary" wire:click='show_modal("{{ $course->id }}", "{{ $course->name }}")'>
                                     <i class="fa-solid fa-eye"></i> {{ App::isLocale('ar') ? 'الدرجات' : 'Marks' }}
                                 </button>
+                                <a href="{{ route('courses.library', ['code' => $course->code]) }}" class="btn btn-sm btn-warning" title="{{ App::isLocale('ar') ? 'المكتبة' : 'Library' }}">
+                                    <i class="bi bi-folder-fill"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

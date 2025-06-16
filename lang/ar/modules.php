@@ -81,6 +81,14 @@ return [
         'not_revealed' => 'غير مٌعلن',
         'enrollments_count' => 'عدد الطلاب المسجلين هذا الفصل',
         'show_marks' => 'عرض كشف درجات مادة :course',
+        'library' => [
+            'index' => 'عرض ملفات المقرر ":course"',
+            'add' => 'إضافة ملف',
+            'upload' => 'ابدأ الرفع',
+            'cancel' => 'إلغاء الرفع',
+            'delete' => 'حذف الملف',
+            'success' => 'نجح الرفع',
+        ]
     ],
 
     'halls' => [
@@ -141,6 +149,7 @@ return [
         'false' => 'خطأ',
         'correct_answer' => 'الإجابة الصحيحة',
         'enter_question' => 'اكتب نص السؤال',
+        'enter_answer' => 'اكتب إجابة',
         'select_correct' => 'اختر الإجابة الصحيحة',
         'enter_correct' => 'اكتب الإجابة الصحيحة',
         'option' => 'الخيار',
@@ -154,15 +163,26 @@ return [
             'success' => 'نجح تعديل الامتحان',
             'fail' => 'حدث خطأ أثناء تعديل الامتحان',
         ],
+        'score_updated' => [
+            'success' => 'نجح تعديل الدرجة',
+            'fail' => 'فشل تعديل الدرجة',
+        ],
         'take_quiz' => 'بدء الامتحان',
         'submitted_at' => 'وُثّق في',
         'quiz_ended' => 'انتهى وقت هذا الامتحان',
         'empty' => 'لا يوجد امتحانات',
         'not_taken' => 'لم يُحلّ بعد',
-        'score' => 'درجتك',
+        'score' => 'الدرجة',
         'duration_minutes' => 'المدة بالدقائق',
         'submitted' => 'سُلّم الامتحان بنجاح، درجتك هي:',
         'time_left' => 'الوقت المتبقي',
+        'attempts_index' => 'عرض المحاولات',
     ],
+
+    'reports' => [
+        'generate_exam_schedule' => 'إنشاء جدول الامتحانات',
+        'holiday_dates' => 'أيام العطلة',
+        'add_holiday' => 'إضافة يوم عطلة',
+    ]
 
 ];

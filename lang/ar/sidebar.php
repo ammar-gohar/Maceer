@@ -67,4 +67,6 @@ return [
         'index-student' => 'عرض الامتحانات',
     ],
 
+    'exam_schedule_generate' => 'إنشاء جدول الامتحانات',
+
 ];
