@@ -1,4 +1,4 @@
-<x-layouts.app title="{{ __('general.reset_password') }} | Schoolary" >
+<x-layouts.app title="{{ __('general.reset_password') }} | Maceer" >
 
 <div class="container">
     <div class="row justify-content-center">

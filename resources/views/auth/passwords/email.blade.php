@@ -1,4 +1,4 @@
-<x-layouts.app title="{{ __('forms.pasword.email') }} | Schoolary" >
+<x-layouts.app title="{{ __('forms.pasword.email') }} | Maceer" >
 
     <div class="login-page bg-body-dark">
 
@@ -19,7 +19,7 @@
         <div class="login-box" style="width:500px;">
             <div class="card card-outline card-dark">
                 <div class="card-header">
-                    <h1 class="mb-0 text-center"><b>Schoolary</h1>
+                    <h1 class="mb-0 text-center"><b>Maceer</h1>
                 </div>
                 <div class="card-body login-card-body">
                     <p class="">@lang('general.passwords.reset')</p>

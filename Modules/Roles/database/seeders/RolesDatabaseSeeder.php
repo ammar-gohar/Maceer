@@ -314,8 +314,6 @@ class RolesDatabaseSeeder extends Seeder
             'module' => 'Quizzes',
         ]);
 
-        Permission::
-
         $this->call([]);
     }
 }

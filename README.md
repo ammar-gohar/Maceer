@@ -16,7 +16,7 @@ A **Laravel-based** School Management System where students can check their mark
 
 ```bash
 git clone https://github.com/ammar-gohar/Maceer.git
-cd Schoolary
+cd Maceer
 ```
 
 ### 2️⃣ Install Dependencies
