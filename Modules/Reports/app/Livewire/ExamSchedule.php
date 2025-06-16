@@ -37,11 +37,15 @@ class ExamSchedule extends Component
 
     public function generate_exam()
     {
-        $this->validate([
+        $data = $this->validate([
             'start_date'  => 'required|date',
             'end_date'    => 'required|date|after_or_equal:start_date',
             'holidays.*'  => 'nullable|date|after_or_equal:start_date|before_or_equal:end_date',
         ]);
+
+        $start_date = $data['start_date'];
+        $end_date = $data['end_date'];
+        $holidays = $data['holidays']; // ARRAY
 
         $students = User::with(['current_enrollments', 'current_enrollments.course'])->has('current_enrollments')->get();
 
