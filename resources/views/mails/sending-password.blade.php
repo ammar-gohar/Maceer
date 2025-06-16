@@ -1,8 +1,8 @@
 <x-mail::message>
-# Your Schoolary account
+# Your Maceer account
 
 Hello, {{ $name }}
-Your account on Schoolary is now ready with password <span style="background: lightgray; padding: 0.25rem 0.5rem;">{{ $password }}</span>.
+Your account on Maceer is now ready with password <span style="background: lightgray; padding: 0.25rem 0.5rem;">{{ $password }}</span>.
 Once you login you can change your password as you wish!
 
 {{-- <x-mail::button :url="$url">
