@@ -34,6 +34,12 @@ class page extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.page');
+        return view('components.page', [
+            'module' => $this->module,
+            'title' => $this->title,
+            'show_index_button' => $this->show_index_button,
+            'show_edit_button' => $this->show_edit_button,
+            'show_create_button' => $this->show_create_button,
+        ]);
     }
 }
