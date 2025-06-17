@@ -9,14 +9,6 @@ use Illuminate\View\Component;
 class page extends Component
 {
 
-    public $show_index_button;
-    public $show_create_button;
-    public $show_edit_button;
-    public $show_delete_button;
-
-    public $title;
-    public $module;
-
     public function __construct(
         $show_index_button = false,
         $show_create_button = false,
@@ -25,12 +17,6 @@ class page extends Component
         $title = '',
         $module = '',
     ) {
-        $this->show_index_button = $show_index_button;
-        $this->show_create_button = $show_create_button;
-        $this->show_edit_button = $show_edit_button;
-        $this->show_delete_button = $show_delete_button;
-        $this->title = $title;
-        $this->module = $module;
     }
 
 
