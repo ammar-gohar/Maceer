@@ -27,6 +27,7 @@ class page extends Component
         $this->show_index_button = $show_index_button;
         $this->show_edit_button = $show_edit_button;
         $this->show_create_button = $show_create_button;
+        $this->show_create_button = $show_delete_button;
     }
 
     /**
@@ -40,6 +41,7 @@ class page extends Component
             'show_index_button' => $this->show_index_button,
             'show_edit_button' => $this->show_edit_button,
             'show_create_button' => $this->show_create_button,
+            'show_delete_button' => $this->show_delete_button,
         ]);
     }
 }
