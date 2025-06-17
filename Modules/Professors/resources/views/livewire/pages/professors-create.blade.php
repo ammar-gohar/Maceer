@@ -1,4 +1,4 @@
-<x-page module="professors" title="sidebar.professors.create" show-index-button="true">
+<x-page module="professors" title="sidebar.professors.create" show_index_button="true">
 
     <!--begin::Form-->
     <form wire:submit='store()'>

@@ -3,22 +3,22 @@
     <div class="px-4 card-header row">
         <div class="card-title d-flex align-items-center col-md-6 fs-4 fw-bold">@lang($title)</div>
         <div class="col-md-6">
-            @if ($showCreateButton)
+            @if ($show_create_button)
                 @can("$module.create")
                     <a href="{{ route($module . '.create') }}" class="mb-2 float-end btn btn-dark me-2"><i class="mx-1 fa-solid fa-plus"></i> @lang('modules.' . $module . '.create')</a>
                 @endcan
             @endif
-            @if ($showEditButton)
+            @if ($show_edit_button)
                 @can("$module.edit")
-                    <a href="{{ route($module . '.edit', $showEditButton) }}" class="mb-2 float-end btn btn-dark me-2"><i class="mx-1 fa-solid fa-pen-to-square"></i> @lang('modules.' . $module . '.edit')</a>
+                    <a href="{{ route($module . '.edit', $show_edit_button) }}" class="mb-2 float-end btn btn-dark me-2"><i class="mx-1 fa-solid fa-pen-to-square"></i> @lang('modules.' . $module . '.edit')</a>
                 @endcan
             @endif
-            @if ($showIndexButton)
+            @if ($show_index_button)
                 @can("$module.index")
                     <a href="{{ route($module . '.index') }}" class="mb-2 float-end btn btn-secondary me-2"><i class="mx-1 fa-regular fa-rectangle-list"></i> @lang('modules.' . $module . '.index')</a>
                 @endcan
             @endif
-            @if ($showDeleteButton)
+            @if ($show_delete_button)
                 @unless (isset($attributes['undeleteble']) && $attributes['undeleteble'])
                     @can("$module.delete")
                         <button class="mb-2 float-end btn btn-danger me-2"

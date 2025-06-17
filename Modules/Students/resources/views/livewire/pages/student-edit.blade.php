@@ -1,4 +1,4 @@
-<x-page title="modules.students.edit" module="students" show-index-button="true">
+<x-page title="modules.students.edit" module="students" show_index_button="true">
 
     <x-success-message :status="$status" module="students" operation="update" />
 

@@ -1,4 +1,4 @@
-<x-page title="modules.roles.index" module="roles" show-create-button="true">
+<x-page title="modules.roles.index" module="roles" show_create_button="true">
 
     <div class="card-body">
         <table class="table table-bordered table-striped" style="overflow-x: scroll;">

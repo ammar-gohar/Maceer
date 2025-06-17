@@ -1,4 +1,4 @@
-<x-page title="modules.roles.create" module="roles" show-index-button="true">
+<x-page title="modules.roles.create" module="roles" show_index_button="true">
 
     <x-success-message :status="$status" module="roles" operation="store" />
 

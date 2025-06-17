@@ -1,4 +1,4 @@
-<x-page module="halls" title="sidebar.halls.create" show-index-button="true">
+<x-page module="halls" title="sidebar.halls.create" show_index_button="true">
 
     <!--begin::Form-->
     <form wire:submit='store()'>

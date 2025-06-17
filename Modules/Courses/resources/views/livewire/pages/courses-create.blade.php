@@ -1,4 +1,4 @@
-<x-page module="courses" title="sidebar.courses.create" show-index-button="true">
+<x-page module="courses" title="sidebar.courses.create" show_index_button="true">
 
     <!--begin::Form-->
     <form wire:submit='add_course()'>

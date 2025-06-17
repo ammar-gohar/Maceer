@@ -1,4 +1,4 @@
-<x-page title="modules.students.show" module="students" show-index-button="true" show-edit-button="{{ $student->national_id }}">
+<x-page title="modules.students.show" module="students" show_index_button="true" show_edit_button="{{ $student->national_id }}">
 
     <!--begin::Body-->
     <div class="px-4 card-body">

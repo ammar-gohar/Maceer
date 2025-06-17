@@ -13,10 +13,10 @@ class page extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public $showIndexButton = false,
-        public $showCreateButton = false,
-        public $showEditButton = false,
-        public $showDeleteButton = false,
+        public $show_index_button = false,
+        public $show_create_button = false,
+        public $show_edit_button = false,
+        public $show_delete_button = false,
 
         public $title = '',
         public $module = '',

@@ -1,4 +1,4 @@
-<x-page title="sidebar.students.index" module="students" show-create-button="true">
+<x-page title="sidebar.students.index" module="students" show_create_button="true">
 
     <div class="card-body">
         @if ($students->count() > 0)

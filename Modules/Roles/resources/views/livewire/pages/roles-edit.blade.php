@@ -1,4 +1,4 @@
-<x-page title="modules.roles.edit" module="roles" show-index-button="true" show-delete-form="true" undeleteble="{{ $role->undeleteble }}">
+<x-page title="modules.roles.edit" module="roles" show_index_button="true" show-delete-form="true" undeleteble="{{ $role->undeleteble }}">
 
     <x-success-message :status="$status" module="roles" operation="update" />
 
