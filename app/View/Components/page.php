@@ -9,39 +9,36 @@ use Illuminate\View\Component;
 class page extends Component
 {
 
-    public $show_index_button = false;
-    public $show_create_button = false;
-    public $show_edit_button = false;
-    public $show_delete_button = false;
+    public $show_index_button;
+    public $show_create_button;
+    public $show_edit_button;
+    public $show_delete_button;
 
-    public $title = '';
-    public $module = '';
+    public $title;
+    public $module;
 
-
-    /**
-     * Create a new component instance.
-     */
-    public function __construct($show_index_button = false, $show_create_button = false, $show_edit_button = false, $show_delete_button = false, $title = '', $module = ''){
-        $this->module = $module;
-        $this->title = $title;
+    public function __construct(
+        $show_index_button = false,
+        $show_create_button = false,
+        $show_edit_button = false,
+        $show_delete_button = false,
+        $title = '',
+        $module = '',
+    ) {
         $this->show_index_button = $show_index_button;
-        $this->show_edit_button = $show_edit_button;
         $this->show_create_button = $show_create_button;
-        $this->show_create_button = $show_delete_button;
+        $this->show_edit_button = $show_edit_button;
+        $this->show_delete_button = $show_delete_button;
+        $this->title = $title;
+        $this->module = $module;
     }
+
 
     /**
      * Get the view / contents that represent the component.
      */
     public function render(): View|Closure|string
     {
-        return view('components.page', [
-            'module' => $this->module,
-            'title' => $this->title,
-            'show_index_button' => $this->show_index_button,
-            'show_edit_button' => $this->show_edit_button,
-            'show_create_button' => $this->show_create_button,
-            'show_delete_button' => $this->show_delete_button,
-        ]);
+        return view('components.page');
     }
 }
