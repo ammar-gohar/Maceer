@@ -1,4 +1,4 @@
-<x-page title="modules.halls.show" module="halls" show_index_button="true" show_edit_button="{{ $hall->id }}">
+<x-page title="modules.halls.show" module="halls" show_index_button="true" :show_edit_button="{{ $hall->id }}">
 
     <!--begin::Body-->
     <div class="px-4 card-body">
