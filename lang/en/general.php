@@ -6,5 +6,16 @@ return [
     'edit' => 'Edit',
     'delete' => 'Delete',
     'lang' => 'English',
-    'login' => 'Login'
+    'login' => 'Login',
+    'reset' => 'Reset',
+    'profile' => 'Profile',
+    'logout' => 'Logout',
+
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thursday' => 'Thursday',
+    'day' => 'Today',
 ];
