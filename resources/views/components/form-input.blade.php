@@ -3,10 +3,11 @@
     'type' => 'text',
     'wire_model',
     'span' => 6,
+    'required' => 'required',
 ])
 
 <div class="col-md-{{ $span }}">
-    <label for="{{ $name }}" class="form-label">@lang("forms.$name") *</label>
+    <label for="{{ $name }}" class="form-label">@lang("forms.$name") {{ $required ? '*' : '' }}</label>
     <div class="input-group">
         @if ($type == "email")
             <span class="input-group-text" id="basic-addon1">@</span>
@@ -19,7 +20,7 @@
             name="{{ $name }}"
             wire:model.blur="{{ $wire_model }}"
             {{ $attributes }}
-            required
+            {{ $required ?: '' }}
         />
         @error($wire_model)
             <div class="invalid-feedback">

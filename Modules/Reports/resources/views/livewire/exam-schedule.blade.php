@@ -20,8 +20,16 @@
                     <!--end::Col-->
 
                     <!--begin::Col-->
+                    <x-form-input name="schedules_number" label="Schedules Number" wire_model="schedules_number" type="number" min="0" span="6" />
+                    <!--end::Col-->
+
+                    <!--begin::Col-->
+                    <x-form-input name="csv" label="CSV file" wire_model="csv" type="file" min="0" span="6" accept=".csv" required=""/>
+                    <!--end::Col-->
+
+                    <!--begin::Col-->
                     <div class="col-md-6">
-                        <div class="form-check form-switch fs-5 my-2">
+                        <div class="my-2 form-check form-switch fs-5">
                             <input class="form-check-input" type="checkbox" id="includeFridays" wire:model.change="include_fridays">
                             <label class="form-check-label" for="includeFridays">
                                 @lang('forms.include_fridays')
@@ -34,10 +42,24 @@
                     <!--end::Col-->
 
                     <!--begin::Col-->
+                    <div class="col-md-6">
+                        <div class="my-2 form-check form-switch fs-5">
+                            <input class="form-check-input" type="checkbox" id="includegraphs" wire:model.change="include_graphs">
+                            <label class="form-check-label" for="includegraphs">
+                                @lang('forms.include_graphs')
+                            </label>
+                        </div>
+                        @error('include_graphs')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <!--end::Col-->
+
+                    <!--begin::Col-->
                     <div class="col-md-12">
                         <label class="form-label">@lang('modules.reports.holiday_dates')</label>
                         @foreach ($holidays as $index => $holiday)
-                            <div class="input-group mb-2">
+                            <div class="mb-2 input-group">
                                 <input type="date" class="form-control" wire:model.blur="holidays.{{ $index }}">
                                 <button class="btn btn-outline-danger" type="button" wire:click="removeHoliday({{ $index }})">
                                     <i class="bi bi-x"></i>
@@ -47,7 +69,7 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         @endforeach
-                        <button type="button" class="btn btn-light btn-sm mt-2" wire:click="addHoliday">
+                        <button type="button" class="mt-2 btn btn-light btn-sm" wire:click="addHoliday">
                             <i class="bi bi-plus-circle"></i> @lang('modules.reports.add_holiday')
                         </button>
                     </div>

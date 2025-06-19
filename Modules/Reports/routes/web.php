@@ -17,6 +17,6 @@ use Modules\Reports\Livewire\ExamSchedule;
 
 Route::group([], function () {
     // Route::resource('reports', ReportsController::class)->names('reports');
-    Route::get('/exam_generating', ExamSchedule::class)
+    Route::get('/exams/generator', ExamSchedule::class)
         ->name('exam.schedule.generate');
 });

@@ -43,10 +43,17 @@ class LoginController extends Controller
 
     protected function credentials(Request $request)
     {
-        return [
+        $login = is_integer($request->email) ? ([
             'national_id' => $request->email,
-            'password'    => $request->password,
-        ];
+        ]) : (filter_var($request->email, FILTER_VALIDATE_EMAIL) ? ([
+            'email' => $request->email,
+        ]) : ([
+            'username' => $request->email,
+        ]));
+
+        $login['password'] = $request->password;
+
+        return $login;
     }
 
 }

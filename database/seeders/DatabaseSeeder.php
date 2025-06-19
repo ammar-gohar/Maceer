@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            \Modules\Roles\Database\Seeders\RolesDatabaseSeeder::class,
+            // \Modules\Roles\Database\Seeders\RolesDatabaseSeeder::class,
+            // \Modules\Grades\Database\Seeders\GradesDatabaseSeeder::class,
+            // \Modules\Levels\Database\Seeders\LevelsDatabaseSeeder::class,
+            // \Modules\Courses\Database\Seeders\CoursesDatabaseSeeder::class,
             UserSeeder::class,
-            \Modules\Grades\Database\Seeders\GradesDatabaseSeeder::class,
-            \Modules\Levels\Database\Seeders\LevelsDatabaseSeeder::class,
-            \Modules\Courses\Database\Seeders\CoursesDatabaseSeeder::class,
         ]);
     }
 }

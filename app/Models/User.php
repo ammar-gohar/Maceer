@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\App;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Courses\Models\Course;
 use Modules\Enrollments\Models\Enrollment;
+use Modules\Moderators\Models\Moderator;
 use Modules\Professors\Models\Professor;
 use Modules\Semesters\Models\Semester;
 use Modules\Students\Models\Student;
@@ -93,6 +94,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Course::class, 'schedule', 'professor_id', 'course_id')
                     ->withPivot(['semester_id'])
                     ->wherePivot('semester_id', Semester::where('is_current', 1)->first()->id);
+    }
+
+    public function moderator()
+    {
+        return $this->hasOne(Moderator::class);
     }
 
     // public function moderator(): HasOne

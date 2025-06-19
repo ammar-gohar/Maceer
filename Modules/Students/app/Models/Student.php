@@ -9,7 +9,7 @@ use Modules\Courses\Models\Course;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Levels\Models\Level;
 
-// use Modules\Students\Database\Factories\StudentFactory;
+use Modules\Students\Database\Factories\StudentFactory;
 
 class Student extends Model
 {
@@ -30,8 +30,8 @@ class Student extends Model
         return $this->belongsToMany(Course::class, 'course_requests', 'student_id', 'course_id');
     }
 
-    // protected static function newFactory(): StudentFactory
-    // {
-    //     // return StudentFactory::new();
-    // }
+    protected static function newFactory(): StudentFactory
+    {
+        return StudentFactory::new();
+    }
 }

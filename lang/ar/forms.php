@@ -83,5 +83,8 @@ return [
     'back' => 'عودة',
 
     'include_fridays' => 'تضمين أيام الجمعة',
+    'include_graphs' => 'تضمين رسم بياني للطلاب',
+    'csv' => 'ملف CSV',
+    'schedules_number' => 'عدد الجداول',
     'generate' => 'إنشاء',
 ];

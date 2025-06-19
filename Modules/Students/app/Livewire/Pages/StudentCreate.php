@@ -32,6 +32,7 @@ class StudentCreate extends Component
         $data = $this->form->validate();
         $password = \Illuminate\Support\Str::password(12);
         $data['password'] = Hash::make($password);
+        $data['username'] = $this->form->last_name . '.' . $this->form->first_name . random_int(001, 999);
 
         $student = User::create($data);
         $student->assignRole('student');
