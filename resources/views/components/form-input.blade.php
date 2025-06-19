@@ -4,6 +4,7 @@
     'wire_model',
     'span' => 6,
 ])
+
 <div class="col-md-{{ $span }}">
     <label for="{{ $name }}" class="form-label">@lang("forms.$name") *</label>
     <div class="input-group">

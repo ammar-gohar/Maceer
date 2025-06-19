@@ -68,6 +68,8 @@
 
     @livewireStyles
 
+    @stack('styles')
+
     <!--begin::Script-->
 
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
@@ -151,6 +153,8 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     ></script>
+
+    @stack('scripts')
 
   </body>
   <!--end::Body-->

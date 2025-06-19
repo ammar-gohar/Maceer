@@ -1,4 +1,4 @@
-<x-page title="sidebar.courses.index" module="courses" ::show_delete_button="true">
+<x-page title="sidebar.courses.index" module="courses" show_create_button="true">
 
     <div class="card-body" style="overflow-x: scroll;">
         <div class="p-2 my-3 row">

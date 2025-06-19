@@ -88,6 +88,8 @@ return [
             'cancel' => 'إلغاء الرفع',
             'delete' => 'حذف الملف',
             'success' => 'نجح الرفع',
+            'click_to_remove' => 'اضغط للحذف',
+            'please_wait' => 'انتظر رجاء...'
         ]
     ],
 

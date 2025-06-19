@@ -10,6 +10,7 @@ use Livewire\WithFileUploads;
 use Modules\Courses\Models\Course;
 use Modules\Semesters\Models\Semester;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CourseLibrary extends Component
 {
@@ -18,7 +19,7 @@ class CourseLibrary extends Component
     public $course;
     public $code;
     public $semesterId;
-    public $file;
+    public $files = [];
     public $progress = 0;
 
     public function mount($code)
@@ -44,57 +45,54 @@ class CourseLibrary extends Component
     }
 
     protected $rules = [
-        'file' => 'required|file|max:10240', // 10MB max
+        'files.*' => 'file|max:10240', // 10MB per file
     ];
 
-    public function updatedFile()
+    public function updatedFiles()
     {
+        $this->validateOnly('files.*');
         $this->progress = 0;
     }
 
+    public function download($path)
+    {
+        Storage::download($path);
+        return ;
+    }
+
+
+
     public function startUpload()
     {
-
         $this->validate();
 
-        $now = Carbon::now();
-        $path = "courses/$now->year/$now->month";
+        $now = now();
+        $path = "courses/{$now->year}/{$now->month}";
 
-        $randomFilename = $this->file->getClientOriginalName();
+        foreach ($this->files as $file) {
+            $filename = $file->getClientOriginalName();
 
-        // Store manually and attach to model
-        $storedPath = $this->file->storeAs($path, $randomFilename, 'public');
+            $storedPath = $file->storeAs($path, $filename, 'public');
 
-        $this->course
-            ->addMedia(storage_path("app/public/$storedPath"))
-            ->preservingOriginal()
-            ->usingFileName($randomFilename)
-            ->toMediaCollection('course_files');
+            $this->course
+                ->addMedia(storage_path("app/public/$storedPath"))
+                ->preservingOriginal()
+                ->usingFileName($filename)
+                ->toMediaCollection('course_files');
+        }
 
-        $this->reset(['file', 'progress']);
-
+        $this->reset(['files', 'progress']);
         notyf()->success(__('modules.courses.library.success'));
     }
 
-    public function cancelUpload()
+    public function removeFile($index)
     {
-        $this->reset(['file', 'progress']);
-    }
-
-    public function download($mediaId)
-    {
-        $media = $this->course->getMedia('course_files')->where('id', $mediaId)->first();
-
-        if (!$media || !Storage::disk($media->disk)->exists($media->getUrl())) {
-            abort(404);
-        }
-
-        return response()->download($media->getPath(), $media->file_name);
+        unset($this->files[$index]);
+        $this->files = array_values($this->files); // re-index the array
     }
 
     public function render()
     {
-        return view('courses::livewire.pages.course-library', [
-        ]);
+        return view('courses::livewire.pages.course-library');
     }
 }

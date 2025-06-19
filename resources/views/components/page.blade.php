@@ -1,3 +1,12 @@
+@props([
+    'show_create_button' => false,
+    'show_edit_button' => false,
+    'show_delete_button' => false,
+    'show_index_button' => false,
+    'module' => '',
+    'title' => '',
+])
+
 <div class="px-4 mx-auto my-4 card card-dark card-outline" style="width: 90%;">
     <!--begin::Header-->
     <div class="px-4 card-header row">
