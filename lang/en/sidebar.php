@@ -26,6 +26,7 @@ return [
         'title'  => 'Students',
         'index'   => 'Show students',
         'create' => 'Add a student',
+        'transfer' => 'Add transfered student',
         'edit'   => 'Edit a student',
     ],
 
@@ -35,5 +36,36 @@ return [
         'create' => 'Add a Role',
         'edit'   => 'Edit a Role',
     ],
+
+    'courses' => [ 
+    'title'  => 'Courses',
+    'index'   => 'View Courses',
+    'create' => 'Add Course',
+    'edit'   => 'Edit Course',
+    'schedule' => 'Course Schedule',
+    'student-schedule' => 'Registered Courses Schedule',
+    'requests' => 'Course Requests',
+    'my-courses' => 'My Courses',
+    'student-show' => 'Current Semester Courses',
+    'professor-show' => 'Teaching Courses',
+    ],
+
+    'halls' => [
+        'title' => 'Lecture Halls',
+        'index' => 'View Halls',
+        'create' => 'Add New Hall',
+        'edit' => 'Edit Hall Details',
+    ],
+
+    'semester' => 'Academic Semester',
+
+    'quizzes' => [
+        'title' => 'Exams',
+        'create' => 'Create Exam',
+        'edit' => 'Edit Exam',
+        'index' => 'View Course Exams',
+        'index-student' => 'View Exams',
+    ],
+
 
 ];
