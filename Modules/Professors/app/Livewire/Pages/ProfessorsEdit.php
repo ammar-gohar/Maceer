@@ -27,9 +27,9 @@ class ProfessorsEdit extends Component
 
         $professor->update($data);
 
-        $this->status = true;
+        notyf()->success(__('modules.professors.update.success'));
 
-        return;
+        return $this->redirectRoute('professors.edit', ['national_id' => $professor->national_id]);
 
     }
     public function render()

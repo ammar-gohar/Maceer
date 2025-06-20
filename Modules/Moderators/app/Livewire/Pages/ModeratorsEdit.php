@@ -28,9 +28,7 @@ class ModeratorsEdit extends Component
 
         $moderator->update($data);
 
-        $this->status = true;
-
-        return;
+        return $this->redirectRoute('moderators.edit', ['national_id' => $moderator->national_id]);
 
     }
 

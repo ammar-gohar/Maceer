@@ -160,10 +160,14 @@
                         <x-sidebar-item icon="fa-solid fa-calendar-days" route="courses.schedule" />
                     @endcan
                     @can('courses.student-schedule')
-                        <x-sidebar-item icon="fa-solid fa-calendar-days" route="courses.student-schedule" />
+                        @unless (Auth::user()->hasRole('Super Admin'))
+                            <x-sidebar-item icon="fa-solid fa-calendar-check" route="courses.student-schedule" />
+                        @endunless
                     @endcan
                     @can('courses.student.show')
-                        <x-sidebar-item icon="fa-solid fa-list" route="courses.student-show" />
+                        @unless (Auth::user()->hasRole('Super Admin'))
+                            <x-sidebar-item icon="fa-solid fa-list" route="courses.student-show" />
+                        @endunless
                     @endcan
                     @can('courses.professor.show')
                         <x-sidebar-item icon="fa-solid fa-list" route="courses.professor-show" />

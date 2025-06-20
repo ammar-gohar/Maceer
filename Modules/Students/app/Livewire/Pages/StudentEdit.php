@@ -47,7 +47,8 @@ class StudentEdit extends Component
 
         $this->status = true;
 
-        return;
+        return $this->redirectRoute('students.edit', ['national_id' => $student->national_id]);
+
 
     }
 
