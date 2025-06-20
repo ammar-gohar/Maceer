@@ -65,4 +65,10 @@ class HallsEdit extends Component
     {
         return view('halls::livewire.pages.halls-edit')->title($this->hall->name . ' - ' . __('modules.halls.edit'));
     }
+
+    public function delete() {
+        $this->hall->delete();
+        notyf()->success('modules.halls.success.delete');
+        redirect()->route('halls.index');
+    }
 }

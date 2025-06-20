@@ -2,6 +2,8 @@
 
 return [
     'roles' => [
+        'show' => 'Show User Role',
+        'index' => 'View User Roles',
         'title' => 'User Role',
         'permissions_number' => 'Number of Permissions',
         'users_number' => 'Number of Registered Users in Role',
@@ -45,6 +47,23 @@ return [
         'name' => 'Professor Name',
         'gender' => 'Gender',
         'action' => 'Actions',
+        'show' => 'Show Professor :name Information',
+        'index' => 'View Professors',
+        'edit' => 'Edit Professor Information',
+        'success' => [
+            'update' => 'Updated successfully',
+        ]
+    ],
+
+
+    'moderators' => [
+        'index' => 'Show Moderators',
+        'edit' => 'Edit Moderator Information',
+        'show' => 'Show Moderator :name Information',
+        'success' => [
+            'update' => 'Updated successfully',
+            'store' => 'Moderator created successfully',
+        ]
     ],
 
     'courses' => [

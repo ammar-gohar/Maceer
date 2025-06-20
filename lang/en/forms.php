@@ -49,7 +49,7 @@ return [
     'close' => 'Close',
 
     'building' => 'Building:',
-    'floor' => 'Fllor:',
+    'floor' => 'Floor:',
     'capacity' => 'Capacity:',
     'type' => 'Type:',
     'status' => 'Status:',
@@ -59,7 +59,6 @@ return [
     'full_mark' => 'Full mark',
     'min_credits' => 'Required credit hours',
     'code' => 'Course code',
-    'type' => '',
 
     'add_prerequests' => 'Add prerequests',
     'back_to_add' => 'Back to course data',
@@ -90,4 +89,8 @@ return [
     'include_graphs' => 'Include graphs',
     'include_graphs_info' => 'The include graph takes about 5 minutes for every 1000 student',
     'csv' => 'CSV file',
+
+    'passwords' => [
+        'send_email' => 'Reset',
+    ]
 ];

@@ -13,7 +13,6 @@ use Modules\Levels\Models\Level;
 
 class ModeratorsCreate extends Component
 {
-
     public UserForm $form;
 
     public function store()
@@ -29,9 +28,9 @@ class ModeratorsCreate extends Component
 
         Mail::to($moderator->email)->queue((new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails'));
 
-        $this->reset();
-
         notyf()->success(__('modules.moderators.success.store'));
+        
+        $this->reset();
 
     }
 

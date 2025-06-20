@@ -18,4 +18,7 @@ return [
     'wednesday' => 'Wednesday',
     'thursday' => 'Thursday',
     'day' => 'Today',
+    'passwords' => [
+        'reset' => 'Reset Password',
+    ]
 ];

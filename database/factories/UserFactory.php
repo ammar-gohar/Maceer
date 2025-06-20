@@ -33,7 +33,7 @@ class UserFactory extends Factory
             'national_id' => fake()->unique()->numberBetween(12000000000000, 12999999999999),
             'username' => 'student' . $this->i,
             'email' => fake()->unique()->email(),
-            'phone' => fake()->unique()->phoneNumber(),
+            'phone' => '01' . fake()->unique()->numberBetween(100000000, 999999999),
             'gender' => $gender,
             'password' => Hash::make('password'),
         ];
