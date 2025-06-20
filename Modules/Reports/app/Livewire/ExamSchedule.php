@@ -9,6 +9,34 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Modules\Semesters\Models\Semester;
+use ZipArchive;
+use Illuminate\Support\Facades\File as FileHelper;
+use Illuminate\Support\Str;
+
+function createZipFromPaths(array $paths, string $zipName = 'output.zip'): bool
+{
+    $zip = new ZipArchive;
+    $zipPath = $zipName;
+
+    if ($zip->open($zipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== true) {
+        return false;
+    }
+
+    foreach ($paths as $path) {
+        if (FileHelper::isFile($path)) {
+            $zip->addFile($path, basename($path));
+        } elseif (FileHelper::isDirectory($path)) {
+            $files = FileHelper::allFiles($path);
+            foreach ($files as $file) {
+                $filePath = $file->getRealPath();
+                $relativePath = Str::after($filePath, "prepare_schedule" . DIRECTORY_SEPARATOR);
+                $zip->addFile($filePath, $relativePath);
+            }
+        } 
+    }
+
+    return $zip->close();
+}
 
 class ExamSchedule extends Component
 {
@@ -46,6 +74,7 @@ class ExamSchedule extends Component
 
     public function generate_exam()
     {
+        set_time_limit(0);
         $data = $this->validate([
             'start_date'       => 'required|date',
             'end_date'         => 'required|date|after_or_equal:start_date',
@@ -76,10 +105,37 @@ class ExamSchedule extends Component
 
         $start_date      = $data['start_date'];
         $end_date        = $data['end_date'];
-        $holidays        = $data['holidays']; // ARRAY
-        $include_fridays = $this->include_fridays; //bool
-        $include_graphs  = $this->include_graphs; //bool
+        $holidays = isset($data['holidays']) && $data['holidays'][0] != "" ? "--holidays " . implode(' ', $data['holidays']): "";
+        $include_fridays = $this->include_fridays ? "--fridays": ""; //bool
+        $include_graphs  = $this->include_graphs ? "generate_plots": "no"; //bool
+        $schedules_number = $data['schedules_number'];
 
+        $root = $_SERVER['DOCUMENT_ROOT'] . '/..';
+        $storage_path = $root . '/storage/app/private';
+
+        FileHelper::cleanDirectory($storage_path . '/prepare_schedule');
+
+        if ($schedules_number > 1)
+        {
+            for ($i = 1; $i <= $schedules_number; $i++)
+            {
+                $pythonScript = "$root/venv/bin/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule/$i 2>&1";
+                // $pythonScript = "$root/venv/Scripts/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule/$i 2>&1";
+
+                shell_exec($pythonScript);
+                sleep(1);
+            }
+        }
+        else
+        {
+            $pythonScript = "$root/venv/bin/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule 2>&1";
+            // $pythonScript = "$root/venv/Scripts/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule 2>&1";
+            $out = shell_exec($pythonScript);
+        }
+
+        createZipFromPaths([$storage_path . '/prepare_schedule'], "$storage_path/final_schedule/output.zip");
+
+        FileHelper::cleanDirectory($storage_path . '/prepare_schedule');
 
         // TO GET THE CSV FILE PATH $csv;
         // =================================================================================
@@ -97,6 +153,17 @@ class ExamSchedule extends Component
 
     public function render()
     {
+        $files = Storage::files('final_schedule');
+
+        if (!empty($files)) {
+            /*
+            Ammar => Put here the view for either go to generate another
+            schedule thus => (delete the "contents" of `final_schedule` folder) or download the zip file
+            
+
+            NOTE there will be a file named output.zip if there is generated schedule
+            */
+        }
         return view('reports::livewire.exam-schedule');
     }
 }

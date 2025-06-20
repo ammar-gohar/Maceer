@@ -18,6 +18,13 @@ from collections import Counter
 import matplotlib.pyplot as plt
 from matplotlib.dates import DayLocator, DateFormatter
 import argparse
+import time
+
+STORAGE_PATH = "/var/www/Maceer/storage/app/private"
+
+STORAGE_PATH = "C:\\Users\\sefan\\Documents\\grad_project\\Maceer\\storage\\app\\private"
+
+OUTPUT_PATH = ""
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Exam Scheduler Tool")
@@ -27,6 +34,7 @@ def parse_args():
     parser.add_argument("plot", choices=["generate_plots", "no"], help="Plot generation toggle")
     parser.add_argument("start_date", help="Start date (YYYY-MM-DD)")
     parser.add_argument("end_date", help="End date (YYYY-MM-DD)")
+    parser.add_argument("output_dir", help="Output directory in storage")
 
     # Optional flags
     parser.add_argument("--fridays", action="store_true", help="Include Friday exams")
@@ -400,7 +408,7 @@ def create_pdf_schedule(exam_schedule, valid_days, output_file):
     doc.build(elements)
     print(f"PDF file created: {output_file}")
 
-def generate_student_schedules_plot(students_data, exam_schedule, valid_days, output_folder="student_schedules"):
+def generate_student_schedules_plot(students_data, exam_schedule, valid_days, output_folder=f"{STORAGE_PATH}\\prepare_schedule"):
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
     
@@ -472,37 +480,36 @@ def create_exam_schedule(csv_file):
     exam_schedule = schedule_exams(G, courses)
     exam_schedule = minimize_consecutive_days(students_data, exam_schedule, valid_days)
     exam_schedule = compress_schedule(students_data, exam_schedule, valid_days, max_exam_days)
-
     conflicts = find_same_day_conflicts(students_data, exam_schedule)
     if conflicts:
         print("Conflicts found")
         sys.exit(1)
 
-
     date_schedule = map_days_to_dates(exam_schedule, valid_days)
     consecutive_stats = calculate_consecutive_exam_stats(students_data, exam_schedule, valid_days)
 
     for days, count in sorted(consecutive_stats.items(), reverse=True):
-        open("description.txt", "a").write(f"{days} consecutive days: {count} students\n")
+        open(f"{STORAGE_PATH}/{args.output_dir}/description.txt", "a").write(f"{days} consecutive days: {count} students\n")
         print(f"{days} consecutive days: {count} students")
     
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    pdf_output = os.path.join(script_dir, "exam_schedule.pdf")
+    pdf_output = f"{STORAGE_PATH}/{args.output_dir}/exam_schedule.pdf"
     create_pdf_schedule(exam_schedule, valid_days, pdf_output)
 
     if args.plot == "generate_plots":
-        generate_student_schedules_plot(students_data, exam_schedule, valid_days)
-        create_zip_from_paths(["student_schedules", "exam_schedule.pdf", "description.txt"], "output.zip")
-    else:
-        create_zip_from_paths(["exam_schedule.pdf", "description.txt"], "output.zip")
+        generate_student_schedules_plot(students_data, exam_schedule, valid_days, f"{OUTPUT_PATH}/plots")
 
     return date_schedule
 
 # تشغيل البرنامج
 if __name__ == "__main__":
+    random.seed(time.time_ns())
     args = parse_args()
+    os.makedirs(f'{STORAGE_PATH}\\final_schedule', exist_ok=True)
+    os.makedirs(f'{STORAGE_PATH}\\{args.output_dir}', exist_ok=True)
+    OUTPUT_PATH = f"{STORAGE_PATH}/{args.output_dir}"
 
     csv_file =  args.csv_file
+
     if not os.path.exists(csv_file):
         print(f"خطأ: ملف '{csv_file}' مش موجود في المجلد الحالي.")
         sys.exit(1)

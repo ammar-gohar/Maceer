@@ -37,10 +37,14 @@ return [
         'university_elected_earned_credits' => 'ساعات متطلبات الجامعة المنتهية',
         'faculty_elected_earned_credits' => 'ساعات متطلبات الكلية المنتهية',
         'program_elected_earned_credits' => 'ساعات متطلبات البرنامج المنتهية',
+        'action' => 'العمليات',
     ],
 
     'professors' => [
         'professor' => 'المعلم',
+        'name' => 'اسم المعلم',
+        'gender' => 'النوع',
+        'action' => 'العمليات',
     ],
 
     'courses' => [

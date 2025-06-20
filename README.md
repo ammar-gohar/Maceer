@@ -73,6 +73,24 @@ Visit: [**http://127.0.0.1:8000**](http://127.0.0.1:8000)
 - **Bootstrap** - Frontend
 - **Livewire** - For interactive UI
 
+### Python Venv preparation
+
+```
+python -m venv venv # you must be in the Maceer directory
+# Here it depends on the OS
+# If Linux
+source ./venv/bin/activate
+# If Windows
+.\venv\Scripts\activate.bat
+pip install -r requirements.txt # prepeare the requirements
+```
+
+#### Running the tool from the website
+```
+# on windows open \Modules\Reports\app\Livewire\ExamSchedule.php
+# and uncomment the $pythonScript variable from the two lines
+# No need in linux to bother yourself
+```
 
 ## 🤝 Contributing
 

@@ -17,6 +17,7 @@ return [
     'male'   => 'ذكر',
     'sign_in' => 'دخول',
     'forgot_pswrd' => 'أنسيت كلمة السر؟',
+    
     'description' => 'الوصف',
 
     'level' => 'المرحلة:',
@@ -82,9 +83,11 @@ return [
     'edit_questions' => 'تعديل الأسئلة',
     'back' => 'عودة',
 
-    'include_fridays' => 'تضمين أيام الجمعة',
-    'include_graphs' => 'تضمين رسم بياني للطلاب',
-    'csv' => 'ملف CSV',
     'schedules_number' => 'عدد الجداول',
     'generate' => 'إنشاء',
+    'generating' => 'يُنشيء',
+    'include_fridays' => 'تضمين أيام الجمعة',
+    'include_graphs' => 'تضمين رسم بياني للطلاب',
+    'include_graphs_info' => 'الرسم البياني يستغرق لكل 1000 طالب 5 دقايق',
+    'csv' => 'ملف CSV',
 ];

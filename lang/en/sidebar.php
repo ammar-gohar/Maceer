@@ -67,5 +67,6 @@ return [
         'index-student' => 'View Exams',
     ],
 
+    'exam_schedule_generate' => 'Exam Schedule Generator',
 
 ];

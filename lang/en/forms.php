@@ -13,8 +13,8 @@ return [
     'email' => 'E-mail:',
     'remember_me' => 'Remember Me',
     'gender'     => 'Gender:',
-    'female' => 'Female:',
-    'male'   => 'Male:',
+    'female' => 'Female',
+    'male'   => 'Male',
     'sign_in' => 'Log In',
     'forgot_pswrd' => 'Forgot password?',
 
@@ -82,4 +82,12 @@ return [
     'add_questions' => 'Add questions',
     'edit_questions' => 'Edit questions',
     'back' => 'Back',
+    
+    'schedules_number' => 'Number of schedules',
+    'generate' => 'Generate',
+    'generating' => 'Generating',
+    'include_fridays' => 'Include Fridays',
+    'include_graphs' => 'Include graphs',
+    'include_graphs_info' => 'The include graph takes about 5 minutes for every 1000 student',
+    'csv' => 'CSV file',
 ];

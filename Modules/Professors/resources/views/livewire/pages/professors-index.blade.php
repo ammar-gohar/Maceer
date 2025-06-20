@@ -8,7 +8,7 @@
                         <th class="text-center">#</th>
                         <th>@lang('modules.professors.name')</th>
                         <th>@lang('modules.professors.gender')</th>
-                        <th>@lang('modules.professors.level')</th>
+                        <th>@lang('modules.professors.action')</th>
                         <th></th>
                     </tr>
                 </thead>

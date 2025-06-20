@@ -49,6 +49,7 @@
                                 @lang('forms.include_graphs')
                             </label>
                         </div>
+                        <small>@lang('forms.include_graphs_info')</small>
                         @error('include_graphs')
                             <div class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror

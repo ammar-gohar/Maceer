@@ -37,10 +37,14 @@ return [
         'university_elected_earned_credits' => 'Completed University Requirement Credits',
         'faculty_elected_earned_credits' => 'Completed Faculty Requirement Credits',
         'program_elected_earned_credits' => 'Completed Program Requirement Credits',
+        'action' => 'Actions',
     ],
 
     'professors' => [
         'professor' => 'Professor',
+        'name' => 'Professor Name',
+        'gender' => 'Gender',
+        'action' => 'Actions',
     ],
 
     'courses' => [
@@ -81,6 +85,16 @@ return [
         'not_revealed' => 'Not Announced',
         'enrollments_count' => 'Number of Students Enrolled This Semester',
         'show_marks' => 'View Marks for Course :course',
+        'library' => [
+            'index' => 'View Files for Course ":course"',
+            'add' => 'Add File',
+            'upload' => 'start upload',
+            'cancel' => 'Cancel Upload',
+            'delete' => 'Delete File',
+            'success' => 'File uploaded successfully',
+            'click_to_remove' => 'Click to remove',
+            'please_wait' => 'Please wait...'
+        ]
     ],
 
     'halls' => [
@@ -141,6 +155,7 @@ return [
         'false' => 'False',
         'correct_answer' => 'Correct Answer',
         'enter_question' => 'Enter the question text',
+        'enter_answer' => 'Enter the answer',
         'select_correct' => 'Select the correct answer',
         'enter_correct' => 'Enter the correct answer',
         'option' => 'Option',
@@ -154,6 +169,10 @@ return [
             'success' => 'Quiz updated successfully',
             'fail' => 'Error occurred while updating the quiz',
         ],
+        'score_updated' => [
+            'success' => 'Editing the score was successful',
+            'fail' => 'Error occurred while editing the score',
+        ],
         'take_quiz' => 'Start Quiz',
         'submitted_at' => 'Submitted At',
         'quiz_ended' => 'Quiz time ended',
@@ -163,5 +182,13 @@ return [
         'duration_minutes' => 'Duration (Minutes)',
         'submitted' => 'Quiz submitted successfully, your score is:',
         'time_left' => 'Time Remaining',
+        'attempts_index' => 'View Attempts',
     ],
+
+    'reports' => [
+        'generate_exam_schedule' => 'Generate Exam Schedule',
+        'holiday_dates' => 'Holiday Dates',
+        'add_holiday' => 'Add Holiday',
+    ]
+    
 ];
