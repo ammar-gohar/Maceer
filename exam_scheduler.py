@@ -20,7 +20,7 @@ from matplotlib.dates import DayLocator, DateFormatter
 import argparse
 import time
 
-STORAGE_PATH = "/var/www/Maceer/storage/app/private"
+STORAGE_PATH = ""
 
 OUTPUT_PATH = ""
 
@@ -32,6 +32,7 @@ def parse_args():
     parser.add_argument("plot", choices=["generate_plots", "no"], help="Plot generation toggle")
     parser.add_argument("start_date", help="Start date (YYYY-MM-DD)")
     parser.add_argument("end_date", help="End date (YYYY-MM-DD)")
+    parser.add_argument("storage_path", help="The storage path")
     parser.add_argument("output_dir", help="Output directory in storage")
 
     # Optional flags
@@ -502,6 +503,7 @@ def create_exam_schedule(csv_file):
 if __name__ == "__main__":
     random.seed(time.time_ns())
     args = parse_args()
+    STORAGE_PATH = args.storage_path
     os.makedirs(f'{STORAGE_PATH}/final_schedule', exist_ok=True)
     os.makedirs(f'{STORAGE_PATH}/{args.output_dir}', exist_ok=True)
     OUTPUT_PATH = f"{STORAGE_PATH}/{args.output_dir}"

@@ -120,10 +120,10 @@ class ExamSchedule extends Component
             for ($i = 1; $i <= $schedules_number; $i++)
             {
                 if (PHP_OS_FAMILY === 'Windows') {
-                    $pythonScript = "$root/venv/Scripts/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule/$i 2>&1";
+                    $pythonScript = "$root/venv/Scripts/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date $storage_path prepare_schedule/$i 2>&1";
                 }
                 else {
-                    $pythonScript = "source $root/venv/bin/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule/$i 2>&1";
+                    $pythonScript = "bash -c 'source $root/venv/bin/activate && python3 $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date $storage_path prepare_schedule/$i 2>&1'";
                 }
                 shell_exec($pythonScript);
                 sleep(1);
@@ -132,12 +132,13 @@ class ExamSchedule extends Component
         else
         {
             if (PHP_OS_FAMILY === 'Windows') {
-                $pythonScript = "$root/venv/Scripts/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule 2>&1";
+                $pythonScript = "$root/venv/Scripts/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date $storage_path prepare_schedule 2>&1";
             }
             else {
-                $pythonScript = "source $root/venv/bin/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule 2>&1";
+                $pythonScript = "bash -c 'source $root/venv/bin/activate && python3 $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date $storage_path prepare_schedule 2>&1'";
             }
             $out = shell_exec($pythonScript);
+            notyf()->duration(0)->success($pythonScript);
         }
 
         createZipFromPaths([$storage_path . '/prepare_schedule'], "$storage_path/final_schedule/output.zip");
