@@ -88,7 +88,28 @@
     ></script> --}}
 
     <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
-    <script src="/js/app-layout.js" defer></script>
+    <script
+    defer
+    >
+      const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
+      const Default = {
+        scrollbarTheme: 'os-theme-light',
+        scrollbarAutoHide: 'leave',
+        scrollbarClickScroll: true,
+      };
+      document.addEventListener('DOMContentLoaded', function () {
+        const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+        if (sidebarWrapper && typeof OverlayScrollbarsGlobal?.OverlayScrollbars !== 'undefined') {
+          OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+            scrollbars: {
+              theme: Default.scrollbarTheme,
+              autoHide: Default.scrollbarAutoHide,
+              clickScroll: Default.scrollbarClickScroll,
+            },
+          });
+        }
+      });
+    </script>
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->
 
@@ -132,8 +153,6 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     ></script>
-    <script src="{{ asset('vendor/flasher/flasher.min.js') }}" defer></script>
-    <script src="{{ asset('vendor/flasher/flasher-notyf.min.js') }}" defer></script>
 
     @stack('scripts')
 
