@@ -14,6 +14,6 @@ use Modules\Enrollments\Http\Controllers\EnrollmentsController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('enrollments', EnrollmentsController::class)->names('enrollments');
-});
+// Route::group([], function () {
+//     Route::resource('enrollments', EnrollmentsController::class)->names('enrollments');
+// });

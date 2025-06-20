@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Modules\Courses\Livewire\Pages\AllEnrollments;
 use Modules\Courses\Livewire\Pages\CourseLibrary;
 use Modules\Courses\Livewire\Pages\CourseRequests;
 use Modules\Courses\Livewire\Pages\CourseRequestsStats;
@@ -71,6 +72,10 @@ Route::group([
             ->name('courses.library');
 
     });
+
+    Route::get('enrollments', AllEnrollments::class)
+        ->middleware(['auth', 'role:student'])
+        ->name('students.enrollments');
 
 });
 
