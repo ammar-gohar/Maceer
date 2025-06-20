@@ -123,7 +123,7 @@ class ExamSchedule extends Component
                     $pythonScript = "$root/venv/Scripts/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule/$i 2>&1";
                 }
                 else {
-                    $pythonScript = "$root/venv/bin/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule/$i 2>&1";
+                    $pythonScript = "source $root/venv/bin/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule/$i 2>&1";
                 }
                 shell_exec($pythonScript);
                 sleep(1);
@@ -135,7 +135,7 @@ class ExamSchedule extends Component
                 $pythonScript = "$root/venv/Scripts/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule 2>&1";
             }
             else {
-                $pythonScript = "$root/venv/bin/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule 2>&1";
+                $pythonScript = "source $root/venv/bin/activate && python $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date prepare_schedule 2>&1";
             }
             $out = shell_exec($pythonScript);
         }

@@ -22,8 +22,6 @@ import time
 
 STORAGE_PATH = "/var/www/Maceer/storage/app/private"
 
-STORAGE_PATH = "C:\\Users\\sefan\\Documents\\grad_project\\Maceer\\storage\\app\\private"
-
 OUTPUT_PATH = ""
 
 def parse_args():
@@ -408,7 +406,7 @@ def create_pdf_schedule(exam_schedule, valid_days, output_file):
     doc.build(elements)
     print(f"PDF file created: {output_file}")
 
-def generate_student_schedules_plot(students_data, exam_schedule, valid_days, output_folder=f"{STORAGE_PATH}\\prepare_schedule"):
+def generate_student_schedules_plot(students_data, exam_schedule, valid_days, output_folder=f"{STORAGE_PATH}/prepare_schedule"):
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
     
@@ -504,8 +502,8 @@ def create_exam_schedule(csv_file):
 if __name__ == "__main__":
     random.seed(time.time_ns())
     args = parse_args()
-    os.makedirs(f'{STORAGE_PATH}\\final_schedule', exist_ok=True)
-    os.makedirs(f'{STORAGE_PATH}\\{args.output_dir}', exist_ok=True)
+    os.makedirs(f'{STORAGE_PATH}/final_schedule', exist_ok=True)
+    os.makedirs(f'{STORAGE_PATH}/{args.output_dir}', exist_ok=True)
     OUTPUT_PATH = f"{STORAGE_PATH}/{args.output_dir}"
 
     csv_file =  args.csv_file
