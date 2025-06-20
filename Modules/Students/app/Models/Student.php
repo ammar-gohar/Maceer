@@ -2,6 +2,7 @@
 
 namespace Modules\Students\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,6 +29,11 @@ class Student extends Model
     public function requests()
     {
         return $this->belongsToMany(Course::class, 'course_requests', 'student_id', 'course_id');
+    }
+
+    public function visor()
+    {
+        return $this->belongsTo(User::class, 'visor_id');
     }
 
     protected static function newFactory(): StudentFactory

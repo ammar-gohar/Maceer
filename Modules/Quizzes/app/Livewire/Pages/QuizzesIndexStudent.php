@@ -17,6 +17,10 @@ class QuizzesIndexStudent extends Component
     public function mount()
     {
         $this->semesterId = ModelsSemester::where('is_current', 1)->first()?->id;
+
+        if (!$this->semesterId && Auth::user()->hasPermissionTo('semester')) {
+            return $this->redirect('/semester');
+        }
     }
 
     public function show_modal($id)

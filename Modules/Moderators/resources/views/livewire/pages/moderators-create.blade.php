@@ -1,4 +1,4 @@
-<x-page module="students" title="sidebar.students.create" show_index_button="true">
+<x-page module="moderators" title="sidebar.moderators.create" show_index_button="true">
 
     <!--begin::Form-->
     <form wire:submit='store()'>
@@ -39,29 +39,6 @@
                         </div>
                     </div>
                     @error('form.gender')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                <!--end::Col-->
-                <!--begin::Col-->
-                <div class="col-md-6">
-                    <label for="level" class="form-label">@lang('forms.level')</label>
-                    <div class="input-group">
-                        <select
-                            name="level"
-                            id="level"
-                            class="form-select @error('level') is-invalid @enderror"
-                            wire:model='level'
-                            required>
-                            <option value="freshman" {{ $level == 'freshman' ? 'selected' : '' }}>Freshman</option>
-                            <option value="junior" {{ $level == 'junior' ? 'selected' : '' }}>Junior</option>
-                            <option value="senior-1" {{ $level == 'senior-1' ? 'selected' : '' }}>Senior-1</option>
-                            <option value="senior-2" {{ $level == 'senior-2' ? 'selected' : '' }}>Senior-2</option>
-                        </select>
-                    </div>
-                    @error('form.level')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>

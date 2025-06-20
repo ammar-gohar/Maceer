@@ -28,7 +28,12 @@ class QuizzesShowStudent extends Component
 
     public function mount($id)
     {
-        $this->semesterId = Semester::where('is_current', 1)->first()->id;
+        $this->semesterId = Semester::where('is_current', 1)->first()?->id;
+
+        if (!$this->semesterId && Auth::user()->hasPermissionTo('semester')) {
+            return $this->redirect('/semester');
+        }
+
         $quiz = Quiz::with(['course', 'questions', 'questions.options', 'questions.correct_option', 'attempts'])->findOrFail($id);
         $this->quiz = $quiz;
         $course = $quiz->course;

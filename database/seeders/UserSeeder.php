@@ -83,16 +83,20 @@ class UserSeeder extends Seeder
             $users[$i]->assignRole($roles[$i]->name);
         };
 
+        for ($i = 1; $i <= 50; $i++) {
+
+            User::factory(1)->hasProfessor()->create(['username' => 'professor' . $i]);
+
+            User::factory(1)->hasModerator()->create(['username' => 'moderator' . $i]);
+
+        }
+
+        $professors = User::has('professor')->get()->pluck('id')->toArray();
+
         for ($i = 1; $i <= 200; $i++) {
 
-            User::factory(1)->hasStudent()->create(['username' => 'student' . $i]);
+            User::factory(1)->hasStudent(['visor_id' => $professors[random_int(0, 20)]])->create(['username' => 'student' . $i]);
 
-            if ($i <= 50) {
-
-                User::factory(1)->hasProfessor()->create(['username' => 'professor' . $i]);
-
-                User::factory(1)->hasModerator()->create(['username' => 'moderator' . $i]);
-            }
         }
 
         $students = User::has('student')->get();

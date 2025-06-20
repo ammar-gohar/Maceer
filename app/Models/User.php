@@ -62,6 +62,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
     }
 
+    // ========================================================================================
+    // students reltionships
+    // ========================================================================================
+
     public function student(): HasOne
     {
         return $this->hasOne(Student::class);
@@ -84,6 +88,10 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->wherePivot('semester_id', Semester::where('is_current', 1)->first()->id);
     }
 
+    // =================================================================================
+    // professor relationships
+    // =================================================================================
+
     public function professor(): HasOne
     {
         return $this->hasOne(Professor::class);
@@ -96,14 +104,18 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->wherePivot('semester_id', Semester::where('is_current', 1)->first()->id);
     }
 
+    public function visorship()
+    {
+        return $this->hasMany(Student::class, 'visor_id');
+    }
+
+    // =================================================================================
+    // moderator relationships
+    // =================================================================================
+
     public function moderator()
     {
         return $this->hasOne(Moderator::class);
     }
-
-    // public function moderator(): HasOne
-    // {
-    //     return $this->hasOne(Student::class);
-    // }
 
 }

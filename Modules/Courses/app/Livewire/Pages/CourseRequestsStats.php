@@ -4,6 +4,7 @@ namespace Modules\Courses\Livewire\Pages;
 
 use App\Models\User;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Modules\Courses\Models\Course;
@@ -28,7 +29,11 @@ class CourseRequestsStats extends Component
 
     public function mount()
     {
-        $this->semesterId = Semester::where('is_current', 1)->first()->id;
+        $this->semesterId = Semester::where('is_current', 1)->first()?->id;
+
+        if (!$this->semesterId && Auth::user()->hasPermissionTo('semester')) {
+            return $this->redirect('/semester');
+        }
     }
 
     public function show_modal($id)

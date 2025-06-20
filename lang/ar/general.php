@@ -18,4 +18,6 @@ return [
     'wednesday' => 'الأربعاء',
     'thursday' => 'الخميس',
     'day' => 'اليوم',
+
+    'unavailable_page' => 'هذه الصفحة غير متاحة حاليا',
 ];

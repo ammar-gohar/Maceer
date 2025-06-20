@@ -58,7 +58,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('quizzes.index-student') }}" class="nav-link">
-                        <i class="nav-icon fa-solid fa fa-solid fa-file-pen"></i>
+                        <i class="nav-icon fa-solid fa fa-file-pen"></i>
                         <p>@lang('sidebar.quizzes.index-student')</p>
                     </a>
                 </li>
@@ -71,7 +71,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('exam.schedule.generate') }}" class="nav-link">
-                        <i class="nav-icon fa-solid fa fa-solid fa-file-pen"></i>
+                        <i class="nav-icon fa-solid fa fa-file-pen"></i>
                         <p>@lang('sidebar.exam_schedule_generate')</p>
                     </a>
                 </li>
@@ -81,14 +81,14 @@
 
             @canany(['admins.index', 'admins.create'])
                 {{-- Admin sidebar --}}
-                <x-sidebar-list module="admins" icon="fa-solid fa-user-tie">
+                {{-- <x-sidebar-list module="admins" icon="fa-solid fa-user-tie">
                     @can('admins.index')
                         <x-sidebar-item icon="fa-solid fa-user-group" route="admins.index" />
                     @endcan
                     @can('admins.create')
                         <x-sidebar-item icon="fa-solid fa-user-plus" route="admins.create" />
                     @endcan
-                </x-sidebar-list>
+                </x-sidebar-list> --}}
                 {{-- end::admins sidebar --}}
             @endcan
 

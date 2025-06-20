@@ -8,6 +8,6 @@ class ProfessorsEdit extends Component
 {
     public function render()
     {
-        return view('professors::livewire.pages.professors-edit');
+        return view('professors::livewire.pages.professors-edit')->title(__('sidebar.professors.edit'));
     }
 }

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
-            $table->uuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('level_id');
+            $table->foreignUuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('level_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
             $table->float('gpa', 2)->default(0.00);
             $table->integer('unversity_elected_earned_credits')->default(0);
             $table->integer('faculty_elected_earned_credits')->default(0);
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('core_earned_credits')->default(0);
             $table->integer('total_earned_credits')->default(0);
             $table->integer('maximum_credits_to_enroll')->default(18);
+            $table->foreignUuid('visor_id')->nullable()->constrained('users')->nullOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

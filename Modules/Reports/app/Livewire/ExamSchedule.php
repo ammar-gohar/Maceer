@@ -32,7 +32,7 @@ function createZipFromPaths(array $paths, string $zipName = 'output.zip'): bool
                 $relativePath = Str::after($filePath, "prepare_schedule" . DIRECTORY_SEPARATOR);
                 $zip->addFile($filePath, $relativePath);
             }
-        } 
+        }
     }
 
     return $zip->close();
@@ -137,17 +137,6 @@ class ExamSchedule extends Component
 
         FileHelper::cleanDirectory($storage_path . '/prepare_schedule');
 
-        // TO GET THE CSV FILE PATH $csv;
-        // =================================================================================
-        // =================================================================================
-        // NOTE:: To get you need to use foreach loop on ($students as $student) to get the current enrollments of each student
-        // ================================================================
-        // IN FOREACH LOOP, to get the course name of A STUDENT use: $student->current_enrollments->pluck('course.*.name')
-        // ================================================================
-        // You can use another foreach loop on ($student->current_enrollments as $course) to get each course of a student. Then you can get the course name as $course->name
-        // =================================================================================
-        // =================================================================================
-
         notyf()->success('Exam generated successfully!');
     }
 
@@ -159,11 +148,11 @@ class ExamSchedule extends Component
             /*
             Ammar => Put here the view for either go to generate another
             schedule thus => (delete the "contents" of `final_schedule` folder) or download the zip file
-            
+
 
             NOTE there will be a file named output.zip if there is generated schedule
             */
         }
-        return view('reports::livewire.exam-schedule');
+        return view('reports::livewire.exam-schedule')->title(__('sidebar.exam_schedule_generate'));
     }
 }

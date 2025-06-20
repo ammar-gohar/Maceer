@@ -27,7 +27,11 @@ class QuizzesCreate extends Component
 
     public function mount()
     {
-        $this->semesterId = Semester::where('is_current', 1)->first()->id;
+        $this->semesterId = Semester::where('is_current', 1)->first()?->id;
+
+        if (!$this->semesterId && Auth::user()->hasPermissionTo('semester')) {
+            return $this->redirect('/semester');
+        }
 
         $course = Course::findOrFail($this->courseId);
         $this->courseName = $course->name;

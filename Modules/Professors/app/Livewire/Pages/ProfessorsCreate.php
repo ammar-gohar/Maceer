@@ -39,6 +39,6 @@ class ProfessorsCreate extends Component
 
     public function render()
     {
-        return view('professors::livewire.pages.professors-create')->title(__('modules.professors.create'));
+        return view('professors::livewire.pages.professors-create')->title(__('sidebar.professors.create'));
     }
 }
