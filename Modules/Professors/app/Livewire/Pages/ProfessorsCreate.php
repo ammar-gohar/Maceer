@@ -26,7 +26,7 @@ class ProfessorsCreate extends Component
         $professor->assignRole('professor');
         $professor->professor()->create();
 
-        Mail::to($professor->email)->queue(new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails');
+        Mail::to($professor->email)->queue((new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails'));
 
         notyf()->success(__('modules.professors.success.store'));
 
