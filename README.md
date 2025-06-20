@@ -85,13 +85,6 @@ source ./venv/bin/activate
 pip install -r requirements.txt # prepeare the requirements
 ```
 
-#### Running the tool from the website
-```
-# on windows open \Modules\Reports\app\Livewire\ExamSchedule.php
-# and uncomment the $pythonScript variable from the two lines
-# No need in linux to bother yourself
-```
-
 ## 🤝 Contributing
 
 Feel free to fork this repository and submit pull requests. Your contributions are welcome! 😊
