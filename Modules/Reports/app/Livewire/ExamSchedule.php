@@ -77,13 +77,12 @@ class ExamSchedule extends Component
     public function generate_exam()
     {
         set_time_limit(0);
-        // Activate on making queue
 
-        // $lockKey = 'endpoint_run';
-        // if (Cache::has($lockKey)) {
-        //     abort(403, 'This action has already been performed.');
-        // }
-        // Cache::put($lockKey, true, 3600);
+        $lockKey = 'endpoint_run';
+        if (Cache::has($lockKey)) {
+            abort(403, 'This action has already been performed.');
+        }
+        Cache::put($lockKey, true, 3600);
 
         $data = $this->validate([
             'start_date'       => 'required|date',
@@ -150,7 +149,7 @@ class ExamSchedule extends Component
             $out = shell_exec($pythonScript);
         }
 
-        // Cache::forget($lockKey);
+        Cache::forget($lockKey);
 
         createZipFromPaths([$storage_path . '/prepare_schedule'], "$storage_path/final_schedule/output.zip");
 

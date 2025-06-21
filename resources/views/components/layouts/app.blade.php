@@ -19,6 +19,7 @@
     />
     <!--end::Primary Meta Tags-->
     <!--begin::Fonts-->
+    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
