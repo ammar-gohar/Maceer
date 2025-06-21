@@ -13,7 +13,7 @@ class LevelsDatabaseSeeder extends Seeder
     public function run(): void
     {
         Level::create([
-            'name' => 'freshaman',
+            'name' => 'freshman',
             'number' => 1,
             'min_credits' => 0,
         ]);
