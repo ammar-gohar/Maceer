@@ -1,6 +1,5 @@
 from collections import defaultdict
 import random
-import zipfile
 import sys
 import os
 import networkx as nx
@@ -231,21 +230,6 @@ def find_same_day_conflicts(students_data, exam_schedule):
         if bad:
             conflicts[stu] = bad
     return conflicts
-
-def create_zip_from_paths(paths, zip_name="output.zip"):
-    with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zipf:
-        for path in paths:
-            if os.path.isfile(path):
-                arcname = os.path.basename(path)
-                zipf.write(path, arcname)
-            elif os.path.isdir(path):
-                for foldername, _, filenames in os.walk(path):
-                    for filename in filenames:
-                        file_path = os.path.join(foldername, filename)
-                        arcname = os.path.relpath(file_path, os.path.dirname(path))
-                        zipf.write(file_path, arcname)
-            else:
-                print(f"Skipped: {path} (not found)")
 
 # ضغط الجدول ليكون في عدد الأيام المحدد
 def compress_schedule(students_data, exam_schedule, valid_days, max_days, max_attempts=200):

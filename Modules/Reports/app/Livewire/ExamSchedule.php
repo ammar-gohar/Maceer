@@ -12,6 +12,7 @@ use Modules\Semesters\Models\Semester;
 use ZipArchive;
 use Illuminate\Support\Facades\File as FileHelper;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 function createZipFromPaths(array $paths, string $zipName = 'output.zip'): bool
 {
@@ -76,6 +77,12 @@ class ExamSchedule extends Component
     public function generate_exam()
     {
         set_time_limit(0);
+        $lockKey = 'endpoint_run';
+        if (Cache::has($lockKey)) {
+            abort(403, 'This action has already been performed.');
+        }
+        Cache::put($lockKey, true, 3600);
+
         $data = $this->validate([
             'start_date'       => 'required|date',
             'end_date'         => 'required|date|after_or_equal:start_date',
@@ -146,6 +153,8 @@ class ExamSchedule extends Component
         FileHelper::cleanDirectory($storage_path . '/prepare_schedule');
 
         notyf()->success('Exam generated successfully!');
+
+        Cache::forget($lockKey);
     }
 
     public function new_schedule()
