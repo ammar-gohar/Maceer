@@ -15,7 +15,7 @@ class RolesDatabaseSeeder extends Seeder
     {
 
         Role::create([
-            'name'    => 'admin',
+            'name'    => 'Super Admin',
             'name_ar' => 'مشرف عام',
             'undeleteble' => 1
         ]);

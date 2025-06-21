@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
                 'phone'      => '12345678910',
                 'password'   => Hash::make('password')
         ]);
-        $adminUser->assignRole('admin');
+        $adminUser->assignRole('Super Admin');
 
         for ($i = 1; $i <= 50; $i++) {
 
