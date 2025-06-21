@@ -101,7 +101,7 @@ class ExamSchedule extends Component
             $csv = Storage::path('exam_schedules/') . Carbon::now()->format('m_Y') . '.csv';
         } else {
             $csv = $this->csv;
-            $csv = Storage::putFileAs('exam_schedules', $csv, Carbon::now()->format('m_Y') . '.csv');
+            $csv = Storage::putFileAs('exam_schedules', $csv, $csv->getClientOriginalName());
         };
 
         $start_date      = $data['start_date'];
