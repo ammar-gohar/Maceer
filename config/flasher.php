@@ -24,7 +24,7 @@ return Configuration::from([
     ],
 
     // Automatically inject JavaScript and CSS assets into your HTML pages
-    'inject_assets' => false,
+    'inject_assets' => true,
 
     // Enable message translation using Laravel's translation service
     'translate' => true,

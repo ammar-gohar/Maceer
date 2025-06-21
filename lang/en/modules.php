@@ -28,7 +28,7 @@ return [
             'update' => 'Student information updated successfully',
         ],
         'create' => 'Add Student',
-        'show' => 'Show Student Information',
+        'show' => 'Show Student :name Information',
         'edit' => 'Edit Student Information',
         'index' => 'View Students',
         'empty' => 'No students to display',

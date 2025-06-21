@@ -21,12 +21,6 @@ class RolesDatabaseSeeder extends Seeder
         ]);
 
         Role::create([
-            'name'    => 'admin',
-            'name_ar' => 'مشرف',
-            'undeleteble' => 1
-        ]);
-
-        Role::create([
             'name'    => 'professor',
             'name_ar' => 'معلم',
             'undeleteble' => 1

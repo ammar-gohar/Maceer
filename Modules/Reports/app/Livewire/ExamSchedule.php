@@ -139,7 +139,6 @@ class ExamSchedule extends Component
                 $pythonScript = "bash -c 'source $root/venv/bin/activate && python3 $root/exam_scheduler.py $include_fridays $holidays $storage_path/$csv $include_graphs $start_date $end_date $storage_path prepare_schedule 2>&1'";
             }
             $out = shell_exec($pythonScript);
-            notyf()->duration(0)->success($pythonScript);
         }
 
         createZipFromPaths([$storage_path . '/prepare_schedule'], "$storage_path/final_schedule/output.zip");
