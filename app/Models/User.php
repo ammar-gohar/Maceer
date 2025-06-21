@@ -58,7 +58,8 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function fullName() {
+    public function getFullNameAttribute()
+    {
         return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
     }
 
@@ -104,9 +105,9 @@ class User extends Authenticatable implements MustVerifyEmail
                     ->wherePivot('semester_id', Semester::where('is_current', 1)->first()->id);
     }
 
-    public function visorship()
+    public function guidence()
     {
-        return $this->hasMany(Student::class, 'visor_id');
+        return $this->hasMany(Student::class, 'guide_id');
     }
 
     // =================================================================================

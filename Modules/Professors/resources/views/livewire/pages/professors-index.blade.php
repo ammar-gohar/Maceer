@@ -1,4 +1,4 @@
-<x-page title="sidebar.professors.index" module="professors" :show_delete_button="true">
+<x-page title="sidebar.professors.index" module="professors" show_delete_button="true">
 
     <div class="card-body">
         @if ($professors->count() > 0)

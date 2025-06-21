@@ -39,7 +39,7 @@
                                     @foreach ($schedules['saturday']->where('start_period', $i) as $course)
                                         <div class="active" style="width:fit-content;" wire:key='saturday-{{ $i }}-{{ $loop->iteration }}'>
                                             <h4>{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
-                                            <p>{{ $course->professor->fullName() }}</p>
+                                            <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                             <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
                                             <button class="hover" wire:click='show_modal(["saturday", {{ $i }}, "{{ $course->id }}"])'>
@@ -65,7 +65,7 @@
                                     @foreach ($schedules['sunday']->where('start_period', $i) as $course)
                                         <div class="active" style="width:fit-content;" wire:key='sunday-{{ $i }}-{{ $loop->iteration }}'>
                                             <h4>{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
-                                            <p>{{ $course->professor->fullName() }}</p>
+                                            <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                             <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
                                             <button class="hover" wire:click='show_modal(["sunday", {{ $i }}, "{{ $course->id }}"])'>
@@ -92,7 +92,7 @@
                                         @foreach ($schedules['monday']->where('start_period', $i) as $course)
                                             <div class="active" style="width:fit-content;" wire:key='monday-{{ $i }}-{{ $loop->iteration }}'>
                                                 <h4>{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
-                                                <p>{{ $course->professor->fullName() }}</p>
+                                                <p>{{ $course->professor->full_name }}</p>
                                                 <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                                 <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
                                                 <button class="hover" wire:click='show_modal(["monday", {{ $i }}, "{{ $course->id }}"])'>
@@ -119,7 +119,7 @@
                                     @foreach ($schedules['tuesday']->where('start_period', $i) as $course)
                                         <div class="active" style="width:fit-content;" wire:key='tuesday-{{ $i }}-{{ $loop->iteration }}'>
                                             <h4>{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
-                                            <p>{{ $course->professor->fullName() }}</p>
+                                            <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                             <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
                                             <button class="hover" wire:click='show_modal(["tuesday", {{ $i }}, "{{ $course->id }}"])'>
@@ -146,7 +146,7 @@
                                     @foreach ($schedules['wednesday']->where('start_period', $i) as $course)
                                         <div class="active" style="width:fit-content;" wire:key='wednesday-{{ $i }}-{{ $loop->iteration }}'>
                                             <h4>{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
-                                            <p>{{ $course->professor->fullName() }}</p>
+                                            <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                             <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
                                             <button class="hover" wire:click='show_modal(["wednesday", {{ $i }}, "{{ $course->id }}"])'>
@@ -174,7 +174,7 @@
                                     @foreach ($schedules['thursday']->where('start_period', $i) as $course)
                                         <div class="active" style="width:fit-content;" wire:key='thursday-{{ $i }}-{{ $loop->iteration }}'>
                                             <h4>{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
-                                            <p>{{ $course->professor->fullName() }}</p>
+                                            <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                             <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
                                             <button class="hover" wire:click='show_modal(["thursday", {{ $i }}, "{{ $course->id }}"])'>
@@ -236,7 +236,7 @@
                                 <select wire:model='professor' class="mt-1 col-12 form-select">
                                     <option selected>{{ App::isLocale('ar') ? 'اختر معلم' : 'Choose a professor' }}</option>
                                     @foreach ($professors as $professor)
-                                        <option value="{{ $professor->id }}" {{ $professor->id == $professor ? 'selected' : '' }}>{{ $professor->FullName() }}</option>
+                                        <option value="{{ $professor->id }}" {{ $professor->id == $professor ? 'selected' : '' }}>{{ $professor->full_name }}</option>
                                     @endforeach
                                 </select>
                                 @error('professor')

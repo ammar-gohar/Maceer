@@ -3,7 +3,7 @@
         {{ $iteration }}
     </td>
     <td>
-        {{ $enroll->student->fullName() }}
+        {{ $enroll->student->full_name }}
     </td>
     <td>
         <input class="form-control" type="number" name="midterm" id="midterm" wire:model.blur='midterm' min="0" step="0.01">

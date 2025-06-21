@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Students\Http\Controllers\StudentsController;
-
+use Modules\Students\Livewire\Pages\Guidence;
 use Modules\Students\Livewire\Pages\StudentCreate;
 use Modules\Students\Livewire\Pages\StudentsIndex;
 use Modules\Students\Livewire\Pages\StudentEdit;
@@ -30,6 +30,10 @@ Route::group([
     Route::get('/create', StudentCreate::class)
         ->name('students.create')
         ->middleware(['permission:students.create']);
+
+    Route::get('/guidence', Guidence::class)
+        ->name('students.guidence')
+        ->middleware(['permission:students.guidence']);
 
     Route::get('/{national_id}', StudentShow::class)
         ->name('students.show')

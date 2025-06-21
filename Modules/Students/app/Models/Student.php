@@ -31,9 +31,9 @@ class Student extends Model
         return $this->belongsToMany(Course::class, 'course_requests', 'student_id', 'course_id');
     }
 
-    public function visor()
+    public function guide()
     {
-        return $this->belongsTo(User::class, 'visor_id');
+        return $this->belongsTo(User::class, 'guide_id');
     }
 
     protected static function newFactory(): StudentFactory

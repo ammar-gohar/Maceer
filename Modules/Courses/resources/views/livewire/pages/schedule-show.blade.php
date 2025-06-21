@@ -60,7 +60,7 @@
                                                         ])
                                                     >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                                                <p>{{ $course->professor->fullName() }}</p>
+                                                <p>{{ $course->professor->full_name }}</p>
 
                                                 <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
@@ -113,7 +113,7 @@
                                                         ])
                                                     >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                                                <p>{{ $course->professor->fullName() }}</p>
+                                                <p>{{ $course->professor->full_name }}</p>
 
                                                 <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
@@ -167,7 +167,7 @@
                                                         ])
                                                     >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                                                <p>{{ $course->professor->fullName() }}</p>
+                                                <p>{{ $course->professor->full_name }}</p>
 
                                                 <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
@@ -221,7 +221,7 @@
                                                         ])
                                                     >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                                                <p>{{ $course->professor->fullName() }}</p>
+                                                <p>{{ $course->professor->full_name }}</p>
 
                                                 <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
@@ -275,7 +275,7 @@
                                                         ])
                                                     >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                                                <p>{{ $course->professor->fullName() }}</p>
+                                                <p>{{ $course->professor->full_name }}</p>
 
                                                 <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
@@ -330,7 +330,7 @@
                                                         ])
                                                     >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
 
-                                                <p>{{ $course->professor->fullName() }}</p>
+                                                <p>{{ $course->professor->full_name }}</p>
 
                                                 <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 

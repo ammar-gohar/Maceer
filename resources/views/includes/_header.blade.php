@@ -49,7 +49,7 @@
               class="shadow user-image rounded-circle"
               alt="User Image"
             />
-            <span class="d-none d-md-inline">{{ Auth::user()->fullName() }}</span>
+            <span class="d-none d-md-inline">{{ Auth::user()->full_name }}</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 
@@ -63,7 +63,7 @@
               />
 
               <p>
-                {{ Auth::user()->fullName() }}
+                {{ Auth::user()->full_name }}
                 <small>{{ App::isLocale('ar') ? Auth::user()->roles->first()->name_ar : Auth::user()->roles->first()->name }}</small>
               </p>
             </li>

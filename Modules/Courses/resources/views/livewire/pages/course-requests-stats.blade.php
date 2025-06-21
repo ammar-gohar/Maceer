@@ -119,7 +119,7 @@
                                 <select wire:model='professor' class="mt-1 col-12 form-select">
                                     <option selected>{{ App::isLocale('ar') ? 'اختر معلم' : 'Choose a professor' }}</option>
                                     @foreach ($professors as $professor)
-                                        <option value="{{ $professor->id }}" {{ $professor->id == $professor ? 'selected' : '' }}>{{ $professor->FullName() }}</option>
+                                        <option value="{{ $professor->id }}" {{ $professor->id == $professor ? 'selected' : '' }}>{{ $professor->full_name }}</option>
                                     @endforeach
                                 </select>
                                 @error('professor')

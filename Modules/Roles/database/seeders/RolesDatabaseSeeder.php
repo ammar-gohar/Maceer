@@ -314,6 +314,20 @@ class RolesDatabaseSeeder extends Seeder
             'module' => 'Quizzes',
         ]);
 
+        Permission::create([
+            'name' => 'students.guidence',
+            'name_ar' => 'إرشاد الطلاب',
+            'name_en' => 'Guide students',
+            'module' => 'Students',
+        ]);
+
+        Permission::create([
+            'name' => 'students.guidence.edit',
+            'name_ar' => 'تعديل إرشاد الطلاب',
+            'name_en' => 'Edit students guidences',
+            'module' => 'Students',
+        ]);
+
         $this->call([]);
     }
 }

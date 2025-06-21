@@ -26,6 +26,7 @@ return [
         'success' => [
             'store' => 'نجح إنشاء طالب جديد',
             'update' => 'نجح تعديل بيانات الطالب',
+            'guidence_removed' => 'نجح إزالة الإرشاد الأكاديمي',
         ],
         'create' => 'إضافة طالب',
         'show' => 'عرض بيانات الطالب',
@@ -34,12 +35,13 @@ return [
         'empty' => 'لا يوجد طلّاب للعرض',
         'credits_to_enroll' => 'عدد الساعات المتبقية المسموحة للتسجيل',
         'total_earned_credits' => 'عدد الساعات المنتهية',
-        'head_professor' => 'المشرف الأكاديمي',
         'core_earned_credits' => 'الساعات الأساسية المنتهية',
         'university_elected_earned_credits' => 'ساعات متطلبات الجامعة المنتهية',
         'faculty_elected_earned_credits' => 'ساعات متطلبات الكلية المنتهية',
         'program_elected_earned_credits' => 'ساعات متطلبات البرنامج المنتهية',
         'action' => 'العمليات',
+        'guide' => 'المرشد الأكاديمي',
+        'head_teacher' => 'المرشد الأكاديمي',
     ],
 
     'professors' => [

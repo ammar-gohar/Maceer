@@ -95,7 +95,7 @@ class UserSeeder extends Seeder
 
         for ($i = 1; $i <= 200; $i++) {
 
-            User::factory(1)->hasStudent(['visor_id' => $professors[random_int(0, 20)]])->create(['username' => 'student' . $i]);
+            User::factory(1)->hasStudent(['guide_id' => $professors[random_int(0, 20)]])->create(['username' => 'student' . $i]);
 
         }
 

@@ -94,7 +94,7 @@ class ExamSchedule extends Component
             $csv = fopen(Storage::path('exam_schedules/') . Carbon::now()->format('m_Y') . '.csv', 'w');
             foreach ($students as $student) {
                 foreach ($student->current_enrolled_courses as $course) {
-                    fputcsv($csv, [$student->fullName(), $course->name], ';', '');
+                    fputcsv($csv, [$student->full_name, $course->name], ';', '');
                 }
             }
             fclose($csv);

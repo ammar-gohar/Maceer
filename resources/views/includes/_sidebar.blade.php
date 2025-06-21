@@ -118,7 +118,7 @@
                 {{-- end::Professors sidebar --}}
             @endcan
 
-            @canany(['students.index', 'students.create'])
+            @canany(['students.index', 'students.create', 'students.guidence'])
                 {{-- Students sidebar --}}
                 <x-sidebar-list module="students" icon="fa-solid fa-user-graduate">
                     @can('students.index')
@@ -126,6 +126,9 @@
                     @endcan
                     @can('students.create')
                         <x-sidebar-item icon="fa-solid fa-user-plus" route="students.create" />
+                    @endcan
+                    @can('students.guidence')
+                        <x-sidebar-item icon="fa-solid fa-user-plus" route="students.guidence" />
                     @endcan
                 </x-sidebar-list>
                 {{-- end::sutdents sidebar --}}

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('core_earned_credits')->default(0);
             $table->integer('total_earned_credits')->default(0);
             $table->integer('maximum_credits_to_enroll')->default(18);
-            $table->foreignUuid('visor_id')->nullable()->constrained('users')->nullOnDelete()->cascadeOnUpdate();
+            $table->foreignUuid('guide_id')->nullable()->constrained('users')->nullOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

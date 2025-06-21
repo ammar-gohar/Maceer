@@ -17,9 +17,22 @@ class StudentFactory extends Factory
      */
     public function definition(): array
     {
-        $id = Level::orderBy('created_at', 'asc')->first();
+        $levels = Level::all()->toArray();
+        $universityCredits = fake()->numberBetween(0, 30);
+        $facultyCredits = fake()->numberBetween(0, 30);
+        $programCredits = fake()->numberBetween(0, 30);
+        $coreCredits = fake()->numberBetween(0, 30);
+        $totalCredits = $universityCredits + $facultyCredits + $programCredits + $coreCredits;
+        $maximumCreditsToEnroll = fake()->numberBetween(12, 18);
         return [
-            'level_id' => $id,
+            'level_id' => $levels[array_rand($levels)]['id'],
+            'gpa' => fake()->randomFloat(2, 0, 4),
+            'unversity_elected_earned_credits' => $universityCredits,
+            'faculty_elected_earned_credits' => $facultyCredits,
+            'program_elected_earned_credits' => $programCredits,
+            'core_earned_credits' => $coreCredits,
+            'total_earned_credits' => $totalCredits,
+            'maximum_credits_to_enroll' => $maximumCreditsToEnroll,
         ];
     }
 }

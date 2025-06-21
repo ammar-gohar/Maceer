@@ -20,8 +20,8 @@
                     @foreach ($permissionsModules as $module => $modulePermissions)
                         <div class="mb-5 col-lg-4">
                             <div class="form-check ps-3">
-                                <input class="form-check-input" type="checkbox" id="{{ $module.'Permissions' }}" onclick="checkAllCheckboxes('{{ $module }}', this)">
-                                <label class="form-check-label fw-bold" for="{{ $module.'Permissions' }}">
+                                <input class="form-check-input" type="checkbox" id="{{ $module.'-Permissions' }}" onclick="checkAllCheckboxes('{{ $module }}', this)">
+                                <label class="form-check-label fw-bold" for="{{ $module.'-Permissions' }}">
                                     @lang('sidebar.'.strtolower($module).'.title')
                                 </label>
                             </div>
@@ -32,7 +32,7 @@
                                         type="checkbox"
                                         id="{{ $module.$loop->iteration }}"
                                         value="{{ $permission->id }}"
-                                        wire:model='permissions'
+                                        wire:model.change='permissions'
                                         onclick="nestedCheckbox('{{ $module }}')"
                                         {{ $permissions->contains($permission->id) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="{{ $module.$loop->iteration }}">
@@ -64,4 +64,6 @@
     <!--end::Form-->
 </x-page>
 
-<script src="/js/checkboxes.js"></script>
+@push('scripts')
+    <script src="/js/checkboxes.js"></script>
+@endpush

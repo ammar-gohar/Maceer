@@ -3,7 +3,7 @@
     <!--begin::Body-->
     <div class="px-4 card-body">
 
-        <livewire:components.show-item label="forms.name" :data="$student->fullName()" />
+        <livewire:components.show-item label="forms.name" :data="$student->full_name" />
 
         <livewire:components.show-item label="forms.national_id" :data="$student->national_id" />
 

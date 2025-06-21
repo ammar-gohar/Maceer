@@ -22,5 +22,10 @@ return [
     'unavailable_page' => 'هذه الصفحة غير متاحة حاليا',
     'passwords' => [
         'reset' => 'اعادة تعيين كلمة المرور',
-    ]
+    ],
+    'sort_by' => 'ترتيب حسب',
+    'sort_by_options' => [
+        'asc' => 'تصاعدي',
+        'desc' => 'تنازلي',
+    ],
 ];

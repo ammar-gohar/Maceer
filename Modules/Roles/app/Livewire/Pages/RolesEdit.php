@@ -54,6 +54,7 @@ class RolesEdit extends Component
         if($this->role->name == 'Super Admin'){
             return;
         }
+        dd($this->permissions);
 
         $data = $this->validate();
 
