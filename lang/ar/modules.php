@@ -208,6 +208,10 @@ return [
         'generate_exam_schedule' => 'إنشاء جدول الامتحانات',
         'holiday_dates' => 'أيام العطلة',
         'add_holiday' => 'إضافة يوم عطلة',
+        'exam_schedule_generated' => 'نجح إنشاء جدول الامتحانات',
+        'download_schedule_zip' => 'تحميل ملف الجدول',
+        'download_csv' => 'تحميل ملف CSV',
+        'generate_new' => 'إنشاء جدول جديد',
     ]
 
 ];

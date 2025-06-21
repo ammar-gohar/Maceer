@@ -50,6 +50,7 @@ class ExamSchedule extends Component
     public $semesterId;
     public $schedules_number;
     public $csv;
+    public $files;
 
     public function mount()
     {
@@ -100,7 +101,7 @@ class ExamSchedule extends Component
             $csv = Storage::path('exam_schedules/') . Carbon::now()->format('m_Y') . '.csv';
         } else {
             $csv = $this->csv;
-            $csv = Storage::putFileAs('exam_schedules', $csv, Carbon::now()->format('m_Y') . '.csv');
+            $csv = Storage::putFile('exam_schedules');
         };
 
         $start_date      = $data['start_date'];
@@ -148,18 +149,36 @@ class ExamSchedule extends Component
         notyf()->success('Exam generated successfully!');
     }
 
+    public function new_schedule()
+    {
+        $this->start_date = null;
+        $this->end_date = null;
+        $this->include_fridays = false;
+        $this->include_graphs = false;
+        $this->holidays = [''];
+        $this->schedules_number = 1;
+        $this->csv = null;
+        Storage::delete([$this->files['csv'], $this->files['zip']]);
+        $this->files = [];
+        return;
+    }
+
+    public function download($file)
+    {
+        return response()->download(Storage::path($this->files[$file]), basename($this->files[$file]));
+    }
+
     public function render()
     {
         $files = Storage::files('final_schedule');
 
         if (!empty($files)) {
-            /*
-            Ammar => Put here the view for either go to generate another
-            schedule thus => (delete the "contents" of `final_schedule` folder) or download the zip file
 
+            $this->files = [
+                'csv' => Storage::files('exam_schedules')[0],
+                'zip' => Storage::files('final_schedule')[0],
+            ];
 
-            NOTE there will be a file named output.zip if there is generated schedule
-            */
         }
         return view('reports::livewire.exam-schedule')->title(__('sidebar.exam_schedule_generate'));
     }

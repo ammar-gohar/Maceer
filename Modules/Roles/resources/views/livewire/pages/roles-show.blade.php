@@ -1,4 +1,4 @@
-<x-page show_index_button="true" :show_edit_button="$role->id" title="modules.roles.show" module="roles" show-delete-form="true" undeleteble="$role->undeleteble">
+<x-page show_index_button="true" show_edit_button="$role->id" title="modules.roles.show" module="roles" show-delete-form="true" undeleteble="$role->undeleteble">
     <!--begin::Body-->
     <div class="card-body">
         <div class="mb-3 row">

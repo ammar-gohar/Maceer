@@ -1,4 +1,4 @@
-<x-page title="sidebar.professors.index" module="professors" ::show_delete_button="true">
+<x-page title="sidebar.professors.index" module="professors" :show_delete_button="true">
 
     <div class="card-body">
         @if ($professors->count() > 0)
@@ -8,7 +8,6 @@
                         <th class="text-center">#</th>
                         <th>@lang('modules.professors.name')</th>
                         <th>@lang('modules.professors.gender')</th>
-                        <th>@lang('modules.professors.action')</th>
                         <th></th>
                     </tr>
                 </thead>

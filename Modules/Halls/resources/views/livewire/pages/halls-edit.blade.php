@@ -1,4 +1,4 @@
-<x-page module="halls" title="sidebar.halls.create" show_index_button="true" :show_delete_button="true">
+<x-page module="halls" title="sidebar.halls.create" show_index_button="true" show_delete_button="true">
 
     <!--begin::Form-->
     <form wire:submit='update()'>

@@ -48,6 +48,7 @@ return [
         'my-courses' => 'مقرراتي',
         'student-show' => 'مقررات الفصل الحالي',
         'professor-show' => 'مقررات التدريس',
+        'requests-stats' => 'إحصائيات الطلبات',
     ],
 
     'halls' => [

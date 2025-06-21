@@ -137,9 +137,6 @@
                     @can('roles.index')
                         <x-sidebar-item icon="fa-solid fa-gears" route="roles.index" />
                     @endcan
-                    @can('roles.create')
-                        <x-sidebar-item icon="fa-solid fa-plus" route="roles.create" />
-                    @endcan
                 </x-sidebar-list>
                 {{-- end::Roles sidebar --}}
             @endcan
@@ -153,8 +150,13 @@
                     @can('courses.create')
                         <x-sidebar-item icon="fa-solid fa-plus" route="courses.create" />
                     @endcan
+                    @can('courses.requests-stats')
+                        <x-sidebar-item icon="fa-solid fa-list" route="courses.requests-stats" />
+                    @endcan
                     @can('courses.requests')
-                        <x-sidebar-item icon="fa-solid fa-list" route="courses.requests" />
+                        @unless (Auth::user()->hasRole('Super Admin'))
+                            <x-sidebar-item icon="fa-solid fa-list" route="courses.requests" />
+                        @endunless
                     @endcan
                     @can('courses.schedule')
                         <x-sidebar-item icon="fa-solid fa-calendar-days" route="courses.schedule" />

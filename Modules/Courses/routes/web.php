@@ -48,7 +48,11 @@ Route::group([
         ->middleware('permission:courses.professor.show')
         ->name('courses.professor-show');
 
-        Route::get('/requests', CourseRequestsStats::class)
+        Route::get('/requests-stats', CourseRequestsStats::class)
+        // ->middleware(['auth', 'permission:courses.enrollment'])
+        ->name('courses.requests-stats');
+
+        Route::get('/requests', CourseRequests::class)
         ->middleware(['auth', 'permission:courses.enrollment'])
         ->name('courses.requests');
 

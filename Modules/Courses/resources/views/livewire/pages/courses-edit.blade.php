@@ -1,4 +1,4 @@
-<x-page module="courses" title="sidebar.courses.edit" show_index_button="true" :show_delete_button="true">
+<x-page module="courses" title="sidebar.courses.edit" show_index_button="true" show_delete_button="true">
 
     <x-success-message :status="$status" module="courses" operation="update" />
 

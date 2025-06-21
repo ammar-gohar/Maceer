@@ -24,6 +24,10 @@ class CourseRequests extends Component
             return $this->redirect('/semester');
         }
 
+        if(!Auth::user()->hasPermissionTo('courses.enrollment')) {
+            return $this->redirectRoute('courses.requests-stats');
+        }
+
         $this->courses_to_enroll = CourseRequest::where('student_id', Auth::user()->student->id)->pluck('course_id')->toArray();
     }
 
