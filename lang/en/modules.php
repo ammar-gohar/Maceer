@@ -212,6 +212,10 @@ return [
         'generate_exam_schedule' => 'Generate Exam Schedule',
         'holiday_dates' => 'Holiday Dates',
         'add_holiday' => 'Add Holiday',
+        'exam_schedule_generated' => 'Exam schedule generated successfully',
+        'download_schedule_zip' => 'Download Schedule Zip',
+        'download_csv' => 'Download CSV',
+        'generate_new' => 'Generate New Schedule',
     ]
     
 ];
