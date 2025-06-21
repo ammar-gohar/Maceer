@@ -1,4 +1,4 @@
-<x-page title="sidebar.moderators.index" module="moderators" show_delete_button="true">
+<x-page title="sidebar.moderators.index" module="moderators" show_create_button="true">
 
     <div class="card-body">
         @if ($moderators->count() > 0)

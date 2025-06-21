@@ -40,6 +40,8 @@ return [
         'faculty_elected_earned_credits' => 'Completed Faculty Requirement Credits',
         'program_elected_earned_credits' => 'Completed Program Requirement Credits',
         'action' => 'Actions',
+        'guide' => 'Academic Advisor',
+        'head_teacher' => 'Academic Advisor',
     ],
 
     'professors' => [
@@ -49,6 +51,7 @@ return [
         'action' => 'Actions',
         'show' => 'Show Professor :name Information',
         'index' => 'View Professors',
+        'create' => 'Add Professor',
         'edit' => 'Edit Professor Information',
         'success' => [
             'update' => 'Updated successfully',
@@ -60,6 +63,7 @@ return [
         'index' => 'Show Moderators',
         'edit' => 'Edit Moderator Information',
         'show' => 'Show Moderator :name Information',
+        'create' => 'Add Moderator',
         'success' => [
             'update' => 'Updated successfully',
             'store' => 'Moderator created successfully',

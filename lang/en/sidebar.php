@@ -28,6 +28,7 @@ return [
         'create' => 'Add a student',
         'transfer' => 'Add transfered student',
         'edit'   => 'Edit a student',
+        'guidence' => 'Academic advision',
     ],
 
     'roles' => [

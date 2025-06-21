@@ -20,5 +20,11 @@ return [
     'day' => 'Today',
     'passwords' => [
         'reset' => 'Reset Password',
-    ]
+    ],
+    
+    'sort_by' => 'Sort By',
+    'sort_by_options' => [
+        'asc' => 'Ascending',
+        'desc' => 'Descending',
+    ],
 ];
