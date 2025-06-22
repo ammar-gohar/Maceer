@@ -19,6 +19,7 @@ class Semester extends Model
         'name',
         'start_date',
         'end_date',
+        'is_current'
     ];
 
     // protected static function newFactory(): SemesterFactory

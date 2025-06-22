@@ -70,7 +70,7 @@ return [
     'end_date' => 'تاريخ الانتهاء',
     'start_semester' => 'بدء الفصل الدراسي',
     'end_semester' => 'إنهاء الفصل الحالي',
-    'semester_active' => 'الفصل الحالي سينتهي في :date',
+    'semester_active' => 'الفصل الحالي :semester سينتهي في :date',
     'want_end_semester' => 'هل تريد أن تنهي الفصل الحالي الآن؟',
 
     'publish_midterm' => 'إعلان درجة امتحان منتصف الفصل',

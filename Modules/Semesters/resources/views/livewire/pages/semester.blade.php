@@ -5,7 +5,7 @@
         <div class="card-body">
             <!--begin::Row-->
             <h3 class="mb-3 alert alert-info">
-                @lang('forms.semester_active', ['date' => $current->end_date])
+                @lang('forms.semester_active', ['date' => $current->end_date, 'semester' => $current->name])
             </h3>
             <h5 class="mb-3">
                 @lang('forms.want_end_semester')
