@@ -5,9 +5,12 @@ namespace App\Livewire\Forms;
 use App\Models\User;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Livewire\WithFileUploads;
 
 class UserForm extends Form
 {
+
+    use WithFileUploads;
 
     public $id;
 
@@ -25,6 +28,8 @@ class UserForm extends Form
 
     public $gender = '';
 
+    public $image;
+
     public function rules()
     {
         return [
@@ -35,6 +40,7 @@ class UserForm extends Form
             'phone'       => 'bail|required|digits:11|regex:/[0-9]/|unique:users,phone,' . $this->id ?? '',
             'email'       => 'bail|required|email|max:255|unique:users,email,' . $this->id ?? '',
             'gender'      => 'bail|required|string|in:m,f',
+            'image'       => 'bail|nullable|image|max:1024',
         ];
     }
 
@@ -48,6 +54,7 @@ class UserForm extends Form
         $this->phone = $user->phone;
         $this->email = $user->email;
         $this->gender = $user->gender;
+        $this->image = $user->image;
     }
 
 }

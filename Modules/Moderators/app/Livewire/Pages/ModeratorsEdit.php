@@ -6,9 +6,14 @@ use App\Livewire\Forms\UserForm;
 use App\Models\User;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ModeratorsEdit extends Component
 {
+
+    use WithFileUploads;
 
     public UserForm $form;
 
@@ -25,6 +30,15 @@ class ModeratorsEdit extends Component
         $data = $this->form->validate();
 
         $moderator = User::with(['moderator'])->findOrFail($this->form->id);
+
+        if ($this->form->image) {
+            if($moderator->image) {
+                Storage::disk('public')->delete($moderator->image);
+            }
+            $randomName = Str::uuid() . '.' . $this->form->image->getClientOriginalExtension();
+            $path = $this->form->image->storeAs('profe$moderators/profile', $randomName, 'public');
+            $data['image'] = $path;
+        }
 
         $moderator->update($data);
 

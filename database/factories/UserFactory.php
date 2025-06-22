@@ -29,6 +29,7 @@ class UserFactory extends Factory
         return [
             'first_name' => $gender == 'm' ? fake()->firstNameMale() : fake()->firstNameFemale(),
             'middle_name' => fake()->name(),
+            'image' => fake()->imageUrl(240, 180, 'people', true, 'Faker'),
             'last_name' => fake()->lastName(),
             'national_id' => fake()->unique()->numberBetween(12000000000000, 12999999999999),
             'username' => 'student' . $this->i,

@@ -13,7 +13,7 @@
 
         <livewire:components.show-item label="forms.full_mark" :data="$course->full_mark" />
 
-        <livewire:components.show-item label="forms.level" :data="$course->level" />
+        <livewire:components.show-item label="forms.level" :data="$course->level->name" />
 
     </div>
     <!--end::Body-->

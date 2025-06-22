@@ -7,12 +7,15 @@ use App\Mail\SendingPassword;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
-use Modules\Levels\Models\Level;
+use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
 
 class ModeratorsCreate extends Component
 {
+
+    use WithFileUploads;
+
     public UserForm $form;
 
     public function store()
@@ -22,6 +25,12 @@ class ModeratorsCreate extends Component
         $data['password'] = Hash::make($password);
         $data['username'] = $this->form->last_name . '.' . $this->form->first_name . random_int(001, 999);
 
+        if ($this->form->image) {
+            $randomName = Str::uuid() . '.' . $this->form->image->getClientOriginalExtension();
+            $path = $this->form->image->storeAs('moderators/profile', $randomName, 'public');
+            $data['image'] = $path;
+        }
+
         $moderator = User::create($data);
         $moderator->assignRole('staff');
         $moderator->moderator()->create();
@@ -29,7 +38,7 @@ class ModeratorsCreate extends Component
         Mail::to($moderator->email)->queue((new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails'));
 
         notyf()->success(__('modules.moderators.success.store'));
-        
+
         $this->reset();
 
     }

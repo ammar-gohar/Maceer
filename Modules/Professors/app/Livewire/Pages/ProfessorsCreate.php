@@ -7,12 +7,15 @@ use App\Mail\SendingPassword;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
-use Modules\Levels\Models\Level;
+use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
 
 class ProfessorsCreate extends Component
 {
+
+    use WithFileUploads;
+
     public UserForm $form;
 
     public function store()
@@ -21,6 +24,12 @@ class ProfessorsCreate extends Component
         $password = \Illuminate\Support\Str::password(12);
         $data['password'] = Hash::make($password);
         $data['username'] = $this->form->last_name . '.' . $this->form->first_name . random_int(001, 999);
+
+        if ($this->form->image) {
+            $randomName = Str::uuid() . '.' . $this->form->image->getClientOriginalExtension();
+            $path = $this->form->image->storeAs('professors/profile', $randomName, 'public');
+            $data['image'] = $path;
+        }
 
         $professor = User::create($data);
         $professor->assignRole('professor');

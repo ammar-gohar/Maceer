@@ -6,9 +6,14 @@ use App\Livewire\Forms\UserForm;
 use App\Models\User;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class StudentEdit extends Component
 {
+
+    use WithFileUploads;
 
     public UserForm $form;
 
@@ -19,7 +24,7 @@ class StudentEdit extends Component
     public $gpa;
 
     #[Validate('bail|required|integer|min:0|max:180')]
-    public $earned_credits;
+    public $total_earned_credits;
 
     public $status = false;
 
@@ -28,7 +33,7 @@ class StudentEdit extends Component
         $student = User::with(['student'])->where('national_id', $national_id)->firstOrFail();
         $this->level = $student->student->level;
         $this->gpa = $student->student->gpa;
-        $this->earned_credits = $student->student->earned_credits;
+        $this->total_earned_credits = $student->student->total_earned_credits;
         $this->form->fillVars($student);
     }
 
@@ -38,11 +43,20 @@ class StudentEdit extends Component
 
         $student = User::with(['student'])->findOrFail($this->form->id);
 
+        if ($this->form->image) {
+            if($student->image) {
+                Storage::disk('public')->delete($student->image);
+            }
+            $randomName = Str::uuid() . '.' . $this->form->image->getClientOriginalExtension();
+            $path = $this->form->image->storeAs('students/profile', $randomName, 'public');
+            $data['image'] = $path;
+        }
+
         $student->update($data);
         $student->student()->update([
             'level' => $this->level,
             'gpa' => $this->gpa,
-            'earned_credits' => $this->earned_credits,
+            'total_earned_credits' => $this->total_earned_credits,
         ]);
 
         $this->status = true;

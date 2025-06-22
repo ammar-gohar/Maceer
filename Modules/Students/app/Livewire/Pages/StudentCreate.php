@@ -10,9 +10,13 @@ use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Modules\Levels\Models\Level;
+use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
 
 class StudentCreate extends Component
 {
+
+    use WithFileUploads;
 
     public UserForm $form;
 
@@ -23,7 +27,8 @@ class StudentCreate extends Component
     public $gpa = 0.00;
 
     #[Validate('bail|required|integer|min:0|max:180')]
-    public $earned_credits = 0;
+    public $total_earned_credits = 0;
+
 
     public $status = false;
 
@@ -34,12 +39,19 @@ class StudentCreate extends Component
         $data['password'] = Hash::make($password);
         $data['username'] = $this->form->last_name . '.' . $this->form->first_name . random_int(001, 999);
 
+        if ($this->form->image) {
+            $randomName = Str::uuid() . '.' . $this->form->image->getClientOriginalExtension();
+            $path = $this->form->image->storeAs('students/profile', $randomName, 'public');
+            $data['image'] = $path;
+        }
+
         $student = User::create($data);
         $student->assignRole('student');
         $student->student()->create([
             'level_id' => Level::where('number', 1)->first()->id,
             'gpa' => $this->gpa,
         ]);
+
 
         Mail::to($student->email)->queue((new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails'));
 

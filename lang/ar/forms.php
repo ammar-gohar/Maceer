@@ -17,12 +17,12 @@ return [
     'male'   => 'ذكر',
     'sign_in' => 'دخول',
     'forgot_pswrd' => 'أنسيت كلمة السر؟',
-    
+
     'description' => 'الوصف',
 
     'level' => 'المرحلة:',
     'gpa' => 'GPA:',
-    'earned_credits' => 'الساعات المكتسبة:',
+    'total_earned_credits' => 'إجمالي الساعات المكتسبة:',
 
     'add_student' => 'إضافة طالب جديد',
     'edit_student' => 'تعديل بيانات طالب',
@@ -91,5 +91,8 @@ return [
     'csv' => 'ملف CSV',
     'passwords' => [
         'send_email' => 'اعادة تعيين',
-    ]
+    ],
+    'uploading' => 'يُرفع...',
+    'image' => 'الصورة',
+    'image_info' => 'يجب أن تكون الصورة أقل من 1 ميجابايت، بنسبة (3:4)',
 ];
