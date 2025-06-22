@@ -78,12 +78,6 @@ class ExamSchedule extends Component
     {
         set_time_limit(0);
 
-        $lockKey = 'endpoint_run';
-        if (Cache::has($lockKey)) {
-            abort(403, 'This action has already been performed.');
-        }
-        Cache::put($lockKey, true, 3600);
-
         $data = $this->validate([
             'start_date'       => 'required|date',
             'end_date'         => 'required|date|after_or_equal:start_date',
@@ -91,6 +85,12 @@ class ExamSchedule extends Component
             'csv'              => 'nullable|mimes:csv',
             'holidays.*'       => 'nullable|date|after_or_equal:start_date|before_or_equal:end_date',
         ]);
+
+        $lockKey = 'endpoint_run';
+        if (Cache::has($lockKey)) {
+            abort(403, 'This action has already been performed.');
+        }
+        Cache::put($lockKey, true, 3600);
 
         $students = User::with(['current_enrolled_courses'])->has('student')->has('current_enrollments')->get();
 
