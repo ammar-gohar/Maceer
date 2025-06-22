@@ -45,7 +45,7 @@
         <li class="nav-item dropdown user-menu">
           <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
             <img
-              src="../../dist/assets/img/user2-160x160.jpg"
+              src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('favicon.png') }}"
               class="shadow user-image rounded-circle"
               alt="User Image"
             />
@@ -57,7 +57,7 @@
             <li class="user-header text-bg-dark">
 
               <img
-                src="../../dist/assets/img/user2-160x160.jpg"
+                src="{{ Auth::user()->image ? asset('storage/' . Auth::user()->image) : asset('favicon_light.png') }}"
                 class="shadow rounded-circle"
                 alt="User Image"
               />

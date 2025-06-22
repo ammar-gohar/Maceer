@@ -17,7 +17,7 @@
         <div class="login-box" style="max-width: 500px; width: 85%;">
             <div class="card card-outline card-dark">
                 <div class="card-header" style="text-align: center">
-                    <img src="{{ asset('favicon.jpg') }}" style="width: 200px; height: 200px" />
+                    <img src="{{ asset('logo.png') }}" style="max-width: 17rem;"/>
                 </div>
                 <div class="card-body login-card-body">
                 <form action="{{ route('login') }}" method="post">

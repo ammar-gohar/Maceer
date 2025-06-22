@@ -8,15 +8,16 @@
       <a href="{{ route('home') }}" class="brand-link">
 
         <!--begin::Brand Image-->
-        {{-- <img
-          src="../../dist/assets/img/AdminLTELogo.png"
-          alt="AdminLTE Logo"
+        <img
+          src="{{ asset('favicon_light.png') }}"
+          alt="Maceer logo"
           class="shadow opacity-75 brand-image"
-        /> --}}
+          style="max-height: 40px"
+        />
         <!--end::Brand Image-->
 
         <!--begin::Brand Text-->
-        <span class="brand-text fw-bold fs-4">{{ App::isLocale('ar') ? 'مَسير' : 'Maceer' }}</span>
+        <span class="brand-text fw-bold fs-4 ms-0">{{ App::isLocale('ar') ? 'مَسير' : 'Maceer' }}</span>
         <!--end::Brand Text-->
 
       </a>
