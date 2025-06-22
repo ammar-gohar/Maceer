@@ -70,7 +70,7 @@ return [
     'end_date' => 'End date',
     'start_semester' => 'Start semester',
     'end_semester' => 'End date',
-    'semester_active' => 'Current semester will end in :date',
+    'semester_active' => 'Current semester :semester will end in :date',
     'want_end_semester' => 'Do you want to end semester?',
 
     'publish_midterm' => 'Publish midterm degrees',

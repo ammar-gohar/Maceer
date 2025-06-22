@@ -43,7 +43,9 @@ class Semester extends Component
     {
         ModelsSemester::find($id)->update([
             'is_current' => 0,
+            'end_date' => \Carbon\Carbon::today()->format('Y-m-d'),
         ]);
+
 
         notyf()->success(__('modules.semester.success.end'));
     }
