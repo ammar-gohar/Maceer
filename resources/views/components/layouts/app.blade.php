@@ -129,8 +129,8 @@
         {{-- @unless(Route::is(['login', 'password.*']))
             <livewire:includes.sidebar>
         @endunless --}}
-        @includeWhen(!Route::is(['login', 'password.*']), 'includes._sidebar')
-        @includeWhen(!Route::is(['login', 'password.*']), 'includes._header')
+        @includeWhen(!Route::is(['login', 'password.*', 'reports.*']), 'includes._sidebar')
+        @includeWhen(!Route::is(['login', 'password.*', 'reports.*']), 'includes._header')
 
       <!--begin::App Main-->
       <main class="pb-0 app-main">
@@ -140,7 +140,7 @@
       </main>
       <!--end::App Main-->
 
-      @includeWhen(!Route::is(['login', 'password.*']), 'includes._footer')
+      @includeWhen(!Route::is(['login', 'password.*', 'reports.*']), 'includes._footer')
 
     </div>
     <!--end::App Wrapper-->

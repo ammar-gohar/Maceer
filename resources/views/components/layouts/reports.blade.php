@@ -11,7 +11,7 @@
                 <i class="fa-solid fa-print"></i> {{ App::isLocale('ar') ? 'طباعة' : 'Print' }}
             </button>
         </div>
-        <div class="mb-5 row" id="reportHeader">
+        <div class="mb-1 row" id="reportHeader">
             <div class="col-1">
             </div>
             <div class="text-center col-3">
@@ -57,7 +57,9 @@
     @push('scripts')
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                window.print();
+                setTimeout(() => {
+                    window.print()
+                }, 1000);;
             });
         </script>
     @endpush

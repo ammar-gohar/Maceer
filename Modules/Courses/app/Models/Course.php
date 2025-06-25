@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Levels\Models\Level;
 use Modules\Students\Models\Student;
@@ -27,6 +28,11 @@ class Course extends Model implements HasMedia
      * The attributes that are mass assignable.
      */
     protected $guarded = [];
+
+    public function getTranslatedNameAttribute()
+    {
+        return App::isLocale('ar') ? $this->name_ar : $this->name;
+    }
 
     public function requests()
     {

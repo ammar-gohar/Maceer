@@ -5,7 +5,7 @@
             <div class="col-md-3">
                 <input type="text" name="search" id="search" wire:model.live='search' placeholder="{{ App::isLocale('ar') ? 'بحث...' : 'Search...' }}" class="form-control">
             </div>
-            <div class="form-group mb-3 row col-md-5 offset-3">
+            <div class="mb-3 form-group row col-md-5 offset-3">
                 <div class="col-md-9 d-flex">
                     <label for="sortBy" class="fw-bold me-2" style="white-space: nowrap; font-size:1rem;">@lang('general.sort_by'):</label>
                     <select id="sortBy" class="form-select form-control" wire:model.change='sortBy.0'>
@@ -19,7 +19,7 @@
                         <option value="level" {{ $sortBy[0] == 'level' ? 'selected' : '' }}>@lang('modules.students.level')</option>
                     </select>
                 </div>
-                <div class="col-md-3 px-0">
+                <div class="px-0 col-md-3">
                     <select id="sortByOptions" class="form-select form-control" wire:model.change='sortBy.1'>
                         <option value="asc" {{ $sortBy[1] == 'asc' ? 'selected' : '' }}>@lang('general.sort_by_options.asc')</option>
                         <option value="desc" {{ $sortBy[1] == 'desc' ? 'selected' : '' }}>@lang('general.sort_by_options.desc')</option>
@@ -31,8 +31,8 @@
                     <i class="fa fa-filter"></i>
                 </button>
                 <div class="p-2 dropdown-menu" style="z-index: 999; min-width: 20rem;">
-                    <div class="form-group mb-3">
-                        <label for="levelFilter" class="fw-bold mb-1">@lang('modules.students.level')</label>
+                    <div class="mb-3 form-group">
+                        <label for="levelFilter" class="mb-1 fw-bold">@lang('modules.students.level')</label>
                         <select id="levelFilter" class="form-select form-control" wire:model.change='levelFilter'>
                             <option value="all">{{ App::isLocale('ar') ? 'الجميع' : 'All' }}</option>
                             @foreach ($levels as $level)
@@ -41,7 +41,7 @@
                         </select>
                     </div>
                     @if (Auth::user()->hasRole('Super Admin'))
-                        <div class="form-group mb-3">
+                        <div class="mb-3 form-group">
                             <label for="guideFilter" class="mb-1 fw-bold">@lang('modules.students.guide')</label>
                             <select id="guideFilter" class="form-select form-control" wire:model.change='guideFilter'>
                                 <option value="all">{{ App::isLocale('ar') ? 'الجميع' : 'All' }}</option>
@@ -99,6 +99,22 @@
                                             {{ App::isLocale('ar') ? 'تغيير المرشد' : 'Change guide' }}
                                     </button>
                                 @endcan
+                                @can('students.guidence')
+                                    @if (!Auth::user()->hasRole('Super Admin'))
+                                        @if ($semesterId)
+                                            <button class="btn btn-sm btn-danger"
+                                            wire:click='approve_enrollments("{{ $student->student->id }}")'
+                                            >
+                                                    {{ App::isLocale('ar') ? 'تصديق تسجيل المقررات' : 'Approve Enrollments' }}
+                                            </button>
+                                            <button class="btn btn-sm btn-primary"
+                                                wire:click='show_enrollments_modal("{{ $student->id }}", "{{ $student->full_name }}")'
+                                                >
+                                                    {{ App::isLocale('ar') ? 'عرض المقررات المسجلة' : 'Show enrollments' }}
+                                            </button>
+                                        @endif
+                                    @endif
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
@@ -146,6 +162,94 @@
                             <button type="button" class="btn btn-light" wire:click='close_modal()'>@lang('forms.close')</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    @endif
+    @if ($enrollmentsModal)
+        <div class="modal" style="display: block; background: rgb(0,0,0,0.6);">
+            <div class="modal-dialog" style="max-width: 70%;">
+                <div class="modal-content">
+                    <div class="px-3 modal-header">
+                        <h5 class="modal-title">{{ App::isLocale('ar') ? 'عرض مقررات الطالب' : 'Show student enrollments' }}</h5>
+                        <button type="button" class="btn-close" wire:click='close_modal()'></button>
+                    </div>
+                    <div class="px-4 modal-body">
+                        <div class="mb-3 row">
+                            <div class="mb-2 col-md-6" style="font-size: 1.25rem;">
+                                <strong>@lang('modules.students.name'):</strong> {{ $enrollmentsModal['name'] }}
+                            </div>
+                            <div class="mb-2 col-md-6" style="font-size: 1.25rem;">
+                                <strong>@lang('modules.students.level'):</strong> {{ $enrollmentsModal['level'] }}
+                            </div>
+                            <div class="mb-2 col-md-6" style="font-size: 1.25rem;">
+                                <strong>@lang('modules.students.gpa'):</strong> {{ $enrollmentsModal['gpa'] }}
+                            </div>
+                            <div class="mb-2 col-md-6" style="font-size: 1.25rem;">
+                                <strong>@lang('modules.students.guide'):</strong> {{ $enrollmentsModal['guide'] }}
+                            </div>
+                            @if ($enrollmentsModal['approved_at'])
+                                <div class="mb-2 col-md-12 text-danger" style="font-size: 1.25rem;">
+                                    <strong>@lang('modules.students.approved_at'):</strong> {{ $enrollmentsModal['approved_at'] }}
+                                </div>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            <!-- Student Info Table -->
+                            <table class="table mb-4 table-bordered table-sm">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>@lang('modules.courses.code')</th>
+                                        <th>@lang('modules.courses.name')</th>
+                                        <th>@lang('modules.courses.level')</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($enrollmentsModal['enrollments'] as $enrollment)
+                                        <tr wire:key='enrollements-{{ $loop->iteration }}'>
+                                            <td>{{ $enrollment->course->code ?? '--' }}</td>
+                                            <td>{{ $enrollment->course->translated_name ?? '--' }}</td>
+                                            <td>{{ $enrollment->course->level->name ?? '--' }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                            <!-- Enrollments Table -->
+                            @if (!empty($enrollmentsModal['courses']) && is_array($enrollmentsModal['courses']))
+                                <table class="table table-striped table-bordered table-sm">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>@lang('modules.courses.name')</th>
+                                            <th>@lang('modules.courses.code')</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($enrollmentsModal['courses'] as $index => $course)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $course['name'] ?? '--' }}</td>
+                                                <td>{{ $course['code'] ?? '--' }}</td>
+                                                <td>{{ $course['credits'] ?? '--' }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
+
+                        </div>
+                    </div>
+                    <div class="px-3 modal-footer">
+                        @if(!$enrollmentsModal['approved_at'])
+                            <button type="button" class="btn btn-dark" wire:click='approve_enrollments("{{ $enrollmentsModal['id'] }}")'>@lang('forms.approve')</button>
+                        @else
+                            <a target="_blank" href="{{ route('reports.current.enrollment', ['semesterId' => $semesterId, 'studentId' => $enrollmentsModal['id']]) }}" type="button" class="btn btn-outline-primary">
+                                <i class="bi bi-printer"></i> @lang('modules.reports.print')
+                            </a>
+                        @endif
+                        <button type="button" class="btn btn-light" wire:click='close_modal()'>@lang('forms.close')</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@ use Modules\Courses\Models\Schedule;
 use Modules\Grades\Models\Grade;
 use Modules\Semesters\Models\Semester;
 
-// use Modules\Enrollments\Database\Factories\EnrollmentFactory;
+use Modules\Enrollments\Database\Factories\EnrollmentFactory;
 
 class Enrollment extends Model
 {
@@ -48,8 +48,8 @@ class Enrollment extends Model
         return $this->belongsTo(Grade::class, 'grade_id');
     }
 
-    // protected static function newFactory(): EnrollmentFactory
-    // {
-    //     // return EnrollmentFactory::new();
-    // }
+    protected static function newFactory(): EnrollmentFactory
+    {
+        return EnrollmentFactory::new();
+    }
 }

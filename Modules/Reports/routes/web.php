@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Modules\Reports\Http\Controllers\ReportController;
 use Modules\Reports\Http\Controllers\ReportsController;
 use Modules\Reports\Livewire\ExamSchedule;
 
@@ -15,8 +16,20 @@ use Modules\Reports\Livewire\ExamSchedule;
 |
 */
 
-Route::group([], function () {
+Route::group([
+
+], function () {
     // Route::resource('reports', ReportsController::class)->names('reports');
     Route::get('/exams/generator', ExamSchedule::class)
         ->name('exam.schedule.generate');
+});
+
+Route::group([
+    'prefix' => 'reports',
+    'as' => 'reports.',
+], function () {
+
+    Route::get('/current-enrollment/{semesterId}/{studentId}', [ReportController::class, 'current_enrollment'])
+        ->name('current.enrollment');
+
 });

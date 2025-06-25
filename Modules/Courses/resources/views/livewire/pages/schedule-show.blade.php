@@ -3,12 +3,12 @@
         <div class="row">
           <div class="col-md-12">
             <div class="my-3">
-                <div class="d-flex justify-content-between mb-2">
+                <div class="mb-2 d-flex justify-content-between">
                     <h5>@lang('modules.students.credits_to_enroll'): {{ Auth::user()->student->maximum_credits_to_enroll - $student_enrolled_credits }}</h5>
                     <h5>@lang('modules.students.gpa'): {{ Auth::user()->student->gpa }}</h5>
                     <h5>@lang('modules.students.total_earned_credits'): {{ Auth::user()->student->gpa }}</h5>
                 </div>
-                <div class="d-flex justify-content-between mb-2">
+                <div class="mb-2 d-flex justify-content-between">
                     <h6>@lang('modules.students.head_professor'):</h6>
                     <h6 class="text-danger">@lang('modules.courses.enrollment_end'):</h6>
                 </div>
@@ -70,9 +70,9 @@
                                                     <span>({{ $courseEnrollment->final_gpa }})</span>
                                                 @endif
                                             </div>
-                                            @if(!$courseEnrollment && $course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @if((Auth::user()->current_enrollments->first()->approved_at) ||($course->max_enrollments_number == $course->students_enrollments_number))
                                             @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
-                                                <div class="hover text-white">
+                                                <div class="text-white hover">
                                                     @lang('modules.courses.enrolled_already')
                                                 </div>
                                             @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
@@ -123,9 +123,9 @@
                                                     <span>({{ $courseEnrollment->final_gpa }})</span>
                                                 @endif
                                             </div>
-                                            @if($course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @if((Auth::user()->current_enrollments->first()->approved_at) || ($course->max_enrollments_number == $course->students_enrollments_number))
                                             @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
-                                                <div class="hover text-white">
+                                                <div class="text-white hover">
                                                     @lang('modules.courses.enrolled_already')
                                                 </div>
                                             @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
@@ -177,9 +177,9 @@
                                                     <span>({{ $courseEnrollment->final_gpa }})</span>
                                                 @endif
                                             </div>
-                                            @if($course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @if((Auth::user()->current_enrollments->first()->approved_at) || ($course->max_enrollments_number == $course->students_enrollments_number))
                                             @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
-                                                <div class="hover text-white">
+                                                <div class="text-white hover">
                                                     @lang('modules.courses.enrolled_already')
                                                 </div>
                                             @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
@@ -231,9 +231,9 @@
                                                     <span>({{ $courseEnrollment->final_gpa }})</span>
                                                 @endif
                                             </div>
-                                            @if($course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @if((Auth::user()->current_enrollments->first()->approved_at) || ($course->max_enrollments_number == $course->students_enrollments_number))
                                             @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
-                                                <div class="hover text-white">
+                                                <div class="text-white hover">
                                                     @lang('modules.courses.enrolled_already')
                                                 </div>
                                             @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
@@ -285,9 +285,9 @@
                                                     <span>({{ $courseEnrollment->final_gpa }})</span>
                                                 @endif
                                             </div>
-                                            @if($course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @if((Auth::user()->current_enrollments->first()->approved_at) || ($course->max_enrollments_number == $course->students_enrollments_number))
                                             @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
-                                                <div class="hover text-white">
+                                                <div class="text-white hover">
                                                     @lang('modules.courses.enrolled_already')
                                                 </div>
                                             @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
@@ -340,9 +340,9 @@
                                                     <span>({{ $courseEnrollment->final_gpa }})</span>
                                                 @endif
                                             </div>
-                                            @if($course->max_enrollments_number - $course->students_enrollments_number == 0)
+                                            @if((Auth::user()->current_enrollments->first()->approved_at) || ($course->max_enrollments_number == $course->students_enrollments_number))
                                             @elseif($courseEnrollment && $courseEnrollment->schedule_id != $course->id)
-                                                <div class="hover text-white">
+                                                <div class="text-white hover">
                                                     @lang('modules.courses.enrolled_already')
                                                 </div>
                                             @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))

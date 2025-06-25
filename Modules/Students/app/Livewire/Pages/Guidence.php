@@ -5,7 +5,9 @@ namespace Modules\Students\Livewire\Pages;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Modules\Enrollments\Models\Enrollment;
 use Modules\Levels\Models\Level;
+use Modules\Semesters\Models\Semester;
 use Modules\Students\Models\Student;
 
 class Guidence extends Component
@@ -17,7 +19,14 @@ class Guidence extends Component
     public $levelFilter = 'all';
     public $guideFilter = 'all';
     public $changeGuideModal = false;
+    public $enrollmentsModal = false;
     public $newGuideId = '';
+    public $semesterId;
+
+    public function mount()
+    {
+        $this->semesterId = Semester::where('is_current', 1)->first()->id;
+    }
 
     public function show_modal($studentId, $studentName, $guideId = null)
     {
@@ -30,6 +39,7 @@ class Guidence extends Component
 
     public function close_modal()
     {
+        $this->enrollmentsModal = false;
         $this->changeGuideModal = false;
         $this->newGuideId = '';
     }
@@ -131,6 +141,41 @@ class Guidence extends Component
             $student->student->save();
             notyf()->success(__('modules.students.success.guidence_removed'));
         };
+
+    }
+
+    public function approve_enrollments($studentId)
+    {
+        $semester = Semester::where('is_current', true)->first();
+
+        $enrollments = Enrollment::where('student_id', $studentId)
+            ->where('semester_id', $semester->id)
+            ->get();
+
+        foreach ($enrollments as $enrollment) {
+            $enrollment->update(['approved_at' => now()]);
+        }
+
+        notyf()->success(__('modules.students.success.enrollments_approved'));
+
+    }
+
+    public function show_enrollments_modal($studentId, $studentName)
+    {
+        $student = User::with(['student', 'student.level', 'current_enrollments'])->find($studentId);
+        $this->enrollmentsModal = [
+            'id' => $studentId,
+            'name' => $studentName,
+            'level' => $student->student->level->name,
+            'gpa' => $student->student->gpa,
+            'enrollments' => Enrollment::
+                with(['course', 'course.level', 'schedule'])
+                ->where('student_id', $studentId)
+                ->where('semester_id', Semester::where('is_current', true)->first()->id)
+                ->get(),
+            'guide' => $student->student->guide ? $student->student->guide->full_name : null,
+            'approved_at' => $student->current_enrollments->whereNotNull('approved_at')->pluck('approved_at')->first()
+        ];
 
     }
 

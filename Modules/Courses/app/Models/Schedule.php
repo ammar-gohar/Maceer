@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Halls\Models\Hall;
 use Modules\Semesters\Models\Semester;
 
-// use Modules\Courses\Database\Factories\ScheduleFactory;
+use Modules\Courses\Database\Factories\ScheduleFactory;
 
 class Schedule extends Model
 {
@@ -42,8 +42,8 @@ class Schedule extends Model
         return $this->belongsTo(Semester::class);
     }
 
-    // protected static function newFactory(): ScheduleFactory
-    // {
-    //     // return ScheduleFactory::new();
-    // }
+    protected static function newFactory(): ScheduleFactory
+    {
+        return ScheduleFactory::new();
+    }
 }

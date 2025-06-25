@@ -3,6 +3,7 @@
 namespace Modules\Halls\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Modules\Halls\Models\Hall;
 
 class HallsDatabaseSeeder extends Seeder
 {
@@ -11,6 +12,9 @@ class HallsDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->call([]);
+
+        Hall::factory(50)->create();
+
+        $this->call([]);
     }
 }

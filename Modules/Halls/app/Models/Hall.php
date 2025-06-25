@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-// use Modules\Halls\Database\Factories\HallFactory;
+use Modules\Halls\Database\Factories\HallFactory;
 
 class Hall extends Model
 {
@@ -20,8 +20,8 @@ class Hall extends Model
      */
     protected $guarded = [];
 
-    // protected static function newFactory(): HallFactory
-    // {
-    //     // return HallFactory::new();
-    // }
+    protected static function newFactory(): HallFactory
+    {
+        return HallFactory::new();
+    }
 }

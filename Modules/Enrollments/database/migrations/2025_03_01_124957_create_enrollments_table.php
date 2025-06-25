@@ -22,7 +22,7 @@ return new class extends Migration
             $table->float('quality_points', 2)->nullable();
             $table->float('final_gpa', 2)->nullable();
             $table->uuid('grade_id')->nullable();
-            $table->boolean('is_approved')->nullable();
+            $table->timestamp('approved_at')->nullable();
             $table->timestamps();
         });
     }

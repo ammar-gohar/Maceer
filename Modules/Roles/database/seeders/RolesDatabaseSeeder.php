@@ -14,30 +14,6 @@ class RolesDatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        Role::create([
-            'name'    => 'Super Admin',
-            'name_ar' => 'مشرف عام',
-            'undeleteble' => 1
-        ]);
-
-        Role::create([
-            'name'    => 'professor',
-            'name_ar' => 'معلم',
-            'undeleteble' => 1
-        ]);
-
-        Role::create([
-            'name'    => 'student',
-            'name_ar' => 'طالب',
-            'undeleteble' => 1
-        ]);
-
-        Role::create([
-            'name'    => 'staff',
-            'name_ar' => 'عضو إدارة',
-            'undeleteble' => 1
-        ]);
-
         // PERMISSIONS =========================================================
 
         Permission::create([
@@ -321,6 +297,71 @@ class RolesDatabaseSeeder extends Seeder
             'name_en' => 'Edit students guidences',
             'module' => 'Students',
         ]);
+
+        Permission::create([
+            'name' => 'reports.current_enrollment',
+            'name_ar' => 'الاطلاع على تسجيلات الفصل الدراسي الحالي',
+            'name_en' => 'View current semester enrollments',
+            'module' => 'Reports',
+        ]);
+
+        // ================================================================================
+        // ================================================================================
+        // ================================================================================
+
+        Role::create([
+            'name'    => 'Super Admin',
+            'name_ar' => 'مشرف عام',
+            'undeleteble' => 1
+        ]);
+
+        Role::create([
+            'name'    => 'professor',
+            'name_ar' => 'معلم',
+            'undeleteble' => 1
+        ])->syncPermissions([
+            'courses.professor.show',
+            'quizzes.index',
+            'quizzes.show',
+            'quizzes.create',
+            'quizzes.edit',
+            'quizzes.index-student',
+            'reports.current_enrollment',
+            'students.guidence',
+        ]);
+
+        Role::create([
+            'name'    => 'student',
+            'name_ar' => 'طالب',
+            'undeleteble' => 1
+        ])->syncPermissions([
+            'courses.student.show',
+            'quizzes.index-student',
+            'quizzes.take-quiz',
+            'reports.current_enrollment',
+        ]);
+
+        Role::create([
+            'name'    => 'staff',
+            'name_ar' => 'عضو إدارة',
+            'undeleteble' => 1
+        ])->syncPermissions([
+            'students.index',
+            'students.create',
+            'students.edit',
+            'students.delete',
+            'courses.index',
+            'courses.show',
+            'courses.create',
+            'courses.edit',
+            'courses.delete',
+            'halls.view',
+            'halls.create',
+            'halls.update',
+            'halls.delete',
+            'halls.manage_status',
+        ]);
+
 
         $this->call([]);
     }

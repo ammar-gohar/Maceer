@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::table('enrollments', function (Blueprint $table) {
             $table->float('work_mark', 2)->nullable();
             $table->text('shown_columns')->nullable();
-            $table->dropColumn('is_approved');
         });
     }
 

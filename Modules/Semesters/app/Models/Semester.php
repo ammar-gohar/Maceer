@@ -5,7 +5,7 @@ namespace Modules\Semesters\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-// use Modules\Semesters\Database\Factories\SemesterFactory;
+use Modules\Semesters\Database\Factories\SemesterFactory;
 
 class Semester extends Model
 {
@@ -22,8 +22,8 @@ class Semester extends Model
         'is_current'
     ];
 
-    // protected static function newFactory(): SemesterFactory
-    // {
-    //     // return SemesterFactory::new();
-    // }
+    protected static function newFactory(): SemesterFactory
+    {
+        return SemesterFactory::new();
+    }
 }
