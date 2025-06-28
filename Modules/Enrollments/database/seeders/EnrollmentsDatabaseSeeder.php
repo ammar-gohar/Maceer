@@ -19,13 +19,13 @@ class EnrollmentsDatabaseSeeder extends Seeder
     {
         $students = User::with(['enrollments'])->has('student')->take(50)->get();
         $semesters = Semester::factory()->count(5)->create();
-        $currentSemester = Semester::where('is_current', 1)->first();
-        // $currentSemester = Semester::create([
-        //     'name' => 'Fall 2023',
-        //     'start_date' => now(),
-        //     'end_date' => now()->addMonths(4),
-        //     'is_current' => 1,
-        // ]);
+        // $currentSemester = Semester::where('is_current', 1)->first();
+        $currentSemester = Semester::create([
+             'name' => 'Fall 2023',
+             'start_date' => now(),
+             'end_date' => now()->addMonths(4),
+             'is_current' => 1,
+        ]);
         $professors = User::has('professor')->get();
         $halls = Hall::where('status', 'available')->get();
         $courses = Course::all();
