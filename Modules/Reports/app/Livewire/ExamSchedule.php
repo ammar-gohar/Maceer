@@ -126,7 +126,7 @@ class ExamSchedule extends Component
 
         $start_date      = $data['start_date'];
         $end_date        = $data['end_date'];
-        $holidays = isset($data['holidays']) && $data['holidays'][0] != "" ? "--holidays " . implode(' ', $data['holidays']): "";
+        $holidays = isset($data['holidays']) && $data['holidays'][0] != "" ? "--holidays " . implode(',', $data['holidays']): "";
         $include_fridays = $this->include_fridays ? "--fridays": ""; //bool
         $include_graphs  = $this->include_graphs ? "generate_plots": "no"; //bool
         $schedules_number = $data['schedules_number'];
