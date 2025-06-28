@@ -305,7 +305,7 @@ class RolesDatabaseSeeder extends Seeder
         ]);
 
         Permission::create([
-            'name' => 'reports.current_enrollment',
+            'name' => 'reports.current_enrollments',
             'name_ar' => 'تقرير تسجيلات الفصل الدراسي الحالي',
             'name_en' => 'Current semester enrollments report',
             'module' => 'Reports',
@@ -339,7 +339,7 @@ class RolesDatabaseSeeder extends Seeder
             'quizzes.create',
             'quizzes.edit',
             'quizzes.index-student',
-            'reports.current_enrollment',
+            'reports.current_enrollments',
             'reports.enrollments',
             'students.guidence',
         ]);
@@ -354,7 +354,7 @@ class RolesDatabaseSeeder extends Seeder
             'courses.student-schedule',
             'quizzes.index-student',
             'quizzes.take-quiz',
-            'reports.current_enrollment',
+            'reports.current_enrollments',
             'reports.enrollments',
         ]);
 
