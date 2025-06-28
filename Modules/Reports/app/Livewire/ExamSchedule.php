@@ -48,7 +48,7 @@ function isPythonRunning()
     } else {
         // Unix-like: use `ps`
         $output = shell_exec('ps aux');
-        return preg_match('/python([\d\.]*)? exam_scheduler.py/', $output);
+        return preg_match('/python([\d\.]*)? .*exam_scheduler.py/', $output);
     }
 }
 
