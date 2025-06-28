@@ -37,7 +37,7 @@ Route::group([
             ->name('courses.schedule');
 
         Route::get('/student-schedule', Schedule::class)
-            ->middleware('permission:courses.student-schedule')
+            ->middleware('permission:courses.enrollment')
             ->name('courses.student-schedule');
 
         Route::get('/student-courses', StudentCourses::class)
@@ -78,7 +78,7 @@ Route::group([
     });
 
     Route::get('enrollments', AllEnrollments::class)
-        ->middleware(['auth', 'role:student'])
+        ->middleware(['auth', 'permission:courses.enrollment'])
         ->name('students.enrollments');
 
 });

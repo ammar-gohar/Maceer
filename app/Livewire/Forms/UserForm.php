@@ -40,7 +40,6 @@ class UserForm extends Form
             'phone'       => 'bail|required|digits:11|regex:/[0-9]/|unique:users,phone,' . $this->id ?? '',
             'email'       => 'bail|required|email|max:255|unique:users,email,' . $this->id ?? '',
             'gender'      => 'bail|required|string|in:m,f',
-            'image'       => 'bail|nullable|image|max:1024',
         ];
     }
 

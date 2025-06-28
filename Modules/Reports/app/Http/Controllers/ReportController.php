@@ -24,7 +24,20 @@ class ReportController extends Controller
         $student = User::with(['current_enrollments', 'current_enrollments.course', 'student', 'student.level', 'current_enrollments.course.level'])
             ->findOrFail($studentId);
 
-        return view('reports::current-semester-enrollments', compact('student'));
+        return view('reports::current-semester-enrollments', compact('student', 'semester'));
+    }
+
+    public function enrollments($studentId)
+    {
+
+        if((Auth::user()->cannot('reports.enrollment') && Auth::user()->id !== $studentId)) {
+            abort(403);
+        }
+
+        $student = User::with(['enrollments' => fn($q) => $q->orderBy('created_at'), 'enrollments.course', 'student', 'student.level', 'enrollments.course.level'])
+            ->find($studentId);
+
+        return view('reports::all-enrollments', compact('student'));
     }
 
 }

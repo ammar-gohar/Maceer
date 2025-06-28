@@ -15,26 +15,26 @@
                     <div class="col-md-6">
                         <label for="studentImage" class="form-label">@lang('forms.image') *:</label>
                         <input
-                            class="form-control @error('form.image') is-invalid @enderror"
+                            class="form-control @error('uploadedImage') is-invalid @enderror"
                             type="file"
                             id="studentImage"
-                            wire:model="form.image"
+                            wire:model="uploadedImage"
                             accept="image/*"
                         >
-                        @error('form.image')
+                        @error('uploadedImage')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         <span>@lang('forms.image_info')</span>
                     </div>
 
                     <div class="col-md-6">
-                        <div wire:loading wire:target="form.image" class="mt-2 text-muted">
+                        <div wire:loading wire:target="uploadedImage" class="mt-2 text-muted">
                             @lang('forms.uploading')
                         </div>
 
-                        @if ($form->image)
+                        @if ($form->image || $uploadedImage)
                             <div class="mt-2">
-                                <img src="{{ $form->image->temporaryUrl() }}" alt="Preview" class="img-thumbnail" width="120" height="90">
+                                <img src="{{ $uploadedImage ? $uploadedImage->temporaryUrl() : asset('storage/' . $form->image) }}" alt="Preview" class="img-thumbnail" width="120" height="90">
                             </div>
                         @else
                             <div class="mt-2">
@@ -85,6 +85,29 @@
                 <!--end::Col-->
                 <!--begin::Col-->
                 <div class="col-md-6">
+                    <label for="guide" class="form-label">@lang('modules.students.guide'):</label>
+                    <div class="input-group">
+                        <select
+                            name="guide"
+                            id="guide"
+                            class="form-select @error('guide') is-invalid @enderror"
+                            wire:model='guide'
+                            required>
+                            <option value="" {{ !$guide ? 'selected' : '' }}></option>
+                            @foreach ($guides as $guide)
+                                <option value="{{ $guide->id }}" {{ $guide == $guide->id ? 'selected' : '' }}>{{ $guide->full_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @error('level')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <!--end::Col-->
+                <!--begin::Col-->
+                <div class="col-md-6">
                     <label for="level" class="form-label">@lang('forms.level')</label>
                     <div class="input-group">
                         <select
@@ -93,13 +116,12 @@
                             class="form-select @error('level') is-invalid @enderror"
                             wire:model='level'
                             required>
-                            <option value="freshman" {{ $level == 'freshman' ? 'selected' : '' }}>Freshman</option>
-                            <option value="junior" {{ $level == 'junior' ? 'selected' : '' }}>Junior</option>
-                            <option value="senior-1" {{ $level == 'senior-1' ? 'selected' : '' }}>Senior-1</option>
-                            <option value="senior-2" {{ $level == 'senior-2' ? 'selected' : '' }}>Senior-2</option>
+                            @foreach ($levels as $level)
+                                <option value="{{ $level->id }}" {{ $level == $level->id ? 'selected' : '' }}>{{ $level->name }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    @error('form.level')
+                    @error('level')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
@@ -112,13 +134,18 @@
                 <!--begin::Col-->
                 <x-form-input name="total_earned_credits" type="number" wire_model="total_earned_credits" dir="ltr" min="0" max="180" />
                 <!--end::Col-->
+                <!--begin::Col-->
+                <button type="button" class="btn btn-dark col-md-12 w-auto" wire:click='reset_password()' wire:confirm='{{ App::isLocale('ar') ? 'هل انت متأكد؟' : 'Are you sure?' }}' wire:target='reset_password()' wire:loading.attr='disabled'>
+                    @lang('forms.reset_password')
+                </button>
+                <!--end::Col-->
             </div>
             <!--end::Row-->
         </div>
         <!--end::Body-->
         <!--begin::Footer-->
         <div class="mt-3 card-footer">
-            <button type="submit" class="btn btn-dark" type="submit">
+            <button type="submit" class="btn btn-dark" type="submit" wire:loading.attr="disabled" wire:target='update, uploadedImage'>
                 <div class="mx-2 spinner-border spinner-border-sm" role="status" wire:loading wire:target='update'>
                     <span class="text-sm visually-hidden"></span>
                 </div>

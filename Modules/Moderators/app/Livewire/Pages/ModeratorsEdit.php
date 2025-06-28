@@ -3,7 +3,10 @@
 namespace Modules\Moderators\Livewire\Pages;
 
 use App\Livewire\Forms\UserForm;
+use App\Mail\ResetPassword;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -17,7 +20,8 @@ class ModeratorsEdit extends Component
 
     public UserForm $form;
 
-    public $status = false;
+    #[Validate('bail|nullable|image|max:1024')]
+    public $uploadedImage;
 
     public function mount(int $national_id)
     {
@@ -31,19 +35,34 @@ class ModeratorsEdit extends Component
 
         $moderator = User::with(['moderator'])->findOrFail($this->form->id);
 
-        if ($this->form->image) {
+        if ($this->uploadedImage) {
             if($moderator->image) {
                 Storage::disk('public')->delete($moderator->image);
             }
-            $randomName = Str::uuid() . '.' . $this->form->image->getClientOriginalExtension();
-            $path = $this->form->image->storeAs('profe$moderators/profile', $randomName, 'public');
+            $randomName = Str::uuid() . '.' . $this->uploadedImage->getClientOriginalExtension();
+            $path = $this->uploadedImage->storeAs('profe$moderators/profile', $randomName, 'public');
             $data['image'] = $path;
         }
 
         $moderator->update($data);
+        notyf()->success(__('modules.moderators.success.update'));
 
         return $this->redirectRoute('moderators.edit', ['national_id' => $moderator->national_id]);
 
+    }
+
+    public function reset_password()
+    {
+        $password = \Illuminate\Support\Str::password(12);
+        $hashedPassword = Hash::make($password);
+
+        Mail::to($this->form->email)->queue((new ResetPassword($this->form->first_name . ' ' . $this->form->last_name, $password, now()))->onQueue('emails'));
+
+        User::where('national_id', $this->form->national_id)->first()->update([
+            'password' => $hashedPassword,
+        ]);
+
+        return notyf()->success(__('forms.reset_password_sent'));
     }
 
     public function render()

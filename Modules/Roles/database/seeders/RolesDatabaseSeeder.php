@@ -300,8 +300,15 @@ class RolesDatabaseSeeder extends Seeder
 
         Permission::create([
             'name' => 'reports.current_enrollment',
-            'name_ar' => 'الاطلاع على تسجيلات الفصل الدراسي الحالي',
-            'name_en' => 'View current semester enrollments',
+            'name_ar' => 'تقرير تسجيلات الفصل الدراسي الحالي',
+            'name_en' => 'Current semester enrollments report',
+            'module' => 'Reports',
+        ]);
+
+        Permission::create([
+            'name' => 'reports.enrollments',
+            'name_ar' => 'تقرير تسجيلات المقررات',
+            'name_en' => 'Enrollments reports',
             'module' => 'Reports',
         ]);
 
@@ -327,6 +334,7 @@ class RolesDatabaseSeeder extends Seeder
             'quizzes.edit',
             'quizzes.index-student',
             'reports.current_enrollment',
+            'reports.enrollments',
             'students.guidence',
         ]);
 
@@ -336,9 +344,12 @@ class RolesDatabaseSeeder extends Seeder
             'undeleteble' => 1
         ])->syncPermissions([
             'courses.student.show',
+            'courses.enrollment',
+            'courses.student-schedule',
             'quizzes.index-student',
             'quizzes.take-quiz',
             'reports.current_enrollment',
+            'reports.enrollments',
         ]);
 
         Role::create([
@@ -360,6 +371,8 @@ class RolesDatabaseSeeder extends Seeder
             'halls.update',
             'halls.delete',
             'halls.manage_status',
+            'reports.current_enrollments',
+            'reports.enrollments',
         ]);
 
 

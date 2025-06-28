@@ -29,6 +29,7 @@ return [
         'transfer' => 'إضافة طالب مُحوّل',
         'edit'   => 'تعديل الطالب',
         'guidence' => 'الإرشاد الأكاديمي',
+        'enrollments' => 'تقدريات المقررات',
     ],
 
     'roles' => [
@@ -50,6 +51,7 @@ return [
         'student-show' => 'مقررات الفصل الحالي',
         'professor-show' => 'مقررات التدريس',
         'requests-stats' => 'إحصائيات الطلبات',
+        'all-enrollments' => 'تقدريات المقررات',
     ],
 
     'halls' => [

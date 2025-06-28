@@ -5,25 +5,27 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Queue\SerializesModels;
 
-class SendingPassword extends Mailable
+class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $name;
     public $password;
+    public $date;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(String $name, String $password)
+    public function __construct($name, $password, $date)
     {
         $this->name = $name;
         $this->password = $password;
+        $this->date = $date;
     }
 
     /**
@@ -33,7 +35,7 @@ class SendingPassword extends Mailable
     {
         return new Envelope(
             from: new Address(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')),
-            subject: 'Your password',
+            subject: 'Reset Password',
         );
     }
 
@@ -43,7 +45,7 @@ class SendingPassword extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'mail.sending-password',
+            view: 'mail.reset-password',
         );
     }
 

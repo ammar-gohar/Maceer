@@ -67,7 +67,7 @@
             </ul>
         {{-- @endcan --}}
 
-        {{-- @can('semseter.settings') --}}
+        @can('semseter.settings')
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
@@ -78,7 +78,7 @@
                 </li>
 
             </ul>
-        {{-- @endcan --}}
+        @endcan
 
             @canany(['admins.index', 'admins.create'])
                 {{-- Admin sidebar --}}
@@ -145,7 +145,7 @@
                 {{-- end::Roles sidebar --}}
             @endcan
 
-            @canany(['courses.index', 'courses.create', 'courses.requests', 'courses.schedule', 'courses.my-courses'])
+            @canany(['courses.index', 'courses.create', 'courses.requests', 'courses.schedule', 'courses.my-courses', 'courses.enrollment'])
                 {{-- Courses sidebar --}}
                 <x-sidebar-list module="courses" icon="fa-solid fa-book-open">
                     @can('courses.index')
@@ -165,13 +165,10 @@
                     @can('courses.schedule')
                         <x-sidebar-item icon="fa-solid fa-calendar-days" route="courses.schedule" />
                     @endcan
-                    @can('courses.student-schedule')
+                    @can('courses.enrollment')
                         @unless (Auth::user()->hasRole('Super Admin'))
                             <x-sidebar-item icon="fa-solid fa-calendar-check" route="courses.student-schedule" />
-                        @endunless
-                    @endcan
-                    @can('courses.student.show')
-                        @unless (Auth::user()->hasRole('Super Admin'))
+                            <x-sidebar-item icon="fa-solid fa-list" route="students.enrollments" />
                             <x-sidebar-item icon="fa-solid fa-list" route="courses.student-show" />
                         @endunless
                     @endcan

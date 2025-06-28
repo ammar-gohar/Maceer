@@ -2,25 +2,30 @@
 
     <div class="container my-3">
         <div class="mb-2 row">
-            <h5 class="col-6">@lang('modules.students.gpa'): {{ Auth::user()->student->gpa }}</h5>
-            <h5 class="col-6">@lang('modules.students.total_earned_credits'): {{ Auth::user()->student->total_earned_credits }}</h5>
+            <a href="{{ route('reports.current.enrollment', ['semesterId' => $semesterId, 'studentId' => Auth::id()]) }}" target="_blank" class="w-auto btn btn-dark">
+                <i class="fa-solid fa-print"></i>
+            </a>
+        </div>
+        <div class="mb-2 row">
+            <h5 class="col-6"><strong>@lang('modules.students.gpa'):</strong> {{ Auth::user()->student->gpa }}</h5>
+            <h5 class="col-6"><strong>@lang('modules.students.total_earned_credits'):</strong> {{ Auth::user()->student->total_earned_credits }}</h5>
         </div>
         <div class="mb-2 row">
             <div class="container">
                 <div class="row">
                     <p class="text-dark col-6">
-                        @lang('modules.students.core_earned_credits'): {{ Auth::user()->student->core_earned_credits }}
+                        <strong>@lang('modules.students.core_earned_credits'):</strong> {{ Auth::user()->student->core_earned_credits }}
                     </p>
                     <p class="text-warning-emphasis col-6">
-                        @lang('modules.students.university_elected_earned_credits'): {{ Auth::user()->student->university_elected_earned_credits }}
+                        <strong>@lang('modules.students.university_elected_earned_credits'):</strong> {{ Auth::user()->student->unversity_elected_earned_credit }}
                     </p>
                 </div>
                 <div class="row">
                     <p class="text-primary col-6">
-                        @lang('modules.students.faculty_elected_earned_credits'): {{ Auth::user()->student->faculty_elected_earned_credits }}
+                        <strong>@lang('modules.students.faculty_elected_earned_credits'):</strong> {{ Auth::user()->student->faculty_elected_earned_credits }}
                     </p>
                     <p class="text-success col-6">
-                        @lang('modules.students.program_elected_earned_credits'): {{ Auth::user()->student->program_elected_earned_credits }}
+                        <strong>@lang('modules.students.program_elected_earned_credits'):</strong> {{ Auth::user()->student->program_elected_earned_credits }}
                     </p>
                 </div>
             </div>
@@ -32,6 +37,9 @@
     </div>
     <div class="card-body" style="overflow-x: scroll;">
         @if ($enrolls->count() > 0)
+            <div class="mb-2 col-md-12 text-danger" style="font-size: 0.75rem;">
+                <strong>@lang('modules.students.approved_at'):</strong> {{ $enrolls->first()->approved_at ?? '--' }}
+            </div>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr class="text-nowrap">

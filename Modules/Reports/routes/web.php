@@ -32,4 +32,7 @@ Route::group([
     Route::get('/current-enrollment/{semesterId}/{studentId}', [ReportController::class, 'current_enrollment'])
         ->name('current.enrollment');
 
+    Route::get('/enrollments/{studentId}', [ReportController::class, 'enrollments'])
+        ->name('all-enrollments');
+
 });

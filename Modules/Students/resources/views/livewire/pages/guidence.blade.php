@@ -1,7 +1,7 @@
 <x-page title="sidebar.students.guidence" module="students">
 
     <div class="card-body">
-        <div class="p-2 my-3 row" style="font-size: 1rem;">
+        {{-- <div class="p-2 my-3 row" style="font-size: 1rem;">
             <div class="col-md-3">
                 <input type="text" name="search" id="search" wire:model.live='search' placeholder="{{ App::isLocale('ar') ? 'بحث...' : 'Search...' }}" class="form-control">
             </div>
@@ -54,7 +54,7 @@
                     @endif
                 </div>
             </div>
-        </div>
+        </div> --}}
         @if ($students->count() > 0)
             <table class="table table-bordered table-striped" style="overflow-x: scroll;">
                 <thead>

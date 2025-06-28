@@ -9,31 +9,32 @@
         <div class="card-body">
             <!--begin::Row-->
             <div class="row g-3">
+
                 <!--begin::Col-->
                 <div class="row">
                     <div class="col-md-6">
                         <label for="moderatorImage" class="form-label">@lang('forms.image') *:</label>
                         <input
-                            class="form-control @error('form.image') is-invalid @enderror"
+                            class="form-control @error('uploadedImage') is-invalid @enderror"
                             type="file"
                             id="moderatorImage"
-                            wire:model="form.image"
+                            wire:model="uploadedImage"
                             accept="image/*"
                         >
-                        @error('form.image')
+                        @error('uploadedImage')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                         <span>@lang('forms.image_info')</span>
                     </div>
 
                     <div class="col-md-6">
-                        <div wire:loading wire:target="form.image" class="mt-2 text-muted">
+                        <div wire:loading wire:target="uploadedImage" class="mt-2 text-muted">
                             @lang('forms.uploading')
                         </div>
 
-                        @if ($form->image)
+                        @if ($form->image || $uploadedImage)
                             <div class="mt-2">
-                                <img src="{{ $form->image->temporaryUrl() }}" alt="Preview" class="img-thumbnail" width="120" height="90">
+                                <img src="{{ $uploadedImage ? $uploadedImage->temporaryUrl() : asset('storage/' . $form->image) }}" alt="Preview" class="img-thumbnail" width="120" height="90">
                             </div>
                         @else
                             <div class="mt-2">
@@ -80,6 +81,11 @@
                         </div>
                     @enderror
                 </div>
+                <!--end::Col-->
+                <!--begin::Col-->
+                <button type="button" class="btn btn-dark col-md-12 w-auto" wire:click='reset_password()' wire:confirm='{{ App::isLocale('ar') ? 'هل انت متأكد؟' : 'Are you sure?' }}' wire:target='reset_password()' wire:loading.attr='disabled'>
+                    @lang('forms.reset_password')
+                </button>
                 <!--end::Col-->
             </div>
             <!--end::Row-->

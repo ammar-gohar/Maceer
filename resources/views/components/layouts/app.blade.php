@@ -11,11 +11,11 @@
     <meta name="author" content="ColorlibHQ" />
     <meta
       name="description"
-      content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS."
+      content=""
     />
     <meta
       name="keywords"
-      content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard"
+      content=""
     />
     <!--end::Primary Meta Tags-->
     <!--begin::Fonts-->
@@ -62,14 +62,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     @if (App::isLocale('ar'))
-        <link rel="stylesheet" href="/css/adminlte.rtl.css">
+        <link rel="stylesheet" href="{{ asset('css/adminlte.rtl.css') }}">
     @else
-        <link rel="stylesheet" href="/css/adminlte.css">
+        <link rel="stylesheet" href="{{ asset('css/adminlte.css') }}">
     @endif
 
     @livewireStyles
 
     @stack('styles')
+    <style>
+        input:focus {
+            
+        }
+    </style>
 
     <!--begin::Script-->
 

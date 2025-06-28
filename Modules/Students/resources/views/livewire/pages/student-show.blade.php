@@ -24,7 +24,7 @@
 
         <livewire:components.show-item label="forms.gpa" :data="$student->student->gpa" />
 
-        <livewire:components.show-item label="forms.earned_credits" :data="$student->student->total_earned_credits" />
+        <livewire:components.show-item label="forms.total_earned_credits" :data="$student->student->total_earned_credits" />
 
     </div>
     <!--end::Body-->

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Modules\Enrollments\Models\Enrollment;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,31 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(Auth::user()->hasRole('student'))
+        {
+            return view('students-profile', [
+                'student' => Auth::user(),
+                'enrolls' => Enrollment::with(['course', 'semester', 'course.level'])->where('student_id', Auth::id())->get()->groupBy('semester.name'),
+            ]);
+        };
+        
+        if(Auth::user()->hasRole('professor'))
+        {
+            return view('professors-profile', [
+                'professor' => Auth::user(),
+            ]);
+        };
+
+        if(Auth::user()->hasRole('moderator'))
+        {
+            return view('moderators-profile', [
+                'moderator' => Auth::user(),
+            ]);
+        };
+
+        return view('home', [
+            ''
+        ]);
+
     }
 }

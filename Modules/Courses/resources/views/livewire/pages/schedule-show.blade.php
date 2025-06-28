@@ -9,8 +9,8 @@
                     <h5>@lang('modules.students.total_earned_credits'): {{ Auth::user()->student->gpa }}</h5>
                 </div>
                 <div class="mb-2 d-flex justify-content-between">
-                    <h6>@lang('modules.students.head_professor'):</h6>
-                    <h6 class="text-danger">@lang('modules.courses.enrollment_end'):</h6>
+                    <h6><strong>@lang('modules.students.guide'):</strong> {{ Auth::user()->student->guide->full_name }}</h6>
+                    <h6 class="text-danger"><strong>@lang('modules.courses.enrollment_end')</strong>:</h6>
                 </div>
             </div>
             <div class="schedule-table" style="overflow-x: scroll;">
@@ -58,7 +58,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 
@@ -111,7 +111,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 
@@ -165,7 +165,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 
@@ -219,7 +219,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 
@@ -273,7 +273,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 
@@ -328,7 +328,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ App::isLocale('ar') ? $course->course->name_ar : $course->course->name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 

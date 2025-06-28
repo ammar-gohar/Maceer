@@ -20,8 +20,11 @@ class StudentCreate extends Component
 
     public UserForm $form;
 
-    #[Validate('bail|required|in:freshman,junior,senior-1,senior-2')]
-    public $level = 'freshman';
+    #[Validate('bail|required|exists:levels,id')]
+    public $level = '';
+
+    #[Validate('bail|nullable|exists:users,id')]
+    public $guide = null;
 
     #[Validate('bail|required|decimal:0,2|min:0.00|max:4.00')]
     public $gpa = 0.00;
@@ -48,13 +51,16 @@ class StudentCreate extends Component
         $student = User::create($data);
         $student->assignRole('student');
         $student->student()->create([
-            'level_id' => Level::where('number', 1)->first()->id,
+            'guide_id' => $this->guide,
+            'level_id' => $this->level,
             'gpa' => $this->gpa,
         ]);
 
 
         Mail::to($student->email)->queue((new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails'));
 
+        $this->form->image = null;
+        $this->form->reset();
         $this->reset();
 
         notyf()->success(__('modules.students.success.store'));
@@ -63,6 +69,9 @@ class StudentCreate extends Component
 
     public function render()
     {
-        return view('students::livewire.pages.student-create')->title(__('modules.students.create'));
+        return view('students::livewire.pages.student-create', [
+            'levels' => Level::orderBy('number')->get(),
+            'guides' => User::has('professor')->get()->sortBy('full_name'),
+        ])->title(__('modules.students.create'));
     }
 }

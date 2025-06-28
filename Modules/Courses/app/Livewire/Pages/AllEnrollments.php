@@ -13,16 +13,12 @@ class AllEnrollments extends Component
     public function render()
     {
 
-        dd(Enrollment::with(['course', 'grade', 'semester'])
-                                    ->where('student_id', Auth::user()->id)
-                                    ->get()
-                                    ->groupBy('semester_id'));
-
         return view('courses::livewire.pages.all-enrollments', [
             'enrolls' => Enrollment::with(['course', 'grade', 'semester'])
                                     ->where('student_id', Auth::user()->id)
+                                    ->orderBy('created_at')
                                     ->get()
-                                    ->groupBy('semester_id'),
+                                    ->groupBy('semester.name'),
         ])->title(__('sidebar.courses.all-enrollments'));
     }
 }

@@ -23,6 +23,7 @@ class StudentCourses extends Component
 
     public function render()
     {
+        dd(Auth::user()->student);
 
         return view('courses::livewire.pages.student-courses', [
             'enrolls' => Enrollment::with(['course', 'grade'])->where('student_id', Auth::user()->id)->where('semester_id', $this->semesterId)->get(),

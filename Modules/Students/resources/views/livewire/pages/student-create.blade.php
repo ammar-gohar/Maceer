@@ -30,7 +30,7 @@
                             @lang('forms.uploading')
                         </div>
 
-                        @if ($form->image)
+                        @if ($form?->image)
                             <div class="mt-2">
                                 <img src="{{ $form->image->temporaryUrl() }}" alt="Preview" class="img-thumbnail" width="120" height="90">
                             </div>
@@ -79,6 +79,29 @@
                 <!--end::Col-->
                 <!--begin::Col-->
                 <div class="col-md-6">
+                    <label for="guide" class="form-label">@lang('modules.students.guide'):</label>
+                    <div class="input-group">
+                        <select
+                            name="guide"
+                            id="guide"
+                            class="form-select @error('guide') is-invalid @enderror"
+                            wire:model='guide'
+                            required>
+                            <option value="" {{ !$guide ? 'selected' : '' }}></option>
+                            @foreach ($guides as $guide)
+                                <option value="{{ $guide->id }}" {{ $guide == $guide->id ? 'selected' : '' }}>{{ $guide->full_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    @error('level')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <!--end::Col-->
+                <!--begin::Col-->
+                <div class="col-md-6">
                     <label for="level" class="form-label">@lang('forms.level')</label>
                     <div class="input-group">
                         <select
@@ -87,13 +110,13 @@
                             class="form-select @error('level') is-invalid @enderror"
                             wire:model='level'
                             required>
-                            <option value="freshman" {{ $level == 'freshman' ? 'selected' : '' }}>Freshman</option>
-                            <option value="junior" {{ $level == 'junior' ? 'selected' : '' }}>Junior</option>
-                            <option value="senior-1" {{ $level == 'senior-1' ? 'selected' : '' }}>Senior-1</option>
-                            <option value="senior-2" {{ $level == 'senior-2' ? 'selected' : '' }}>Senior-2</option>
+                            <option value="" {{ !$level ? 'selected' : '' }}>{{ App::isLocale('ar') ? 'اختر مرحلة' : 'Choose a level' }}</option>
+                            @foreach ($levels as $level)
+                                <option value="{{ $level->id }}" {{ $level == $level->id ? 'selected' : '' }}>{{ $level->name }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    @error('form.level')
+                    @error('level')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
@@ -104,7 +127,7 @@
                 <x-form-input name="gpa" type="number" wire_model="gpa" dir="ltr" min="0" max="4" step="0.01" />
                 <!--end::Col-->
                 <!--begin::Col-->
-                <x-form-input name="total_earned_credits" type="number" wire_model="earned_credits" dir="ltr" min="0" max="180" />
+                <x-form-input name="total_earned_credits" type="number" wire_model="total_earned_credits" dir="ltr" min="0" max="180" />
                 <!--end::Col-->
             </div>
             <!--end::Row-->

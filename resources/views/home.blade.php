@@ -1,3 +1,3 @@
-<x-layouts.app>
-You're logged in
+<x-layouts.app title="{{ __('general.profile') }}">
+    
 </x-layouts.app>

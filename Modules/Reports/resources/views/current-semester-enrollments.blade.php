@@ -2,17 +2,18 @@
     <div class="mb-2 row">
         <div class="mb-4 text-center col-md-12 fs-3">
             <strong>{{ App::isLocale('ar') ? 'تسجيل المقررات' : 'Enrollments' }}</strong>
+            {{ $semester->name }}
         </div>
-        <div class="mb-4 col-md-6">
+        <div class="mb-4 col-md-4">
             <strong>@lang('modules.students.name'):</strong> {{ $student->full_name }}
         </div>
-        <div class="mb-4 col-md-6">
+        <div class="mb-4 col-md-4">
             <strong>@lang('modules.students.level'):</strong> {{ $student->student->level->name }}
         </div>
-        <div class="mb-4 col-md-6">
+        <div class="mb-4 col-md-4">
             <strong>@lang('modules.students.gpa'):</strong> {{ $student->student->gpa }}
         </div>
-        <div class="mb-4 col-md-6">
+        <div class="mb-4 col-md-4">
             <strong>@lang('modules.students.guide'):</strong> {{ $student->student->guide->full_name }}
         </div>
     </div>
@@ -42,5 +43,8 @@
             </tbody>
         </table>
 
+    </div>
+    <div>
+        
     </div>
 </x-layouts.reports>
