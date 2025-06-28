@@ -169,9 +169,9 @@ class RolesDatabaseSeeder extends Seeder
             'module'  => 'Courses',
         ]);
         Permission::create([
-            'name'    => 'courses.students-shcedule',
-            'name_ar' => 'التعديل على الجدول الدراسي',
-            'name_en' => 'Edit schedule',
+            'name'    => 'courses.student-schedule',
+            'name_ar' => 'عرض الجدول كطالب',
+            'name_en' => 'Show schedule as a student',
             'module'  => 'Courses',
         ]);
         Permission::create([
