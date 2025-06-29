@@ -81,7 +81,7 @@ class RegisterController extends Controller
         $email = new \SendGrid\Mail\Mail(); 
         $email->setFrom("info@maceer.systems", "Maceer admin");
         $email->setSubject();
-        $email->addTo($data['email'], $data['first_name'] . ' ' . $data['last_name']);
+        $email->addTo($user->email, $data['first_name'] . ' ' . $data['last_name']);
         $email->addContent(
             "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
         );

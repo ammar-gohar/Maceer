@@ -61,7 +61,7 @@ class ModeratorsEdit extends Component
         $email = new \SendGrid\Mail\Mail(); 
         $email->setFrom("info@maceer.systems", "Maceer admin");
         $email->setSubject();
-        $email->addTo($data['email'], $data['first_name'] . ' ' . $data['last_name']);
+        $email->addTo($this->form->email, $this->form->first_name . ' ' . $this->form->last_name);
         $email->addContent(
             "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
         );
