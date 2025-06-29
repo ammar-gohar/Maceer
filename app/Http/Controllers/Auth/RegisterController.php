@@ -76,7 +76,21 @@ class RegisterController extends Controller
 
         $user = User::create($data);
 
-        Mail::to($user->email)->send(new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password));
+        // Mail::to($user->email)->send(new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password));
+
+        $email = new \SendGrid\Mail\Mail(); 
+        $email->setFrom("info@maceer.systems", "Maceer admin");
+        $email->setSubject();
+        $email->addTo($data['email'], $data['first_name'] . ' ' . $data['last_name']);
+        $email->addContent(
+            "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+        );
+        $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+        try {
+            $sendgrid->send($email);
+        } catch (Exception $e) {
+            dd('Caught exception: '. $e->getMessage() ."\n");
+        }
 
         return $user;
 
