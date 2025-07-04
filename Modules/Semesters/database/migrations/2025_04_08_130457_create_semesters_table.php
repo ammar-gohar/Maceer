@@ -16,6 +16,9 @@ return new class extends Migration
             $table->text('name');
             $table->date('start_date');
             $table->date('end_date');
+            $table->date('requests_start_date');
+            $table->date('enrollments_start_date');
+            $table->date('enrollments_end_date');
             $table->boolean('is_current')->default(1);
             $table->timestamps();
         });

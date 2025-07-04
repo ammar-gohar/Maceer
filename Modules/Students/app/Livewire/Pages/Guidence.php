@@ -4,9 +4,11 @@ namespace Modules\Students\Livewire\Pages;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Levels\Models\Level;
+use Modules\Professors\Models\Professor;
 use Modules\Semesters\Models\Semester;
 use Modules\Students\Models\Student;
 
@@ -15,17 +17,23 @@ class Guidence extends Component
 
 
     public $search = '';
-    public $sortBy = ['full_name', 'asc'];
+    public $sortBy = ['name', 'asc'];
     public $levelFilter = 'all';
     public $guideFilter = 'all';
     public $changeGuideModal = false;
     public $enrollmentsModal = false;
     public $newGuideId = '';
     public $semesterId;
+    public $guidesModal = [];
 
     public function mount()
     {
         $this->semesterId = Semester::where('is_current', 1)->first()->id;
+    }
+
+    public function updatedGuidesModal()
+    {
+        $this->showGuidesModal($this->guidesModal['search']);
     }
 
     public function show_modal($studentId, $studentName, $guideId = null)
@@ -41,6 +49,7 @@ class Guidence extends Component
     {
         $this->enrollmentsModal = false;
         $this->changeGuideModal = false;
+        $this->guidesModal = false;
         $this->newGuideId = '';
     }
 
@@ -71,9 +80,7 @@ class Guidence extends Component
 
         $query->when($this->guideFilter, function ($q) {
             if ($this->guideFilter == 'all') {
-                return $q->whereHas('student', function ($q) {
-                    $q->whereNotNull('guide_id');
-                });
+                return $q;
             } elseif ($this->guideFilter == 'no_guide') {
                 return $q->whereHas('student', function ($q) {
                     $q->whereNull('guide_id');
@@ -85,62 +92,19 @@ class Guidence extends Component
             }
         });
 
-        return $this->sorting($query->get());
+        return $query->orderBy($this->sortBy[0], $this->sortBy[1]);
 
-    }
-
-    private function sorting($query)
-    {
-        switch ($this->sortBy[0]) {
-            case 'full_name':
-                if($this->sortBy[1] == 'asc') {
-                    return $query->sortBy('full_name');
-                } else {
-                    return $query->sortByDesc('full_name');
-                }
-                break;
-            case 'level':
-                if($this->sortBy[1] == 'asc') {
-                    return $query->sortBy('student.level.name');
-                } else {
-                    return $query->sortByDesc('student.level.name');
-                }
-                break;
-            case 'guide':
-                if($this->sortBy[1] == 'asc') {
-                    return $query->sortBy('student.guide.full_name');
-                } else {
-                    return $query->sortByDesc('student.guide.full_name');
-                }
-                break;
-            case 'gpa':
-                if($this->sortBy[1] == 'asc') {
-                    return $query->sortBy('student.gpa');
-                } else {
-                    return $query->sortByDesc('student.gpa');
-                }
-                break;
-            case 'credits':
-                if($this->sortBy[1] == 'asc') {
-                    return $query->sortBy('total_earned_credits');
-                } else {
-                    return $query->sortByDesc('total_earned_credits');
-                }
-                break;
-            default:
-                return $query->sortBy('full_name');
-        }
     }
 
     public function remove_guidence($studentId)
     {
-        $student = User::find($studentId);
+        $student = Student::find($studentId);
 
-        if ($student && $student->student) {
-            $student->student->guide_id = null;
-            $student->student->save();
-            notyf()->success(__('modules.students.success.guidence_removed'));
-        };
+        $student->update([
+            'guide_id' => null,
+        ]);
+
+        notyf()->success(__('modules.students.success.guidence_removed'));
 
     }
 
@@ -163,6 +127,7 @@ class Guidence extends Component
     public function show_enrollments_modal($studentId, $studentName)
     {
         $student = User::with(['student', 'student.level', 'current_enrollments'])->find($studentId);
+
         $this->enrollmentsModal = [
             'id' => $studentId,
             'name' => $studentName,
@@ -179,21 +144,105 @@ class Guidence extends Component
 
     }
 
+    public function showGuidesModal($search = '')
+    {
+        $this->guidesModal = [
+            'search' => $search,
+            'guides' => User::with(['professor'])
+                            ->select([
+                                'id',
+                                DB::raw('CONCAT_WS(" ", first_name, middle_name, last_name) as name'),
+                                'gender',
+                            ])
+                            ->whereHas('professor', fn($q) => $q->where('is_guide', 1))->orderBy('name')->get(),
+        ];
+
+        $professors = User::with(['professor'])
+                            ->select([
+                                'id',
+                                DB::raw('CONCAT_WS(" ", first_name, middle_name, last_name) as name'),
+                                'gender',
+                            ])
+                            ->whereHas('professor', fn($q) => $q->where('is_guide', 0))
+                            ->when($this->guidesModal['search'], fn($q) => $q
+                                ->where('first_name', 'like', "%".$this->guidesModal['search']."%")
+                                ->orWhere('middle_name', 'like', "%".$this->guidesModal['search']."%")
+                                ->orWhere('last_name', 'like', "%".$this->guidesModal['search']."%")
+                            )
+                            ->orderBy('name')
+                            ->get();
+
+        $this->guidesModal['other_professors'] = $professors;
+
+        debugbar()->info($this->guidesModal);
+
+        return;
+    }
+
+    public function add_guide($id)
+    {
+        Professor::find($id)->update(['is_guide' => 1]);
+        $this->showGuidesModal($this->guidesModal['search']);
+    }
+
+    public function remove_guide($id)
+    {
+        Professor::find($id)->update(['is_guide' => 0]);
+        $this->showGuidesModal($this->guidesModal['search']);
+    }
+
+    public function guide_students()
+    {
+        $students = Student::where('total_earned_credits', '<', '180')->get()->pluck('id')->toArray();
+        $professors = User::whereHas('professor', fn($q) => $q->where('is_guide', 1))->get()->pluck('id')->toArray();
+
+        // $array = [];
+        // for ($i=0; $i < count($professors) ; $i++) {
+        //     for ($j=0; $j < count($students); $j =+ $i) {
+        //         $array[] = $students[$j];
+        //     }
+        //     Student::whereIn('id', $array)->update(['guide_id' => $professors[$i]]);
+        // }
+
+        for ($i=0; $i < count($professors) ; $i++) {
+            for ($j=0; $j < count($students); $j =+ $i) {
+                Student::find($students[$j])->update(['guide_id' => $professors[$i]]);
+            }
+        }
+
+        $this->guidesModal = [];
+
+        return notyf()->success(__('modules.professors.guide_students_success'));
+
+    }
+
     public function render()
     {
 
-        $studentsQuery = User::query()
-                                ->with(['student.level', 'student.guide'])
-                                ->has('student')
-                                ->when(!Auth::user()->hasRole('Super Admin'), fn($q) => $q
-                                    ->whereHas('student', fn($q) => $q
-                                        ->where('guide_id', Auth::id())
-                                ));
-
-        $students = $this->filters($studentsQuery);
+        $usersQuery = User::query()->has('student')
+        ->select([
+            DB::raw('CONCAT_WS(" ", users.`first_name`, users.`middle_name`, users.`last_name`) as name'),
+            DB::raw('CONCAT_WS(" ", guides.`first_name`, guides.`middle_name`, guides.`last_name`) as guide_name'),
+            'academic_number',
+            'users.gender as gender',
+            'students.id as student_id',
+            'students.guide_id as guide_id',
+            'total_earned_credits as credits',
+            'gpa',
+            'levels.name as level',
+            'paied_at as receipt_paied_at',
+        ])
+        ->leftJoin('students', 'students.user_id', '=' , 'users.id')
+        ->leftJoin('levels', 'students.level_id', '=', 'levels.id')
+        ->leftJoin('users as guides', 'students.guide_id', '=', 'guides.id')
+        ->leftJoin('receipts', fn($q) => $q
+            ->on('users.id', '=', 'receipts.student_id')
+            ->where('receipts.semester_id', '=', $this->semesterId)
+        );
+        $users = $this->filters($usersQuery);
 
         return view('students::livewire.pages.guidence', [
-            'students' => $students,
+            'students' => $users->paginate(15),
             'levels' => Level::select('id', 'name')->get(),
             'guides' => User::has('professor')->get()->sortBy('full_name'),
         ])->title(__('sidebar.students.guidence'));

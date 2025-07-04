@@ -46,7 +46,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('semester') }}" class="nav-link">
-                        <i class="nav-icon bi bi-palette"></i>
+                        <i class="nav-icon fa-solid fa-calendar-gear"></i>
                         <p>@lang('sidebar.semester')</p>
                     </a>
                 </li>
@@ -54,7 +54,7 @@
             </ul>
         @endcan
 
-        {{-- @can('semseter.settings') --}}
+        @can('quizzes.index-student')
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
@@ -65,7 +65,42 @@
                 </li>
 
             </ul>
-        {{-- @endcan --}}
+        @endcan
+
+        @canany(['reports.request', 'reports.requests.fullfilling'])
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
+
+                <li class="nav-item">
+                    <a href="{{ route('docs.index') }}" class="nav-link">
+                        <i class="nav-icon fa-solid fa-file-chart-column"></i>
+                        <p>@lang('sidebar.reports.index')</p>
+                    </a>
+                </li>
+
+            </ul>
+        @endcan
+
+        @canany(['reports.receipt', 'reports.receipt.register'])
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
+
+                @can('reports.receipt.register')
+                    <li class="nav-item">
+                        <a href="{{ route('receipt.register') }}" class="nav-link">
+                            <i class="nav-icon fa-solid fa-file-chart-column"></i>
+                            <p>@lang('sidebar.reports.receipt_register')</p>
+                        </a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a href="{{ route('receipt.show') }}" class="nav-link">
+                            <i class="nav-icon fa-solid fa-file-chart-column"></i>
+                            <p>@lang('sidebar.reports.receipt_show')</p>
+                        </a>
+                    </li>
+                @endcan
+
+            </ul>
+        @endcan
 
         @can('semseter.settings')
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
@@ -128,9 +163,11 @@
                     @can('students.create')
                         <x-sidebar-item icon="fa-solid fa-user-plus" route="students.create" />
                     @endcan
-                    @can('students.guidence')
-                        <x-sidebar-item icon="fa-solid fa-user-plus" route="students.guidence" />
-                    @endcan
+                    @unless ((Auth::user()->professor && !Auth::user()->professor->is_guide))
+                        @can('students.guidence')
+                            <x-sidebar-item icon="fa-solid fa-user-plus" route="students.guidence" />
+                        @endcan
+                    @endunless
                 </x-sidebar-list>
                 {{-- end::sutdents sidebar --}}
             @endcan
@@ -157,16 +194,12 @@
                     @can('courses.requests-stats')
                         <x-sidebar-item icon="fa-solid fa-list" route="courses.requests-stats" />
                     @endcan
-                    @can('courses.requests')
-                        @unless (Auth::user()->hasRole('Super Admin'))
-                            <x-sidebar-item icon="fa-solid fa-list" route="courses.requests" />
-                        @endunless
-                    @endcan
                     @can('courses.schedule')
                         <x-sidebar-item icon="fa-solid fa-calendar-days" route="courses.schedule" />
                     @endcan
                     @can('courses.enrollment')
                         @unless (Auth::user()->hasRole('Super Admin'))
+                            <x-sidebar-item icon="fa-solid fa-list" route="courses.requests" />
                             <x-sidebar-item icon="fa-solid fa-calendar-check" route="courses.student-schedule" />
                             <x-sidebar-item icon="fa-solid fa-list" route="students.enrollments" />
                             <x-sidebar-item icon="fa-solid fa-list" route="courses.student-show" />

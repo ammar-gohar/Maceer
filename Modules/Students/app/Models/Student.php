@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Courses\Models\Course;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Levels\Models\Level;
-
+use Modules\Reports\Models\Receipt;
 use Modules\Students\Database\Factories\StudentFactory;
 
 class Student extends Model
@@ -34,6 +34,16 @@ class Student extends Model
     public function guide()
     {
         return $this->belongsTo(User::class, 'guide_id');
+    }
+
+    public function current_receipt()
+    {
+        return $this->hasOne(Receipt::class, 'student_id')->whereHas('semester', fn($q) => $q->where('is_current', 1));
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     protected static function newFactory(): StudentFactory

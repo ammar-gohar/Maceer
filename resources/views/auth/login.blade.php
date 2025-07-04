@@ -57,11 +57,11 @@
                     </div>
                     <!--end::Row-->
                 </form>
-                    @if (Route::has('password.request'))
+                    {{-- @if (Route::has('password.request'))
                         <a class="btn btn-link" href="{{ route('password.request') }}">
                             @lang('forms.forgot_pswrd')
                         </a>
-                    @endif
+                    @endif --}}
                 </div>
                 <!-- /.login-card-body -->
             </div>

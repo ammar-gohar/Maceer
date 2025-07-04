@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Modules\Reports\Http\Controllers\ReportController;
 use Modules\Reports\Http\Controllers\ReportsController;
 use Modules\Reports\Livewire\ExamSchedule;
+use Modules\Reports\Livewire\Pages\Receipts;
+use Modules\Reports\Livewire\Pages\ReportRequests;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +37,22 @@ Route::group([
     Route::get('/enrollments/{studentId}', [ReportController::class, 'enrollments'])
         ->name('all-enrollments');
 
+    Route::get('/transcript/{studentId}/{lang?}', [ReportController::class, 'transcript'])
+        ->name('transcript');
+
+    Route::get('/receipt/{studentId}', [ReportController::class, 'receipt'])
+        ->name('receipt');
+
 });
+
+Route::get('documentations', ReportRequests::class)
+    ->name('docs.index')
+    ->middleware(['permission:reports.request|reports.requests.fullfilling', 'auth']);
+
+Route::get('/receipts/register', Receipts::class)
+    ->name('receipt.register')
+    ->middleware(['permission:reports.receipt.register', 'auth']);
+
+Route::get('/receipt', Receipts::class)
+    ->name('receipt.show')
+    ->middleware(['permission:reports.receipt', 'auth']);

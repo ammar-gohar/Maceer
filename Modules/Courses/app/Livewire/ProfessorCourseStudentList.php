@@ -2,9 +2,11 @@
 
 namespace Modules\Courses\Livewire;
 
+use App\Models\User;
 use Livewire\Component;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Grades\Models\Grade;
+use Modules\Levels\Models\Level;
 
 class ProfessorCourseStudentList extends Component
 {
@@ -35,6 +37,7 @@ class ProfessorCourseStudentList extends Component
 
         if(in_array($prop, ['midterm', 'work', 'final'])) {
             $additional = [];
+
             if ($this->midterm && $this->work && $this->final) {
 
                 $this->total = $this->midterm + $this->work + $this->final;
@@ -53,6 +56,26 @@ class ProfessorCourseStudentList extends Component
                     'quality_points'        => $grade->gpa * $this->enroll->course->credits,
                 ];
 
+                $student = User::find($this->enroll->student_id);
+                $totalQulaity = $student->student->quality_points + $this->enroll->course->credits * $grade->gpa;
+                $totalCredits = $student->student->total_earned_credits + $this->enroll->course->credits;
+
+                $ueec = $student->student->unversity_elected_earned_credits;
+                $feec = $student->student->faculty_elected_earned_credits;
+                $peec = $student->student->program_elected_earned_credits;
+                $cec = $student->student->core_earned_credits;
+
+                if($this->enroll->course->type == 'core')
+                {
+                    $cec += $this->enroll->course->credits;
+                } else {
+                    match ($this->enroll->course->requirement) {
+                        'university' => $ueec += $this->enroll->course->credits,
+                        'faculty' => $feec += $this->enroll->course->credits,
+                        'specialization' => $peec += $this->enroll->course->credits,
+                    };
+                }
+
             };
 
             $this->enroll->update([
@@ -61,6 +84,41 @@ class ProfessorCourseStudentList extends Component
                 'final_exam'   => $this->final,
                 ...$additional,
             ]);
+
+            if($student)
+            {
+                $fGpa = $totalQulaity / $totalCredits;
+
+                $level = Level::where('min_credits', '<=', $totalCredits)
+                                ->orderBy('number', 'desc')
+                                ->first();
+
+                $max = 18;
+                switch ($fGpa) {
+                    case $fGpa >= 3.0:
+                        $max = 21;
+                        break;
+                    case $fGpa >= 2.0:
+                        $max = 18;
+                        break;
+                    default:
+                        $max = 15;
+                        break;
+                };
+
+                $student->student->update([
+                    'gpa' => $fGpa,
+                    'quality_points' => $totalQulaity,
+                    'level_id' => $level->id,
+                    'unversity_elected_earned_credits' => $ueec,
+                    'faculty_elected_earned_credits' => $feec,
+                    'program_elected_earned_credits' => $peec,
+                    'core_earned_credits' => $cec,
+                    'total_earned_credits' => $totalCredits,
+                    'maximum_credits_to_enroll' => $max,
+                ]);
+            }
+
         }
     }
 

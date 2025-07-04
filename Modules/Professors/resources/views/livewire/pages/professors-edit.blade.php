@@ -1,7 +1,5 @@
 <x-page title="modules.professors.edit" module="professors" show_index_button="true">
 
-    <x-success-message :status="$status" module="professors" operation="update" />
-
     <!--begin::Form-->
     <form wire:submit='update()'>
         @csrf

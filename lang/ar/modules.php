@@ -22,6 +22,7 @@ return [
         'gender' => 'النوع',
         'credits' => 'الساعات المكتسبة',
         'level' => 'المرحلة',
+        'academic_number' => 'الرقم الأكاديمي',
         'gpa' => 'GPA',
         'success' => [
             'store' => 'نجح إنشاء طالب جديد',
@@ -58,7 +59,11 @@ return [
         'success' => [
             'update' => 'نجح تعديل بيانات المعلم',
             'store' => 'نجح إنشاء معلم جديد',
-        ]
+        ],
+        'guides' => 'المرشدون الأكاديميون',
+        'add_guide' => 'إضافة مرشد',
+        'guide_students' => 'توزيع الطلّاب',
+        'guide_students_success' => 'نجح توزيع الطلاب',
     ],
 
     'moderators' => [
@@ -120,7 +125,9 @@ return [
             'success' => 'نجح الرفع',
             'click_to_remove' => 'اضغط للحذف',
             'please_wait' => 'انتظر رجاء...'
-        ]
+        ],
+        'students_enrolled' => 'الطلاب المسجلين للمقرر',
+        'enrollments_ended' => 'انتهت فترة تسجيل المقررات',
     ],
 
     'halls' => [
@@ -154,6 +161,7 @@ return [
     'semester' => [
         'success' => [
             'start' => 'بُدء فصل دراسي جديد',
+            'update' => 'حُدّث الفصل الدراسي',
             'end' => 'أُنهي الفصل الدراسي الحالي',
         ],
     ],
@@ -220,6 +228,34 @@ return [
         'download_csv' => 'تحميل ملف CSV',
         'generate_new' => 'إنشاء جدول جديد',
         'print' => 'طباعة',
-    ]
+        'requested_at' => 'تاريخ الطلب',
+        'fullfilled_at' => 'تاريخ الاستجابة للطلب',
+        'type' => 'نوع الوثيقة',
+        'requested_at' => 'تاريخ الطلب',
+        'printed_at' => 'تاريخ الطباعة',
+        'language' => 'اللغة',
+        'student' => 'الطالب',
+        'concern' => 'الجهة',
+        'fees' => 'الرسوم',
+        'enrollment_fees' => 'رسوم التسجيل',
+
+        'transcript' => 'بيان حالة',
+        'registeration_proof' => 'إثبات قيد',
+        're-garding' => 'التماس إعادة رصد الدرجات',
+
+        'request_sent' => 'أُرسل طلبك',
+        'fullfilling' => 'تلبية الطلب',
+        'fullfilled' => 'مُلبّى',
+        'not_fullfilled' => 'لم يُلبَّ بعد',
+
+        'number_credits' => 'عدد الساعات المعتمدة',
+        'credit_cost' => 'السعر للساعة',
+        'total_cost' => 'السعر الإجمالي',
+        'paied_at' => 'تاريخ الدفع',
+        'receipt_number' => 'رقم الفاتورة',
+        'not_paied' => 'لم يدفع',
+        'receipt_registered' => 'نجح تسجيل الفاتورة',
+        'receipt_registered' => 'نجح إلغاء التسجيل',
+    ],
 
 ];

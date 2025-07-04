@@ -24,16 +24,7 @@ class StudentEdit extends Component
     #[Validate('bail|nullable|exists:users,id')]
     public $guide = null;
 
-    #[Validate('bail|required|exists:levels,id')]
-    public $level;
-
-    #[Validate('bail|required|decimal:1,2|min:0.00|max:4.00')]
-    public $gpa;
-
-    #[Validate('bail|required|integer|min:0|max:180')]
-    public $total_earned_credits;
-    
-    #[Validate('bail|nullable|image|max:1024')]
+    #[Validate('bail|nullable|dimensions:ratio=3/4|max:1024')]
     public $uploadedImage;
 
     public $status = false;
@@ -41,10 +32,7 @@ class StudentEdit extends Component
     public function mount(int $national_id)
     {
         $student = User::with(['student'])->where('national_id', $national_id)->firstOrFail();
-        $this->level = $student->student->level_id;
         $this->guide = $student->student->guide_id;
-        $this->gpa = $student->student->gpa;
-        $this->total_earned_credits = $student->student->total_earned_credits;
         $this->form->fillVars($student);
     }
 
@@ -67,9 +55,6 @@ class StudentEdit extends Component
         $student->update($data);
         $student->student()->update([
             'guide_id' => $this->guide,
-            'level_id' => $this->level,
-            'gpa' => $this->gpa,
-            'total_earned_credits' => $this->total_earned_credits,
         ]);
 
         notyf()->success(__('modules.students.success.update'));
@@ -96,7 +81,6 @@ class StudentEdit extends Component
     public function render()
     {
         return view('students::livewire.pages.student-edit', [
-            'levels' => Level::orderBy('number')->get(),
             'guides' => User::has('professor')->get()->sortBy('full_name'),
         ])->title(__('modules.students.edit'));
     }

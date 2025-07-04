@@ -71,6 +71,13 @@ return [
         'index-student' => 'قائمة الامتحانات',
     ],
 
+    'reports' => [
+        'request' => 'طلب وثيقة',
+        'requests' => 'طلبات الوثائق',
+        'index' => 'طلبات الوثائق',
+        'receipt_register' => 'تسجيل دفع فاتورة',
+    ],
+
     'exam_schedule_generate' => 'إنشاء جدول الامتحانات',
 
 ];

@@ -18,6 +18,9 @@ class ProfessorsCreate extends Component
 
     public UserForm $form;
 
+    #[Validate('bail|nullable|dimensions:ratio=3/4|max:1024')]
+    public $uploadedImage;
+
     public function store()
     {
         $data = $this->form->validate();
@@ -25,9 +28,9 @@ class ProfessorsCreate extends Component
         $data['password'] = Hash::make($password);
         $data['username'] = $this->form->last_name . '.' . $this->form->first_name . random_int(001, 999);
 
-        if ($this->form->image) {
-            $randomName = Str::uuid() . '.' . $this->form->image->getClientOriginalExtension();
-            $path = $this->form->image->storeAs('professors/profile', $randomName, 'public');
+        if ($this->uploadedImage) {
+            $randomName = Str::uuid() . '.' . $this->uploadedImage->getClientOriginalExtension();
+            $path = $this->uploadedImage->storeAs('professors/profile', $randomName, 'public');
             $data['image'] = $path;
         }
 

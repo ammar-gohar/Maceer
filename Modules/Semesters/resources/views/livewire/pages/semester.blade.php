@@ -7,9 +7,18 @@
             <h3 class="mb-3 alert alert-info">
                 @lang('forms.semester_active', ['date' => $current->end_date, 'semester' => $current->name])
             </h3>
-            <h5 class="mb-3">
-                @lang('forms.want_end_semester')
-            </h5>
+            <div class="row my-3">
+                <x-form-input name="start_date" type="date" wire_model="start_date" />
+                <x-form-input name="end_date" type="date" wire_model="end_date" />
+                <x-form-input name="reqs_start_date" type="date" wire_model="reqs_start_date" />
+                <x-form-input name="enrolls_start_date" type="date" wire_model="enrolls_start_date" />
+                <x-form-input name="enrolls_end_date" type="date" wire_model="enrolls_end_date" />
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-dark" wire:click='update_semester("{{ $current->id }}")' wire:confirm=>
+                @lang('forms.update')
+            </button>
             <button type="button" class="btn btn-danger" wire:click='end_semester("{{ $current->id }}")' wire:confirm>
                 @lang('forms.end_semester')
             </button>
@@ -22,6 +31,9 @@
                     <x-form-input name="name" wire_model="name" span="12"/>
                     <x-form-input name="start_date" type="date" wire_model="start_date" />
                     <x-form-input name="end_date" type="date" wire_model="end_date" />
+                    <x-form-input name="reqs_start_date" type="date" wire_model="reqs_start_date" />
+                    <x-form-input name="enrolls_start_date" type="date" wire_model="enrolls_start_date" />
+                    <x-form-input name="enrolls_end_date" type="date" wire_model="enrolls_end_date" />
                 </div>
             </div>
 

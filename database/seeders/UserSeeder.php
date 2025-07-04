@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Modules\Roles\Models\Role;
+use Modules\Students\Models\Student;
 
 class UserSeeder extends Seeder
 {
@@ -38,10 +39,11 @@ class UserSeeder extends Seeder
         }
 
         $professors = User::has('professor')->get()->pluck('id')->toArray();
-
+        $prefix = now()->format('y');
+        $acno = (integer) $prefix . str_pad(Student::whereBetween('academic_number', [$prefix . 0000, (integer) $prefix . '9999'])->count(), 4, '0', STR_PAD_LEFT);
         for ($i = 1; $i <= 200; $i++) {
 
-            User::factory(1)->hasStudent(['guide_id' => $professors[random_int(0, 20)]])->create(['username' => 'student' . $i]);
+            User::factory(1)->hasStudent(['guide_id' => $professors[random_int(0, 20)], 'academic_number' => $acno++])->create(['username' => 'student' . $i]);
 
         }
 

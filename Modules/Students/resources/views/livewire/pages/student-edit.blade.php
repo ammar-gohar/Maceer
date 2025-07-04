@@ -1,7 +1,5 @@
 <x-page title="modules.students.edit" module="students" show_index_button="true">
 
-    <x-success-message :status="$status" module="students" operation="update" />
-
     <!--begin::Form-->
     <form wire:submit='update()'>
         @csrf
@@ -105,34 +103,6 @@
                         </div>
                     @enderror
                 </div>
-                <!--end::Col-->
-                <!--begin::Col-->
-                <div class="col-md-6">
-                    <label for="level" class="form-label">@lang('forms.level')</label>
-                    <div class="input-group">
-                        <select
-                            name="level"
-                            id="level"
-                            class="form-select @error('level') is-invalid @enderror"
-                            wire:model='level'
-                            required>
-                            @foreach ($levels as $level)
-                                <option value="{{ $level->id }}" {{ $level == $level->id ? 'selected' : '' }}>{{ $level->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    @error('level')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
-                <!--end::Col-->
-                <!--begin::Col-->
-                <x-form-input name="gpa" type="number" wire_model="gpa" dir="ltr" min="0" max="4" step="0.01" />
-                <!--end::Col-->
-                <!--begin::Col-->
-                <x-form-input name="total_earned_credits" type="number" wire_model="total_earned_credits" dir="ltr" min="0" max="180" />
                 <!--end::Col-->
                 <!--begin::Col-->
                 <button type="button" class="btn btn-dark col-md-12 w-auto" wire:click='reset_password()' wire:confirm='{{ App::isLocale('ar') ? 'هل انت متأكد؟' : 'Are you sure?' }}' wire:target='reset_password()' wire:loading.attr='disabled'>

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('professors', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
             $table->uuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->boolean('is_guide')->default(0);
             $table->timestamps();
         });
     }

@@ -1,8 +1,8 @@
 <x-layouts.app title="{{ __('general.profile') }}">
-    <x-page title="{{ (App::isLocale('ar') ? 'مرحبًا، ' : 'Welcome, ') . $professor->full_name }}" module="professors">
+    <x-page title="{{ (App::isLocale('ar') ? 'مرحبًا، ' : 'Welcome, ') . "$professor->first_name $professor->last_name" }}" module="professors">
 
     <!--begin::Body-->
-    <div class="px-4 card-body">
+    <div class="px-4 row card-body">
 
         <div class="mb-3 row">
             <h5 class="col-sm-3 col-form-label fs-5">@lang('forms.image')</h5>
@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <livewire:components.show-item label="forms.name" :data="$professor->full_name" />
+        <livewire:components.show-item label="forms.name" data="{{ "$professor->first_name $professor->middle_name $professor->last_name" }}" />
 
         <livewire:components.show-item label="forms.national_id" :data="$professor->national_id" />
 
@@ -22,6 +22,8 @@
         <livewire:components.show-item label="forms.gender" :data="$professor->gender == 'm' ? __('forms.male') : __('forms.female')" />
 
     </div>
+
+    <livewire:reset-password>
     <!--end::Body-->
 
 </x-page>

@@ -9,6 +9,7 @@ class ShowItem extends Component
 
     public $label;
     public $data;
+    public $span = 6;
 
     public function render()
     {

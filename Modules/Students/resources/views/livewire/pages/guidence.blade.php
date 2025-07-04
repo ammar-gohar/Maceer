@@ -1,7 +1,14 @@
 <x-page title="sidebar.students.guidence" module="students">
-
     <div class="card-body">
-        {{-- <div class="p-2 my-3 row" style="font-size: 1rem;">
+        @can('students.guidence.edit')
+            <div class="row">
+                <button type="button" class="w-auto btn btn-dark" wire:click='showGuidesModal()'>
+                    @lang('modules.professors.guides')
+                </button>
+            </div>
+        @endcan
+        {{-- FILTERS --}}
+        <div class="p-2 my-3 row" style="font-size: 1rem;">
             <div class="col-md-3">
                 <input type="text" name="search" id="search" wire:model.live='search' placeholder="{{ App::isLocale('ar') ? 'بحث...' : 'Search...' }}" class="form-control">
             </div>
@@ -9,20 +16,20 @@
                 <div class="col-md-9 d-flex">
                     <label for="sortBy" class="fw-bold me-2" style="white-space: nowrap; font-size:1rem;">@lang('general.sort_by'):</label>
                     <select id="sortBy" class="form-select form-control" wire:model.change='sortBy.0'>
-                        <option value="full_name" {{ $sortBy[0] == 'full_name' ? 'selected' : '' }}>@lang('modules.students.name')</option>
+                        <option value="name">@lang('modules.students.name')</option>
                         @if (!Auth::user()->hasRole('Super Admin'))
-                            <option value="credits" {{ $sortBy[0] == 'credits' ? 'selected' : '' }}>@lang('modules.students.credits')</option>
-                            <option value="gpa" {{ $sortBy[0] == 'gpa' ? 'selected' : '' }}>@lang('modules.students.gpa')</option>
+                            <option value="credits">@lang('modules.students.credits')</option>
+                            <option value="gpa">@lang('modules.students.gpa')</option>
                         @else
-                            <option value="guide" {{ $sortBy[0] == 'guide' ? 'selected' : '' }}>@lang('modules.students.guide')</option>
+                            <option value="guide_name">@lang('modules.students.guide')</option>
                         @endif
-                        <option value="level" {{ $sortBy[0] == 'level' ? 'selected' : '' }}>@lang('modules.students.level')</option>
+                        <option value="level">@lang('modules.students.level')</option>
                     </select>
                 </div>
                 <div class="px-0 col-md-3">
                     <select id="sortByOptions" class="form-select form-control" wire:model.change='sortBy.1'>
-                        <option value="asc" {{ $sortBy[1] == 'asc' ? 'selected' : '' }}>@lang('general.sort_by_options.asc')</option>
-                        <option value="desc" {{ $sortBy[1] == 'desc' ? 'selected' : '' }}>@lang('general.sort_by_options.desc')</option>
+                        <option value="asc">@lang('general.sort_by_options.asc')</option>
+                        <option value="desc">@lang('general.sort_by_options.desc')</option>
                     </select>
                 </div>
             </div>
@@ -54,12 +61,14 @@
                     @endif
                 </div>
             </div>
-        </div> --}}
+        </div>
+        {{-- /FILTERS --}}
         @if ($students->count() > 0)
             <table class="table table-bordered table-striped" style="overflow-x: scroll;">
                 <thead>
                     <tr>
                         <th class="text-center">#</th>
+                        <th>@lang('modules.students.academic_number')</th>
                         <th>@lang('modules.students.name')</th>
                         <th>@lang('modules.students.gender')</th>
                         <th>@lang('modules.students.level')</th>
@@ -76,25 +85,26 @@
                     @foreach ($students as $student)
                         <tr class="align-middle">
                             <td class="text-center">{{ $loop->iteration }}.</td>
-                            <td>{{ $student->full_name }}</td>
+                            <td>{{ $student->academic_number }}</td>
+                            <td>{{ $student->name }}</td>
                             <td>{{ $student->gender == 'm' ? __('forms.male') : __('forms.female') }}</td>
-                            <td>{{ $student->student?->level->name }}</td>
+                            <td>{{ $student->level }}</td>
                             @unless (Auth::user()->hasRole('Super Admin'))
                                 <td>{{ $student->student?->total_earned_credits }}</td>
                                 <td>{{ $student->student?->gpa }}</td>
                             @else
-                                <td>{{ $student->student?->guide?->full_name ?: '--'}}</td>
+                                <td>{{ $student->guide_name ?: '--'}}</td>
                             @endunless
                             <td style="white-space: nowrap;">
                                 @can('students.guidence.edit')
                                     <button class="btn btn-sm btn-danger"
                                         wire:confirm='Are you sure you want to delete this?'
-                                        wire:click='remove_guidence("{{ $student->id }}")'
+                                        wire:click='remove_guidence("{{ $student->student_id }}")'
                                         >
                                             {{ App::isLocale('ar') ? 'إزالة الإرشاد' : 'Remove Guidence' }}
                                     </button>
                                     <button class="btn btn-sm btn-primary"
-                                        wire:click='show_modal("{{ $student->student->id }}", "{{ $student->full_name }}", "{{ $student->student->guide_id }}")'
+                                        wire:click='show_modal("{{ $student->student_id }}", "{{ $student->name }}", "{{ $student->guide_id }}")'
                                         >
                                             {{ App::isLocale('ar') ? 'تغيير المرشد' : 'Change guide' }}
                                     </button>
@@ -102,16 +112,20 @@
                                 @can('students.guidence')
                                     @if (!Auth::user()->hasRole('Super Admin'))
                                         @if ($semesterId)
-                                            <button class="btn btn-sm btn-danger"
-                                            wire:click='approve_enrollments("{{ $student->student->id }}")'
-                                            >
-                                                    {{ App::isLocale('ar') ? 'تصديق تسجيل المقررات' : 'Approve Enrollments' }}
-                                            </button>
-                                            <button class="btn btn-sm btn-primary"
-                                                wire:click='show_enrollments_modal("{{ $student->id }}", "{{ $student->full_name }}")'
+                                            @if ($student->paied_at)
+                                                <button class="btn btn-sm btn-danger"
+                                                wire:click='approve_enrollments("{{ $student->student->id }}")'
                                                 >
-                                                    {{ App::isLocale('ar') ? 'عرض المقررات المسجلة' : 'Show enrollments' }}
-                                            </button>
+                                                        {{ App::isLocale('ar') ? 'تصديق تسجيل المقررات' : 'Approve Enrollments' }}
+                                                </button>
+                                                <button class="btn btn-sm btn-primary"
+                                                    wire:click='show_enrollments_modal("{{ $student->id }}", "{{ $student->name }}")'
+                                                    >
+                                                        {{ App::isLocale('ar') ? 'عرض المقررات المسجلة' : 'Show enrollments' }}
+                                                </button>
+                                            @else
+                                                @lang('modules.reports.not_paied')
+                                            @endif
                                         @endif
                                     @endif
                                 @endcan
@@ -254,5 +268,87 @@
             </div>
         </div>
     @endif
+    @if ($guidesModal)
+        <div class="modal" style="display: block; background: rgb(0,0,0,0.6);">
+            <div class="modal-dialog" style="max-width: 70%;">
+                <div class="modal-content">
+                    <div class="px-3 modal-header">
+                        <h5 class="modal-title">@lang('modules.professors.guides')</h5>
+                        <button type="button" class="btn-close" wire:click='close_modal()'></button>
+                    </div>
+                    <div class="px-4 modal-body">
+                        <div class="mb-3">
+                            <div class="row">
+                                <h5>@lang('modules.professors.guides')</h5>
+                            </div>
+                            <!-- Student Info Table -->
+                            <table class="table mb-4 table-striped table-bordered table-sm">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>@lang('modules.courses.name')</th>
+                                        <th>@lang('forms.gender')</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($guidesModal['guides'] as $guide)
+                                        <tr wire:key='guides-{{ $loop->iteration }}'>
+                                            <td>{{ $guide->name }}</td>
+                                            <td>{{ $guide->gender }}</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-danger" wire:click='remove_guide("{{ $guide->professor->id }}")'>
+                                                    @lang('forms.remove')
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="mb-3">
+                            <div class="row">
+                                <h5>@lang('modules.professors.add_guide')</h5>
+                            </div>
+                            <!-- Student Info Table -->
+                            <input type="text" class='form-control' placeholder="@lang('forms.search')" wire:model.live='guidesModal.search'>
+                            <div style="max-height: 10rem; overflow-y:auto;">
+                                <table class="table my-2 table-striped table-bordered table-sm">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>@lang('modules.courses.name')</th>
+                                            <th>@lang('forms.gender')</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+                                        @foreach ($guidesModal['other_professors'] as $guide)
+                                            <tr wire:key='guides-{{ $loop->iteration }}'>
+                                                <td>{{ $guide->name }}</td>
+                                                <td>{{ $guide->gender }}</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-dark" wire:click='add_guide("{{ $guide->professor->id }}")'>
+                                                        @lang('forms.create')
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-3 modal-footer">
+                        <button type="button" class="btn btn-dark" wire:click='guide_students()' wire:target='guide_students' wire:loading.attr='disabled'>@lang('modules.professors.guide_students')</button>
+                        <button type="button" class="btn btn-light" wire:click='close_modal()'>@lang('forms.close')</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <div class="clearfix card-footer">
+        {{ $students->links() }}
+    </div>
 
 </x-page>

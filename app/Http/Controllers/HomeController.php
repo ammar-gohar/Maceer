@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,7 @@ class HomeController extends Controller
                 'enrolls' => Enrollment::with(['course', 'semester', 'course.level'])->where('student_id', Auth::id())->get()->groupBy('semester.name'),
             ]);
         };
-        
+
         if(Auth::user()->hasRole('professor'))
         {
             return view('professors-profile', [
@@ -49,7 +50,9 @@ class HomeController extends Controller
         };
 
         return view('home', [
-            ''
+            'students_count' => User::has('student')->count(),
+            'professors_count' => User::has('professor')->count(),
+            'moderators_count' => User::has('moderator')->count(),
         ]);
 
     }

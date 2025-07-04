@@ -4,10 +4,13 @@
     'wire_model',
     'span' => 6,
     'required' => 'required',
+    'label' => true
 ])
 
 <div class="col-md-{{ $span }}">
-    <label for="{{ $name }}" class="form-label">@lang("forms.$name") {{ $required ? '*' : '' }}</label>
+    @if ($label)
+        <label for="{{ $name }}" class="mt-2 form-label">@lang("forms.$name") {{ $required ? '*' : '' }}</label>
+    @endif
     <div class="input-group">
         @if ($type == "email")
             <span class="input-group-text" id="basic-addon1">@</span>

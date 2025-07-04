@@ -25,14 +25,14 @@ class StudentFactory extends Factory
         $totalCredits = $universityCredits + $facultyCredits + $programCredits + $coreCredits;
         $maximumCreditsToEnroll = fake()->numberBetween(12, 18);
         return [
-            'level_id' => $levels[array_rand($levels)]['id'],
-            'gpa' => fake()->randomFloat(2, 0, 4),
-            'unversity_elected_earned_credits' => $universityCredits,
-            'faculty_elected_earned_credits' => $facultyCredits,
-            'program_elected_earned_credits' => $programCredits,
-            'core_earned_credits' => $coreCredits,
-            'total_earned_credits' => $totalCredits,
-            'maximum_credits_to_enroll' => $maximumCreditsToEnroll,
+            // 'level_id' => $levels[array_rand($levels)]['id'],
+            // 'gpa' => fake()->randomFloat(2, 0, 4),
+            // 'unversity_elected_earned_credits' => $universityCredits,
+            // 'faculty_elected_earned_credits' => $facultyCredits,
+            // 'program_elected_earned_credits' => $programCredits,
+            // 'core_earned_credits' => $coreCredits,
+            // 'total_earned_credits' => $totalCredits,
+            // 'maximum_credits_to_enroll' => $maximumCreditsToEnroll,
         ];
     }
 }

@@ -18,7 +18,7 @@ class Professor extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [];
+    protected $guarded = [];
 
     public function user(): BelongsTo
     {

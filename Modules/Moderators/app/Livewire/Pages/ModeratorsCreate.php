@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 
 class ModeratorsCreate extends Component
@@ -18,6 +19,9 @@ class ModeratorsCreate extends Component
 
     public UserForm $form;
 
+    #[Validate('bail|nullable|dimensions:ratio=3/4|max:1024')]
+    public $uploadedImage;
+
     public function store()
     {
         $data = $this->form->validate();
@@ -25,9 +29,9 @@ class ModeratorsCreate extends Component
         $data['password'] = Hash::make($password);
         $data['username'] = $this->form->last_name . '.' . $this->form->first_name . random_int(001, 999);
 
-        if ($this->form->image) {
-            $randomName = Str::uuid() . '.' . $this->form->image->getClientOriginalExtension();
-            $path = $this->form->image->storeAs('moderators/profile', $randomName, 'public');
+        if ($this->uploadedImage) {
+            $randomName = Str::uuid() . '.' . $this->uploadedImage->getClientOriginalExtension();
+            $path = $this->uploadedImage->storeAs('moderators/profile', $randomName, 'public');
             $data['image'] = $path;
         }
 

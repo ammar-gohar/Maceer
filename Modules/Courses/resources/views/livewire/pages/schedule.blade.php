@@ -38,7 +38,7 @@
                                 @if (isset($schedules['saturday']))
                                     @foreach ($schedules['saturday']->where('start_period', $i) as $course)
                                         <div class="active" style="width:fit-content;" wire:key='saturday-{{ $i }}-{{ $loop->iteration }}'>
-                                            <h4>{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                            <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                             <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                             <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
@@ -64,7 +64,7 @@
                                 @if (isset($schedules['sunday']))
                                     @foreach ($schedules['sunday']->where('start_period', $i) as $course)
                                         <div class="active" style="width:fit-content;" wire:key='sunday-{{ $i }}-{{ $loop->iteration }}'>
-                                            <h4>{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                            <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                             <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                             <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
@@ -91,7 +91,7 @@
                                     @if (isset($schedules['monday']))
                                         @foreach ($schedules['monday']->where('start_period', $i) as $course)
                                             <div class="active" style="width:fit-content;" wire:key='monday-{{ $i }}-{{ $loop->iteration }}'>
-                                                <h4>{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                                <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                                 <p>{{ $course->professor->full_name }}</p>
                                                 <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                                 <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
@@ -118,7 +118,7 @@
                                 @if (isset($schedules['tuesday']))
                                     @foreach ($schedules['tuesday']->where('start_period', $i) as $course)
                                         <div class="active" style="width:fit-content;" wire:key='tuesday-{{ $i }}-{{ $loop->iteration }}'>
-                                            <h4>{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                            <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                             <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                             <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
@@ -145,7 +145,7 @@
                                 @if (isset($schedules['wednesday']))
                                     @foreach ($schedules['wednesday']->where('start_period', $i) as $course)
                                         <div class="active" style="width:fit-content;" wire:key='wednesday-{{ $i }}-{{ $loop->iteration }}'>
-                                            <h4>{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                            <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                             <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                             <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
@@ -173,7 +173,7 @@
                                 @if (isset($schedules['thursday']))
                                     @foreach ($schedules['thursday']->where('start_period', $i) as $course)
                                         <div class="active" style="width:fit-content;" wire:key='thursday-{{ $i }}-{{ $loop->iteration }}'>
-                                            <h4>{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                            <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                             <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
                                             <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
@@ -260,7 +260,7 @@
                             <button type="submit" class="btn btn-primary">{{ count($showModal) <= 2 ? __('forms.create') : __('forms.edit') }}</button>
                             <button type="button" class="btn btn-secondary" wire:click='close_modal()'>@lang('forms.close')</button>
                             @if (count($showModal) > 2)
-                                <button type="button" class="btn btn-danger" wire:click='delete_schedule("{{ $showModal[5] }}")'>@lang('forms.delete')</button>
+                                <button type="button" class="btn btn-danger" wire:click='delete_schedule("{{ $showModal[2] }}")'>@lang('forms.delete')</button>
                             @endif
                         </div>
                     </form>

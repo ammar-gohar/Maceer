@@ -169,6 +169,12 @@ class RolesDatabaseSeeder extends Seeder
             'module'  => 'Courses',
         ]);
         Permission::create([
+            'name'    => 'courses.student-schedule',
+            'name_ar' => 'عرض الجدول كطالب',
+            'name_en' => 'Show schedule as a student',
+            'module'  => 'Courses',
+        ]);
+        Permission::create([
             'name'    => 'courses.enrollment',
             'name_ar' => 'تسجيل مقررات',
             'name_en' => 'Enrolling in courses',
@@ -200,6 +206,12 @@ class RolesDatabaseSeeder extends Seeder
         ]);
 
         //************************************************************************** */
+        Permission::create([
+            'name'    => 'halls.index',
+            'name_ar' => 'قائمة القاعات',
+            'name_en' => 'Halls list',
+            'module'  => 'Halls',
+        ]);
         Permission::create([
             'name'    => 'halls.view',
             'name_ar' => 'عرض القاعات',
@@ -299,7 +311,7 @@ class RolesDatabaseSeeder extends Seeder
         ]);
 
         Permission::create([
-            'name' => 'reports.current_enrollment',
+            'name' => 'reports.current_enrollments',
             'name_ar' => 'تقرير تسجيلات الفصل الدراسي الحالي',
             'name_en' => 'Current semester enrollments report',
             'module' => 'Reports',
@@ -309,6 +321,34 @@ class RolesDatabaseSeeder extends Seeder
             'name' => 'reports.enrollments',
             'name_ar' => 'تقرير تسجيلات المقررات',
             'name_en' => 'Enrollments reports',
+            'module' => 'Reports',
+        ]);
+
+        Permission::create([
+            'name' => 'reports.request',
+            'name_ar' => 'طلبات الوثائق',
+            'name_en' => 'Request docs',
+            'module' => 'Reports',
+        ]);
+
+        Permission::create([
+            'name' => 'reports.requests.fullfilling',
+            'name_ar' => 'تلبية طلبات الوثائق',
+            'name_en' => 'Fullfilling Docs requests',
+            'module' => 'Reports',
+        ]);
+
+        Permission::create([
+            'name' => 'reports.receipt',
+            'name_ar' => 'عرض الفاتورة',
+            'name_en' => 'Show receipt',
+            'module' => 'Reports',
+        ]);
+
+        Permission::create([
+            'name' => 'reports.receipt.register',
+            'name_ar' => 'تسجيل الفواتير',
+            'name_en' => 'Registering receipts',
             'module' => 'Reports',
         ]);
 
@@ -333,7 +373,7 @@ class RolesDatabaseSeeder extends Seeder
             'quizzes.create',
             'quizzes.edit',
             'quizzes.index-student',
-            'reports.current_enrollment',
+            'reports.current_enrollments',
             'reports.enrollments',
             'students.guidence',
         ]);
@@ -348,8 +388,10 @@ class RolesDatabaseSeeder extends Seeder
             'courses.student-schedule',
             'quizzes.index-student',
             'quizzes.take-quiz',
-            'reports.current_enrollment',
+            'reports.current_enrollments',
             'reports.enrollments',
+            'reports.request',
+            'reports.receipt',
         ]);
 
         Role::create([
@@ -361,11 +403,16 @@ class RolesDatabaseSeeder extends Seeder
             'students.create',
             'students.edit',
             'students.delete',
+            'professors.index',
+            'professors.create',
+            'professors.edit',
+            'professors.delete',
             'courses.index',
             'courses.show',
             'courses.create',
             'courses.edit',
             'courses.delete',
+            'halls.index',
             'halls.view',
             'halls.create',
             'halls.update',
@@ -373,6 +420,9 @@ class RolesDatabaseSeeder extends Seeder
             'halls.manage_status',
             'reports.current_enrollments',
             'reports.enrollments',
+            'reports.requests.fullfilling',
+            'reports.receipt',
+            'reports.receipt.register',
         ]);
 
 

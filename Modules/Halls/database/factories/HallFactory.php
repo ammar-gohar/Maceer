@@ -21,7 +21,7 @@ class HallFactory extends Factory
             'capacity' => $this->faker->numberBetween(20, 500),
             'type' => $this->faker->randomElement(['theatre', 'lab']),
             'status' => $this->faker->randomElement(['available', 'under_maintenance', 'reserved']),
-            'building' => $this->faker->randomElement(['A', 'B', 'C', 'D']),
+            'building' => $this->faker->randomElement(['Building A', 'Building B', 'Building C', 'Building D']),
             'floor' => $this->faker->numberBetween(1, 5),
         ];
     }

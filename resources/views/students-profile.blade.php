@@ -1,17 +1,17 @@
 <x-layouts.app title="{{ __('general.profile') }}">
-    <x-page title="{{ (App::isLocale('ar') ? 'مرحبًا، ' : 'Welcome, ') . $student->full_name }}">
+    <x-page title="{{ (App::isLocale('ar') ? 'مرحبًا، ' : 'Welcome, ') . $student->first_name . ' ' . $student->last_name }}">
 
         <!--begin::Body-->
-        <div class="px-4 card-body">
+        <div class="px-4 row card-body">
 
             <div class="mb-3 row">
-                <h5 class="col-sm-3 col-form-label fs-5">@lang('forms.image')</h5>
-                <div class="col-sm-9 d-flex">
+                <h5 class="col-sm-4 col-form-label fs-5">@lang('forms.image')</h5>
+                <div class="col-sm-8 d-flex">
                     <img src="{{ asset($student->image ? 'storage/' . $student->image : 'favicon.png') }}" alt="User image" class="img-thumbnail" width="120" height="90">
                 </div>
             </div>
 
-            <livewire:components.show-item label="forms.name" :data="$student->full_name" />
+            <livewire:components.show-item label="forms.name" data="{{ $student->first_name . ' ' . $student->middle_name . ' ' . $student->last_name }}" />
 
             <livewire:components.show-item label="forms.national_id" :data="$student->national_id" />
 
@@ -28,6 +28,9 @@
             <livewire:components.show-item label="forms.total_earned_credits" :data="$student->student->total_earned_credits" />
 
         </div>
+
+        <livewire:reset-password>
+
         <div class="card-body" style="overflow-x: scroll;">
             @if ($enrolls->count() > 0)
                 @php
@@ -39,7 +42,7 @@
                     <div>
                         {{ $semester }}
                     </div>
-                    <table class="table-striped table mb-4 table-bordered table-sm">
+                    <table class="table mb-4 table-striped table-bordered table-sm">
                         <thead>
                             <tr class="text-nowrap">
                                 <th class="text-center">#</th>

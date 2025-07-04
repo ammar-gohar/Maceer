@@ -40,4 +40,18 @@ class ReportController extends Controller
         return view('reports::all-enrollments', compact('student'));
     }
 
+    public function transcript($studentId, $lang = null)
+    {
+        return view('reports::transcript', [
+            'student' => User::with('student')->find($studentId),
+            'lang' => $lang,
+        ]);
+    }
+
+    public function receipt($studentId)
+    {
+        return view('reports::transcript', [
+            'student' => User::with('student')->find($studentId),
+        ]);
+    }
 }

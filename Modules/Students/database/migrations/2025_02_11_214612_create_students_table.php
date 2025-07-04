@@ -15,7 +15,9 @@ return new class extends Migration
             $table->uuid('id')->primary()->unique();
             $table->foreignUuid('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignUuid('level_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
+            $table->integer('academic_number')->unique();
             $table->float('gpa', 2)->default(0.00);
+            $table->float('quality_points', 2)->default(0.00);
             $table->integer('unversity_elected_earned_credits')->default(0);
             $table->integer('faculty_elected_earned_credits')->default(0);
             $table->integer('program_elected_earned_credits')->default(0);

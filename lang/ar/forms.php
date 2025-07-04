@@ -17,6 +17,8 @@ return [
     'male'   => 'ذكر',
     'sign_in' => 'دخول',
     'forgot_pswrd' => 'أنسيت كلمة السر؟',
+    'save' => 'حفظ',
+    'search'=> 'بحث...',
 
     'description' => 'الوصف',
 
@@ -32,6 +34,8 @@ return [
 
     'add_role' => 'إضافة دور جديد',
     'edit_role' => 'تعديل بيانات دور',
+
+    'send' => 'أرسل',
 
     'create' => 'أضف',
     'creating' => 'يُضاف',
@@ -67,6 +71,9 @@ return [
     'title' => 'العنوان',
     'duration' => 'المدة (بالدقائق)',
     'start_date' => 'تاريخ البدء',
+    'reqs_start_date' => 'تاريخ بدء طلب المقررات',
+    'enrolls_start_date' => 'تاريخ بدء تسجيل المقررات',
+    'enrolls_end_date' => 'تاريخ انتهاء تسجيل المقررات',
     'end_date' => 'تاريخ الانتهاء',
     'start_semester' => 'بدء الفصل الدراسي',
     'end_semester' => 'إنهاء الفصل الحالي',
@@ -97,6 +104,15 @@ return [
     'image_info' => 'يجب أن تكون الصورة أقل من 1 ميجابايت، بنسبة (3:4)',
     'approve' => 'موافقة',
     'reject' => 'رفض',
+
+    'current_password' => 'كلمة السر الحالية',
+    'new_password' => 'كلمة السر الجديدة',
+    'new_password_confirmation' => 'تأكيد كلمة السر الجديدة',
     'reset_password' => 'إعادة تعيين كلمة المرور',
     'reset_password_sent' => 'نجح تغيير كلمة المرور وإرسال الرسالة',
+    'password_reseted' => 'نجح تغيير كلمة المرور',
+
+    'notes' => 'الملاحظات',
+    'fullfill' => 'تلبية',
+    'remove' => 'أزل',
 ];
