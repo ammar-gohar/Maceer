@@ -56,7 +56,21 @@ class ModeratorsEdit extends Component
         $password = \Illuminate\Support\Str::password(12);
         $hashedPassword = Hash::make($password);
 
-        Mail::to($this->form->email)->queue((new ResetPassword($this->form->first_name . ' ' . $this->form->last_name, $password, now()))->onQueue('emails'));
+        // Mail::to($this->form->email)->queue((new ResetPassword($this->form->first_name . ' ' . $this->form->last_name, $password, now()))->onQueue('emails'));
+
+        $email = new \SendGrid\Mail\Mail(); 
+        $email->setFrom("info@maceer.systems", "Maceer admin");
+        $email->setSubject();
+        $email->addTo($this->form->email, $this->form->first_name . ' ' . $this->form->last_name);
+        $email->addContent(
+            "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+        );
+        $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+        try {
+            $sendgrid->send($email);
+        } catch (Exception $e) {
+            dd('Caught exception: '. $e->getMessage() ."\n");
+        }
 
         User::where('national_id', $this->form->national_id)->first()->update([
             'password' => $hashedPassword,

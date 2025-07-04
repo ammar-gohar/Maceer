@@ -12,7 +12,7 @@ use Modules\Semesters\Models\Semester;
 use ZipArchive;
 use Illuminate\Support\Facades\File as FileHelper;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Process;
 
 function createZipFromPaths(array $paths, string $zipName = 'output.zip'): bool
 {
@@ -37,6 +37,19 @@ function createZipFromPaths(array $paths, string $zipName = 'output.zip'): bool
     }
 
     return $zip->close();
+}
+
+function isPythonRunning()
+{
+    if (strncasecmp(PHP_OS, 'WIN', 3) === 0) {
+        // Windows: use `tasklist`
+        $output = shell_exec('tasklist');
+        return preg_match('/python([\d\.]*)?\.exe exam_scheduler.py/i', $output);
+    } else {
+        // Unix-like: use `ps`
+        $output = shell_exec('ps aux');
+        return preg_match('/python([\d\.]*)? .*exam_scheduler.py/', $output);
+    }
 }
 
 class ExamSchedule extends Component
@@ -86,11 +99,10 @@ class ExamSchedule extends Component
             'holidays.*'       => 'nullable|date|after_or_equal:start_date|before_or_equal:end_date',
         ]);
 
-        $lockKey = 'endpoint_run';
-        if (Cache::has($lockKey)) {
-            abort(403, 'This action has already been performed.');
+        if (isPythonRunning()) {
+            notyf()->error("There is a table already generating!!");
+            return;
         }
-        Cache::put($lockKey, true, 3600);
 
         $students = User::with(['current_enrolled_courses'])->has('student')->has('current_enrollments')->get();
 
@@ -114,7 +126,7 @@ class ExamSchedule extends Component
 
         $start_date      = $data['start_date'];
         $end_date        = $data['end_date'];
-        $holidays = isset($data['holidays']) && $data['holidays'][0] != "" ? "--holidays " . implode(' ', $data['holidays']): "";
+        $holidays = isset($data['holidays']) && $data['holidays'][0] != "" ? "--holidays " . implode(',', $data['holidays']): "";
         $include_fridays = $this->include_fridays ? "--fridays": ""; //bool
         $include_graphs  = $this->include_graphs ? "generate_plots": "no"; //bool
         $schedules_number = $data['schedules_number'];
@@ -148,8 +160,6 @@ class ExamSchedule extends Component
             }
             $out = shell_exec($pythonScript);
         }
-
-        Cache::forget($lockKey);
 
         createZipFromPaths([$storage_path . '/prepare_schedule'], "$storage_path/final_schedule/output.zip");
 

@@ -54,7 +54,21 @@ class StudentCreate extends Component
         ]);
 
 
-        Mail::to($student->email)->queue((new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails'));
+        // Mail::to($student->email)->queue((new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails'));
+
+        $email = new \SendGrid\Mail\Mail(); 
+        $email->setFrom("info@maceer.systems", "Maceer admin");
+        $email->setSubject();
+        $email->addTo($student->email, $data['first_name'] . ' ' . $data['last_name']);
+        $email->addContent(
+            "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+        );
+        $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+        try {
+            $sendgrid->send($email);
+        } catch (Exception $e) {
+            dd('Caught exception: '. $e->getMessage() ."\n");
+        }
 
         $this->uploadedImage = null;
         $this->form->reset();
