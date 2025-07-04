@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Enrollments\Models\Enrollment;
+use Modules\Reports\Models\Receipt;
 use Modules\Semesters\Models\Semester;
 
 class ReportController extends Controller
@@ -18,13 +19,19 @@ class ReportController extends Controller
         $semester = Semester::find($semesterId);
 
         if(!$semester || !$semester->is_current || (Auth::user()->cannot('reports.current_enrollment') && Auth::user()->id !== $studentId)) {
-            abort(403);
+            return abort(403);
         }
 
         $student = User::with(['current_enrollments', 'current_enrollments.course', 'student', 'student.level', 'current_enrollments.course.level'])
             ->findOrFail($studentId);
 
-        return view('reports::current-semester-enrollments', compact('student', 'semester'));
+        if($student->current_enrollments->count() == 0){
+            return abort(403);
+        }
+
+        $receipt = Receipt::where('student_id', $studentId)->where('semester_id', $semester)->first();
+
+        return view('reports::current-semester-enrollments', compact('student', 'semester', $receipt));
     }
 
     public function enrollments($studentId)

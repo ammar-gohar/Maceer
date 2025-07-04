@@ -10,6 +10,7 @@ use Modules\Courses\Models\Course;
 use Modules\Courses\Models\Schedule as ModelsSchedule;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Halls\Models\Hall;
+use Modules\Reports\Models\Receipt;
 use Modules\Semesters\Models\Semester;
 
 class Schedule extends Component
@@ -100,7 +101,7 @@ class Schedule extends Component
     public function enroll_course(string $courseId, string $scheduleId)
     {
 
-        $existedEnrollment = Enrollment::where('course_id', $courseId)->where('semester_id', $scheduleId)->first();
+        $existedEnrollment = Enrollment::with(['course'])->where('course_id', $courseId)->where('semester_id', $scheduleId)->first();
         $schedule = ModelsSchedule::find($scheduleId);
 
         if ($schedule->max_enrollments_number - $schedule->students_enrollments_number == 0) {
@@ -120,6 +121,17 @@ class Schedule extends Component
             'schedule_id' => $scheduleId
         ]);
 
+        $receipt = Receipt::firstOrCreate([
+            'student_id' => Auth::id(),
+            'semester_id' => $this->semesterId,
+        ]);
+
+        $receipt->update([
+            'number_credits' => $receipt->number_credits + $enrollment->course->credits,
+            'credit_cost' => 400,
+            'total_cost' => 400 * ($receipt->number_credits + $enrollment->course->credits),
+        ]);
+
         $schedule->update([
             'students_enrollments_number' => $schedule->students_enrollments_number + 1,
         ]);
@@ -129,11 +141,19 @@ class Schedule extends Component
 
     public function delete_enroll_course(string $id)
     {
-        $enrollment = Enrollment::find($id);
+        $enrollment = Enrollment::with(['course'])->find($id);
 
         $schedule = ModelsSchedule::find($enrollment->schedule_id);
         $schedule->update([
             'students_enrollments_number' => $schedule->students_enrollments_number - 1,
+        ]);
+
+        $receipt = Receipt::where('student_id', Auth::id())->where('semester_id', $this->semesterId)->first();
+
+        $receipt->update([
+            'number_credits' => $receipt->number_credits - $enrollment->course->credits,
+            'credit_cost' => 400,
+            'total_cost' => 400 * ($receipt->number_credits - $enrollment->course->credits),
         ]);
 
         $enrollment->delete();
@@ -156,9 +176,10 @@ class Schedule extends Component
                                             ->whereHas('level', fn($q) =>
                                                 $q->where('number', '<=', 1)
                                             )
-                                            // ->whereDoesntHave('enrollments', fn($q) =>
-                                            //     $q->whereNot('student_id', Auth::id())
-                                            // )
+                                            ->whereDoesntHave('enrollments', fn($q) =>
+                                                $q->where('student_id', Auth::id())
+                                                ->whereNot('semester_id', $this->semesterId)
+                                            )
                                             ->where(fn($q) =>
                                                 $q
                                                     ->doesntHave('prerequests')

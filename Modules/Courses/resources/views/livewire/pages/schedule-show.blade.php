@@ -63,7 +63,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 
@@ -116,7 +116,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 
@@ -170,7 +170,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 
@@ -224,7 +224,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 
@@ -278,7 +278,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 
@@ -333,7 +333,7 @@
                                                         'text-success' => $courseEnrollment && $courseEnrollment->schedule_id == $course->id,
                                                         'text-danger' => $courseEnrollment && $courseEnrollment->final_gpa != null && $courseEnrollment->final_gpa <= 1,
                                                         ])
-                                                    >{{ $course->translated_name }} ({{ $course->course->level->name }})</h4>
+                                                    >{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
 
                                                 <p>{{ $course->professor->full_name }}</p>
 

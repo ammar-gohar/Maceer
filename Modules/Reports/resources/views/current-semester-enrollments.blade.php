@@ -20,6 +20,11 @@
     <div class="mb-3">
         <div class="mb-2 col-md-12 text-danger" style="font-size: 0.75rem;">
             <strong>@lang('modules.students.approved_at'):</strong> {{ $student->current_enrollments->first()->approved_at ?? '--' }}
+            @if (!$receipt->paied_at)
+                {{ App::isLocale('ar') ? 'لا يمكن التصديق على التسجيل دون الدفع' : 'Enrollments can\'t be approved before payment' }}
+            @else
+                {{ $enrolls->first()->approved_at ?? (App::isLocale('ar') ? 'في انتظار التصديق' : 'Waiting for approvement') }}
+            @endif
         </div>
         <!-- Student Info Table -->
         <table class="table mb-4 table-bordered table-sm">
@@ -45,6 +50,6 @@
 
     </div>
     <div>
-        
+
     </div>
 </x-layouts.reports>
