@@ -195,7 +195,7 @@
                 {{-- end::Roles sidebar --}}
             @endcan
 
-            @canany(['courses.index', 'courses.create', 'courses.requests', 'courses.schedule', 'courses.my-courses', 'courses.enrollment'])
+            @canany(['courses.index', 'courses.create', 'courses.requests', 'courses.schedule', 'courses.my-courses', 'courses.enrollment', 'courses.professor.show'])
                 {{-- Courses sidebar --}}
                 <x-sidebar-list module="courses" icon="fa-solid fa-book-open">
                     @can('courses.index')
@@ -209,6 +209,9 @@
                     @endcan
                     @can('courses.schedule')
                         <x-sidebar-item icon="fa-solid fa-calendar-days" route="courses.schedule" />
+                    @endcan
+                    @can('courses.schedule')
+                        <x-sidebar-item icon="fa-solid fa-calendar-days" route="courses.schedule-list" />
                     @endcan
                     @can('courses.enrollment')
                         @unless (Auth::user()->hasRole('Super Admin'))

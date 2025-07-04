@@ -11,6 +11,7 @@ use Modules\Halls\Models\Hall;
 use Modules\Semesters\Models\Semester;
 
 use Modules\Courses\Database\Factories\ScheduleFactory;
+use Modules\Enrollments\Models\Enrollment;
 
 class Schedule extends Model
 {
@@ -40,6 +41,11 @@ class Schedule extends Model
     public function semester()
     {
         return $this->belongsTo(Semester::class);
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'schedule_id');
     }
 
     protected static function newFactory(): ScheduleFactory

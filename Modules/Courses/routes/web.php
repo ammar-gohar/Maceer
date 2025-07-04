@@ -36,6 +36,10 @@ Route::group([
             ->middleware('permission:courses.schedule')
             ->name('courses.schedule');
 
+        Route::get('/schedule-list', Schedule::class)
+            ->middleware('permission:courses.schedule')
+            ->name('courses.schedule-list');
+
         Route::get('/student-schedule', Schedule::class)
             ->middleware('permission:courses.enrollment')
             ->name('courses.student-schedule');

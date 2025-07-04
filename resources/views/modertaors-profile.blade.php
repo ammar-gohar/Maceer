@@ -1,5 +1,5 @@
 <x-layouts.app title="{{ __('general.profile') }}">
-    <x-page title="{{ (App::isLocale('ar') ? 'مرحبًا، ' : 'Welcome, ') . "$moderator->first_name $moderator->last_name" }}" module="moderators">
+    <x-page title="{{ (App::isLocale('ar') ? 'مرحبًا، ' : 'Welcome, ') . $moderator->first_name . ' ' . $moderator->last_name }}" module="moderators">
 
         <!--begin::Body-->
         <div class="px-4 row card-body">
