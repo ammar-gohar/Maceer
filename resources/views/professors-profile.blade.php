@@ -1,5 +1,5 @@
 <x-layouts.app title="{{ __('general.profile') }}">
-    <x-page title="{{ (App::isLocale('ar') ? 'مرحبًا، ' : 'Welcome, ') . "$professor->first_name $professor->last_name" }}" module="professors">
+    <x-page title="{{ (App::isLocale('ar') ? 'مرحبًا، ' : 'Welcome, ') . $professor->first_name . ' ' . $professor->last_name }}" module="professors">
 
     <!--begin::Body-->
     <div class="px-4 row card-body">
