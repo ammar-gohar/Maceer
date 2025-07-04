@@ -1,20 +1,19 @@
 let semesterCount = 0;
 
-function addSemester() {
-    if (semesterCount > 0) {
-        // Get the button of the son of the semsterDiv
-        const removeSemesterButton = document.getElementById(`semester${semesterCount}`).querySelector('button');
-        removeSemesterButton.remove();
-    }
+function addSemester(label) {
     semesterCount++;
     const semesterList = document.getElementById('semesterList');
     const semesterDiv = document.createElement('div');
     semesterDiv.className = 'semester';
     semesterDiv.id = `semester${semesterCount}`;
     semesterDiv.innerHTML = `
-        <label>عدد ساعات الترم ${semesterCount}:</label>
-        <input type="number" id="hours${semesterCount}" min="0" placeholder="مثال: 15">
-        <button onclick="removeSemester(${semesterCount})">حذف</button>
+        <div class="mb-2 input-group">
+            <label class="form-label m-2">${label} ${semesterCount}:</label>
+            <input type="number" class="form-control" id="hours${semesterCount}" min="0">
+            <button class="btn btn-outline-danger" type="button" onclick="removeSemester(${semesterCount})">
+                <i class="bi bi-x"></i>
+            </button>
+        </div
     `;
     semesterList.appendChild(semesterDiv);
 }
@@ -23,7 +22,6 @@ function removeSemester(id) {
     const semesterDiv = document.getElementById(`semester${id}`);
     semesterDiv.remove();
     semesterCount--;
-    const removeSemesterButton = document.getElementById(`semester${semesterCount}`).innerHTML += `<button onclick=\"removeSemester(${semesterCount})\">حذف</button>`;
 }
 
 function calculateGpa() {
@@ -69,17 +67,17 @@ function calculateGpa() {
 
     // التحقق من إمكانية تحقيق الهدف
     if (requiredGpa > 4) {
-        resultDiv.innerHTML = '<span class="error">غير ممكن تحقيق الـ GPA المستهدف مع الساعات المتبقية!</span>';
+        resultDiv.innerHTML = '<span class="text-danger mt-2">غير ممكن تحقيق الـ GPA المستهدف مع الساعات المتبقية!</span>';
         return;
     }
     if (requiredGpa < 0) {
-        resultDiv.innerHTML = '<span class="error">الـ GPA المستهدف أقل من الحالي، يرجى تعديل القيم!</span>';
+        resultDiv.innerHTML = '<span class="text-danger mt-2">الـ GPA المستهدف أقل من الحالي، يرجى تعديل القيم!</span>';
         return;
     }
 
     // إنشاء جدول النتائج
     let table = `
-        <table>
+        <table class="mt-2">
             <tr>
                 <th>الترم</th>
                 <th>عدد الساعات</th>
@@ -98,11 +96,8 @@ function calculateGpa() {
     table += '</table>';
 
     resultDiv.innerHTML = `
-        <p>إجمالي الساعات: ${totalHours}</p>
+        <p class="mt-2">إجمالي الساعات: ${totalHours}</p>
         <p>الـ GPA المطلوب في الفصول المتبقية (على الأقل): <strong>${requiredGpa.toFixed(2)}</strong></p>
         ${table}
     `;
 }
-
-// إضافة ترم افتراضي عند تحميل الصفحة
-addSemester();

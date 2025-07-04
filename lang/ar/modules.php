@@ -45,6 +45,8 @@ return [
         'guide' => 'المرشد الأكاديمي',
         'head_teacher' => 'المرشد الأكاديمي',
         'approved_at' => 'تاريخ الموافقة على تسجيل المقررات',
+        'current_gpa' => 'GPA الحالي',
+        'target_gpa' => 'GPA المستهدف',
     ],
 
     'professors' => [
@@ -256,6 +258,7 @@ return [
         'not_paied' => 'لم يدفع',
         'receipt_registered' => 'نجح تسجيل الفاتورة',
         'receipt_registered' => 'نجح إلغاء التسجيل',
+        'gpa_calculator' => 'حاسبة GPA',
     ],
 
 ];

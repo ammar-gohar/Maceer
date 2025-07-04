@@ -115,6 +115,19 @@
             </ul>
         @endcan
 
+        @can('courses.enrollment')
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
+
+                <li class="nav-item">
+                    <a href="{{ route('gpa.calculator') }}" class="nav-link">
+                        <i class="nav-icon fa-solid fa fa-file-pen"></i>
+                        <p>@lang('modules.reports.gpa_calculator')</p>
+                    </a>
+                </li>
+
+            </ul>
+        @endcan
+
             @canany(['admins.index', 'admins.create'])
                 {{-- Admin sidebar --}}
                 {{-- <x-sidebar-list module="admins" icon="fa-solid fa-user-tie">

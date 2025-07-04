@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Reports\Http\Controllers\ReportController;
 use Modules\Reports\Http\Controllers\ReportsController;
 use Modules\Reports\Livewire\ExamSchedule;
+use Modules\Reports\Livewire\Pages\GpaCalculator;
 use Modules\Reports\Livewire\Pages\Receipts;
 use Modules\Reports\Livewire\Pages\ReportRequests;
 
@@ -56,3 +57,7 @@ Route::get('/receipts/register', Receipts::class)
 Route::get('/receipt', Receipts::class)
     ->name('receipt.show')
     ->middleware(['permission:reports.receipt', 'auth']);
+
+Route::get('/gpa-calculator', GpaCalculator::class)
+    ->name('gpa.calculator')
+    ->middleware(['permission:courses.enrollment', 'auth']);

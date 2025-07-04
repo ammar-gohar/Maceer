@@ -81,7 +81,7 @@
                             @foreach ($holidays as $index => $holiday)
                                 <div class="mb-2 input-group">
                                     <input type="date" class="form-control" wire:model.blur="holidays.{{ $index }}">
-                                    <button class="btn btn-outline-danger" type="button" wire:click="removeHoliday({{ $index }})">
+                                    <button class="btn btn-danger" type="button" wire:click="removeHoliday({{ $index }})">
                                         <i class="bi bi-x"></i>
                                     </button>
                                 </div>
