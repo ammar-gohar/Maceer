@@ -50,9 +50,7 @@ class HomeController extends Controller
         };
 
         return view('home', [
-            'students_count' => User::has('student')->count(),
-            'professors_count' => User::has('professor')->count(),
-            'moderators_count' => User::has('moderator')->count(),
+            'professor' => Auth::user(),
         ]);
 
     }
