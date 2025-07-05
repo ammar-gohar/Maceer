@@ -60,7 +60,7 @@ class Guidence extends Component
             'newGuideId' => 'required|exists:users,id',
         ]);
 
-        Student::find($this->changeGuideModal)->update([
+        Student::where('id', $this->changeGuideModal)->update([
             'guide_id' => $this->newGuideId
         ]);
     }
