@@ -157,14 +157,16 @@ class Guidence extends Component
         $professors = User::with(['professor'])
                             ->select([
                                 'id',
+                                'professors.id as professor_id',
                                 DB::raw('CONCAT_WS(" ", first_name, middle_name, last_name) as name'),
                                 'gender',
                             ])
                             ->whereHas('professor', fn($q) => $q->where('is_guide', 0))
                             ->when($this->guidesModal['search'], fn($q) => $q
-                                ->where('first_name', 'like', "%".$this->guidesModal['search']."%")
-                                ->orWhere('middle_name', 'like', "%".$this->guidesModal['search']."%")
-                                ->orWhere('last_name', 'like', "%".$this->guidesModal['search']."%")
+                                ->whereRaw(
+                                    "CONCAT_WS(' ', first_name, middle_name, last_name) LIKE ?",
+                                    ['%' . $search . '%']
+                                )
                             )
                             ->orderBy('name')
                             ->get();

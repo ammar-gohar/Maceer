@@ -338,7 +338,7 @@
                                                 <td>{{ $guide->name }}</td>
                                                 <td>{{ $guide->gender }}</td>
                                                 <td>
-                                                    <button class="btn btn-sm btn-dark" wire:click='add_guide("{{ $guide->professor->id }}")'>
+                                                    <button class="btn btn-sm btn-dark" wire:click='add_guide("{{ $guide->professor_id }}")'>
                                                         @lang('forms.create')
                                                     </button>
                                                 </td>
