@@ -20,7 +20,7 @@ class ProfessorsEdit extends Component
 
     public UserForm $form;
 
-    #[Validate('bail|nullable|image|max:1024')]
+    #[Validate('bail|nullable|image|dimensions:ratio=3/4|max:1024')]
     public $uploadedImage;
 
     public $status = false;
@@ -62,7 +62,7 @@ class ProfessorsEdit extends Component
 
         // Mail::to($this->form->email)->queue((new ResetPassword($this->form->first_name . ' ' . $this->form->last_name, $password, now()))->onQueue('emails'));
 
-        $email = new \SendGrid\Mail\Mail(); 
+        $email = new \SendGrid\Mail\Mail();
         $email->setFrom("info@maceer.systems", "Maceer admin");
         $email->setSubject("New user password");
         $email->addTo($this->form->email, $this->form->first_name . ' ' . $this->form->last_name);

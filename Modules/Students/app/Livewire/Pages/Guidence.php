@@ -68,9 +68,9 @@ class Guidence extends Component
     private function filters($query) {
 
         $query->when($this->search, function ($q) {
-            return $q->where('first_name', 'like', "%$this->search%")
-                    ->orWhere('middle_name', 'like', "%$this->search%")
-                    ->orWhere('last_name', 'like', "%$this->search%");
+            return $q->having('name', 'like', "%$this->search%")
+                    ->orHaving('guide_name', 'like', "$this->search")
+                    ->where('academic_number', 'like', "$this->search%");
         });
 
         $query->when($this->levelFilter != 'all', function ($q) {

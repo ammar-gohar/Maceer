@@ -19,7 +19,7 @@ class ModeratorsCreate extends Component
 
     public UserForm $form;
 
-    #[Validate('bail|nullable|dimensions:ratio=3/4|max:1024')]
+    #[Validate('bail|nullable|image|dimensions:ratio=3/4|max:1024')]
     public $uploadedImage;
 
     public function store()
@@ -41,7 +41,7 @@ class ModeratorsCreate extends Component
 
         // Mail::to($moderator->email)->queue((new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails'));
 
-        $email = new \SendGrid\Mail\Mail(); 
+        $email = new \SendGrid\Mail\Mail();
         $email->setFrom("info@maceer.systems", "Maceer admin");
         $email->setSubject("New user password");
         $email->addTo($moderator->email, $data['first_name'] . ' ' . $data['last_name']);

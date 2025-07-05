@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Illuminate\Support\Str;
+use Livewire\Attributes\Validate;
 use Livewire\WithFileUploads;
 
 class ProfessorsCreate extends Component
@@ -18,7 +19,7 @@ class ProfessorsCreate extends Component
 
     public UserForm $form;
 
-    #[Validate('bail|nullable|dimensions:ratio=3/4|max:1024')]
+    #[Validate('bail|nullable|image|dimensions:ratio=3/4|max:1024')]
     public $uploadedImage;
 
     public function store()
@@ -40,7 +41,7 @@ class ProfessorsCreate extends Component
 
         // Mail::to($professor->email)->queue((new SendingPassword($data['first_name'] . ' ' . $data['last_name'], $password))->onQueue('emails'));
 
-        $email = new \SendGrid\Mail\Mail(); 
+        $email = new \SendGrid\Mail\Mail();
         $email->setFrom("info@maceer.systems", "Maceer admin");
         $email->setSubject("New user password");
         $email->addTo($professor->email, $data['first_name'] . ' ' . $data['last_name']);
