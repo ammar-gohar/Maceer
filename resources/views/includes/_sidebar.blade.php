@@ -54,7 +54,7 @@
             </ul>
         @endcan
 
-        @if (Auth::user()->hasRole('Super Admin'))
+        @if (!Auth::user()->hasRole('Super Admin'))
             @can('quizzes.index-student')
                 <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
