@@ -43,7 +43,7 @@ class DocumentsCreate extends Component
             case 'transcript':
                 return $this->redirectRoute('reports.transcript', [
                     'id' => $request->id,
-                    'lang' => $request->lang,
+                    'lang' => $request->language,
                 ]);
                 break;
 
