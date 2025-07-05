@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Reports\Models\Receipt;
+use Modules\Reports\Models\ReportRequest;
 use Modules\Semesters\Models\Semester;
 
 class ReportController extends Controller
@@ -47,10 +48,15 @@ class ReportController extends Controller
         return view('reports::all-enrollments', compact('student'));
     }
 
-    public function transcript($studentId, $lang = null)
+    public function transcript($id, $lang = null)
     {
+        $transcript = ReportRequest::find($id);
+        $student = User::with(['student', 'student.level'])->find($transcript->student_id);
+        $enrollments = Enrollment::with(['course', 'grade', 'semester'])->where('student_id', $student->id)->get()->groupBy('semester.name');
         return view('reports::transcript', [
-            'student' => User::with('student')->find($studentId),
+            'transcript' => $transcript,
+            'student' => $student,
+            'enrollments' => $enrollments,
             'lang' => $lang,
         ]);
     }

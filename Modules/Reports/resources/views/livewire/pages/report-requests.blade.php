@@ -146,6 +146,10 @@
                     @endforeach
                 </tbody>
             </table>
+        @else
+            <div class="alert alert-dark">
+                <h5>{{ App::isLocale('ar') ? 'لا يوجد' : 'Nothing' }}</h5>
+            </div>
         @endif
     </div>
     <!-- /.card-body -->

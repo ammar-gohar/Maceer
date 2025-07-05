@@ -33,7 +33,7 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link">
+                    <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-palette"></i>
                         <p>@lang('general.home')</p>
                     </a>
@@ -45,7 +45,7 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
-                    <a href="{{ route('semester') }}" class="nav-link">
+                    <a href="{{ route('semester') }}" class="nav-link {{ Route::is('semester') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-calendar-gear"></i>
                         <p>@lang('sidebar.semester')</p>
                     </a>
@@ -58,7 +58,7 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
-                    <a href="{{ route('quizzes.index-student') }}" class="nav-link">
+                    <a href="{{ route('quizzes.index-student') }}" class="nav-link {{ Route::is('quizzes.index-student') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa fa-file-pen"></i>
                         <p>@lang('sidebar.quizzes.index-student')</p>
                     </a>
@@ -71,7 +71,7 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
-                    <a href="{{ route('docs.index') }}" class="nav-link">
+                    <a href="{{ route('docs.index') }}" class="nav-link {{ Route::is('docs.index') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa-file-chart-column"></i>
                         <p>@lang('sidebar.reports.index')</p>
                     </a>
@@ -80,19 +80,32 @@
             </ul>
         @endcan
 
-        @canany(['reports.receipt', 'reports.receipt.register'])
+        @canany(['reports.requests.fullfilling'])
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
-                @can('reports.receipt.register')
+                <li class="nav-item">
+                    <a href="{{ route('docs.create') }}" class="nav-link {{ Route::is('docs.create') ? 'active' : '' }}">
+                        <i class="nav-icon fa-solid fa-file-chart-column"></i>
+                        <p>@lang('sidebar.reports.docs_print')</p>
+                    </a>
+                </li>
+
+            </ul>
+        @endcan
+
+        @canany(['reports.receipt', 'reports.receipts.register'])
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
+
+                @can('reports.receipts.register')
                     <li class="nav-item">
-                        <a href="{{ route('receipt.register') }}" class="nav-link">
+                        <a href="{{ route('receipt.register') }}" class="nav-link {{ Route::is('receipt.register') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-file-chart-column"></i>
                             <p>@lang('sidebar.reports.receipt_register')</p>
                         </a>
                     </li>
                 @else
                     <li class="nav-item">
-                        <a href="{{ route('receipt.show') }}" class="nav-link">
+                        <a href="{{ route('receipt.show') }}" class="nav-link {{ Route::is('receipt.show') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-file-chart-column"></i>
                             <p>@lang('sidebar.reports.receipt_show')</p>
                         </a>
@@ -106,7 +119,7 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
-                    <a href="{{ route('exam.schedule.generate') }}" class="nav-link">
+                    <a href="{{ route('exam.schedule.generate') }}" class="nav-link {{ Route::is('exam.schedule.generate') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa fa-file-pen"></i>
                         <p>@lang('sidebar.exam_schedule_generate')</p>
                     </a>
@@ -119,7 +132,7 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
-                    <a href="{{ route('gpa.calculator') }}" class="nav-link">
+                    <a href="{{ route('gpa.calculator') }}" class="nav-link {{ Route::is('gpa.calculator') ? 'active' : '' }}">
                         <i class="nav-icon fa-solid fa fa-file-pen"></i>
                         <p>@lang('modules.reports.gpa_calculator')</p>
                     </a>
@@ -127,19 +140,6 @@
 
             </ul>
         @endcan
-
-            @canany(['admins.index', 'admins.create'])
-                {{-- Admin sidebar --}}
-                {{-- <x-sidebar-list module="admins" icon="fa-solid fa-user-tie">
-                    @can('admins.index')
-                        <x-sidebar-item icon="fa-solid fa-user-group" route="admins.index" />
-                    @endcan
-                    @can('admins.create')
-                        <x-sidebar-item icon="fa-solid fa-user-plus" route="admins.create" />
-                    @endcan
-                </x-sidebar-list> --}}
-                {{-- end::admins sidebar --}}
-            @endcan
 
             @canany(['moderators.index', 'moderators.create'])
                 {{-- Moderators sidebar --}}

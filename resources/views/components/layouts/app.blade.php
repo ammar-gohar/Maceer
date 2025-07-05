@@ -72,7 +72,7 @@
     @stack('styles')
     <style>
         input:focus {
-            
+
         }
     </style>
 

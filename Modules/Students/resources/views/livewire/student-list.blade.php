@@ -4,4 +4,9 @@
     <td>{{ $student->level }}</td>
     <td>{{ $student->total_earned_credits }}</td>
     <td>{{ $student->gpa }}</td>
+    <td>
+        <a href="{{ route('docs.create', ['studentId' => $student->national_id]) }}" class="btn btn-sm btn-dark">
+            {{ App::isLocale('ar') ? 'طباعة وثيقة' : 'Print doc' }}
+        </a>
+    </td>
 </x-modules-list>

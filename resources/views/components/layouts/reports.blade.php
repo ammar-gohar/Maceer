@@ -1,14 +1,15 @@
 @props([
     'title' => '',
+    'lang' => App::getLocale(),
 ])
 <x-layouts.app title="{{ $title }}" >
-    <div class="container p-5 mx-auto shadow to-print" style="font-size: 1.25rem; position: relative;">
+    <div class="container mx-auto shadow to-print" dir="{{ $lang == 'ar' ? 'rtl' : 'ltr' }}" style="font-size: 1.25rem; position: relative;">
         <div style="position: absolute; top: 10px; left: 10px; font-size: 14px;" id="waterMark">
-            <img src="{{ asset('logo.png') }}" alt="logo" style="width: 50px;" class="me-1">|<span class="ms-1">{{ now() }}</span>
+            <img src="{{ asset('logo.png') }}" alt="logo" style="width: 50px;" class="me-1"> | <span class="ms-1">{{ now() }}</span>
         </div>
-        <div id="printButton">
+        <div id="printButton" class="p-5">
             <button type="button" class="mb-5 btn btn-dark" onclick="window.print()">
-                <i class="fa-solid fa-print"></i> {{ App::isLocale('ar') ? 'طباعة' : 'Print' }}
+                <i class="fa-solid fa-print"></i> @lang('modules.reports.print', locale: $lang)
             </button>
         </div>
         <div class="mb-1 row" id="reportHeader">
@@ -41,11 +42,12 @@
                     width: 100% !important;
                     box-shadow: none !important;
                     font-size: 1rem !important;
-                    padding: 3rem 1rem !important;
+                    padding-top: 3rem !important;
+                    padding-bottom: 3rem !important;
                     height: 100%;
                 }
                 .to-print table {
-                    width: 90% !important;
+                    /* width: 90% !important; */
                     margin: 0 auto !important;
                 }
                 #printButton {

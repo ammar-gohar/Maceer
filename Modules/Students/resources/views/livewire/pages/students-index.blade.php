@@ -51,7 +51,8 @@
                         <th>@lang('modules.students.level')</th>
                         <th>@lang('modules.students.credits')</th>
                         <th>@lang('modules.students.gpa')</th>
-                        <th>@lang('modules.students.action')</th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>

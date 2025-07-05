@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('language', ['en', 'ar']);
             $table->string('directed_to')->nullable();
             $table->text('notes')->nullable();
-            $table->timestamp('requested_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('requested_at')->nullable();
             $table->timestamp('fullfilled_at')->nullable();
             $table->timestamps();
         });

@@ -67,6 +67,7 @@ class ReportRequests extends Component
 
         $query = ReportRequest::query()->latest()
                                         ->with(['student'])
+                                        ->whereNotNull('requested_at')
                                         ->when(Auth::user()->hasPermissionTo('reports.request'), fn($q) => $q->where('student_id', Auth::id()));
 
         $query = $this->filtering($query);

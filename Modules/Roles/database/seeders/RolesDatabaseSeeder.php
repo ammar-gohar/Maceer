@@ -346,7 +346,7 @@ class RolesDatabaseSeeder extends Seeder
         ]);
 
         Permission::create([
-            'name' => 'reports.receipt.register',
+            'name' => 'reports.receipts.register',
             'name_ar' => 'تسجيل الفواتير',
             'name_en' => 'Registering receipts',
             'module' => 'Reports',
@@ -422,7 +422,7 @@ class RolesDatabaseSeeder extends Seeder
             'reports.enrollments',
             'reports.requests.fullfilling',
             'reports.receipt',
-            'reports.receipt.register',
+            'reports.receipts.register',
         ]);
 
 

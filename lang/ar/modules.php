@@ -259,6 +259,7 @@ return [
         'receipt_registered' => 'نجح تسجيل الفاتورة',
         'receipt_registered' => 'نجح إلغاء التسجيل',
         'gpa_calculator' => 'حاسبة GPA',
+        'signature' => 'التوقيع',
     ],
 
 ];

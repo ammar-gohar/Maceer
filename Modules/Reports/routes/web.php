@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Modules\Reports\Http\Controllers\ReportController;
 use Modules\Reports\Http\Controllers\ReportsController;
 use Modules\Reports\Livewire\ExamSchedule;
+use Modules\Reports\Livewire\Pages\DocumentsCreate;
 use Modules\Reports\Livewire\Pages\GpaCalculator;
 use Modules\Reports\Livewire\Pages\Receipts;
 use Modules\Reports\Livewire\Pages\ReportRequests;
@@ -38,17 +39,22 @@ Route::group([
     Route::get('/enrollments/{studentId}', [ReportController::class, 'enrollments'])
         ->name('all-enrollments');
 
-    Route::get('/transcript/{studentId}/{lang?}', [ReportController::class, 'transcript'])
-        ->name('transcript');
+    Route::get('/transcript/{id}/{lang?}', [ReportController::class, 'transcript'])
+        ->name('transcript')
+        ->middleware('permission:reports.requests.fullfilling');
 
     Route::get('/receipt/{studentId}', [ReportController::class, 'receipt'])
         ->name('receipt');
 
 });
 
-Route::get('documentations', ReportRequests::class)
+Route::get('documents/requests', ReportRequests::class)
     ->name('docs.index')
     ->middleware(['permission:reports.request|reports.requests.fullfilling', 'auth']);
+
+Route::get('documents/print/{studentId?}', DocumentsCreate::class)
+    ->name('docs.create')
+    ->middleware(['permission:reports.requests.fullfilling', 'auth']);
 
 Route::get('/receipts/register', Receipts::class)
     ->name('receipt.register')

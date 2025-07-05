@@ -77,6 +77,7 @@ return [
         'requests' => 'طلبات الوثائق',
         'index' => 'طلبات الوثائق',
         'receipt_register' => 'تسجيل دفع فاتورة',
+        'docs_print' => 'طباعة الوثائق',
     ],
 
     'exam_schedule_generate' => 'إنشاء جدول الامتحانات',
