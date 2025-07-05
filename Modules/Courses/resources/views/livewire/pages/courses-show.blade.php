@@ -15,6 +15,29 @@
 
         <livewire:components.show-item label="forms.level" :data="$course->level->name" />
 
+        <table class="table mb-4 table-bordered table-sm" style="font-size: 0.75rem;">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>@lang('modules.courses.code', locale: $lang)</th>
+                    <th>@lang('modules.courses.name_en', locale: $lang)</th>
+                    <th>@lang('modules.courses.name_ar', locale: $lang)</th>
+                    <th>@lang('modules.courses.level', locale: $lang)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($course->prerequests as $prerequest)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $prerequest->code }}</td>
+                        <td>{{ $prerequest->name }}</td>
+                        <td>{{ $prerequest->name_ar }}</td>
+                        <td>{{ $prerequest->level->name }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
     </div>
     <!--end::Body-->
 

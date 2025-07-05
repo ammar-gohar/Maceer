@@ -13,7 +13,7 @@ class CoursesShow extends Component
 
     public function mount(string $code)
     {
-        $this->course = Course::where('code', $code)->firstOrFail();
+        $this->course = Course::with(['prerequests'])->where('code', $code)->firstOrFail();
     }
 
     public function render()

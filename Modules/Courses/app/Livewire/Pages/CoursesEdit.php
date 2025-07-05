@@ -59,6 +59,7 @@ class CoursesEdit extends Component
             'code'        => 'bail|required|unique:courses,code,' . $this->course->id,
             'name'        => 'bail|required|unique:courses,name,' . $this->course->id . '|regex:/[A-z]/',
             'name_ar'     => 'bail|required|unique:courses,name_ar,' . $this->course->id,
+            'requirement' => 'bail|required|in:university,faculty,specialization',
             'min_credits' => 'bail|required|min:0|max:180',
             'full_mark'   => 'bail|required|min:0',
             'level'       => 'bail|required|in:freshman,junior,sophomore,senior-1,senior-2',

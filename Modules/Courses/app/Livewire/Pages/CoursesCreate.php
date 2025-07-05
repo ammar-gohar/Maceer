@@ -38,6 +38,7 @@ class CoursesCreate extends Component
     #[Validate('bail|required|exists:levels,id')]
     public $level = '';
 
+    #[Validate('bail|required|in:university,faculty,specialization')]
     public $requirement = 'specialization';
 
     #[Validate('bail|required|in:core,elected')]

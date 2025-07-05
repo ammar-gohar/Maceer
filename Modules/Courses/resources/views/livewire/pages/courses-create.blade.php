@@ -70,6 +70,28 @@
                         @enderror
                     </div>
                     <!--end::Col-->
+                    <!--begin::Col-->
+                    <div class="col-md-6">
+                        <label for="level" class="form-label">@lang('forms.requirement')</label>
+                        <div class="input-group">
+                            <select
+                                name="requirement"
+                                id="requirement"
+                                class="form-select @error('requirement') is-invalid @enderror"
+                                wire:model='requirement'
+                                required>
+                                <option value="university">University</option>
+                                <option value="faculty">Faculty</option>
+                                <option value="specialization">Faculty</option>
+                            </select>
+                        </div>
+                        @error('type')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <!--end::Col-->
                 </div>
                 <!--end::Row-->
             </div>
