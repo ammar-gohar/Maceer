@@ -38,11 +38,9 @@
                                 class="form-select @error('level') is-invalid @enderror"
                                 wire:model='level'
                                 required>
-                                <option value="freshman" {{ $level == 'freshman' ? 'selected' : '' }}>Freshman</option>
-                                <option value="sophomore" {{ $level == 'sophomore' ? 'selected' : '' }}>Sophomore</option>
-                                <option value="junior" {{ $level == 'junior' ? 'selected' : '' }}>Junior</option>
-                                <option value="senior-1" {{ $level == 'senior-1' ? 'selected' : '' }}>Senior-1</option>
-                                <option value="senior-2" {{ $level == 'senior-2' ? 'selected' : '' }}>Senior-2</option>
+                                @foreach ($levels as $level)
+                                    <option value="{{ $level->id }}">{{ $level->name }}</option>
+                                @endforeach
                             </select>
                             @error('level')
                                 <div class="invalid-feedback">
@@ -54,7 +52,7 @@
                     <!--end::Col-->
                     <!--begin::Col-->
                     <div class="col-md-6">
-                        <label for="level" class="form-label">@lang('type')</label>
+                        <label for="level" class="form-label">@lang('modules.courses.type')</label>
                         <div class="input-group">
                             <select
                                 name="type"

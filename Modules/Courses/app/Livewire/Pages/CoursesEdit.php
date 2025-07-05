@@ -9,6 +9,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\Courses\Models\Course;
 use Flasher\Notyf\Prime\NotyfInterface;
+use Modules\Levels\Models\Level;
 
 class CoursesEdit extends Component
 {
@@ -63,7 +64,7 @@ class CoursesEdit extends Component
             'requirement' => 'bail|required|in:university,faculty,specialization',
             'min_credits' => 'bail|required|min:0|max:180',
             'full_mark'   => 'bail|required|min:0',
-            'level'       => 'bail|required|in:freshman,junior,sophomore,senior-1,senior-2',
+            'level'       => 'bail|required|exists:levels,id',
             'prerequests' => 'bail|array',
             'credits'     => 'bail|required|min:0|max:180',
             'type'        => 'bail|required|in:core,elected',
@@ -81,7 +82,7 @@ class CoursesEdit extends Component
             'name_ar'     => $this->name_ar,
             'min_credits' => $this->min_credits,
             'full_mark'   => $this->full_mark,
-            'level'       => $this->level,
+            'level_id'    => $this->level,
             'credits'     => $this->credits,
             'type'        => $this->type,
         ]);
@@ -133,6 +134,7 @@ class CoursesEdit extends Component
                                 ->paginate(7),
 
             'chosenCourses' => Course::select(['id', 'code', 'name', 'name_ar'])->whereIn('id', $this->prerequests)->orderBy(App::isLocale('ar') ? 'name_ar' : 'name')->get(),
+            'levels' => Level::orderBy('number')->get(),
         ])->title((App::isLocale('ar') ? $this->course->name_ar :  $this->course->name) . ' - ' .__('sidebar.courses.edit'));
     }
 }
