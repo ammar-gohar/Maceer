@@ -335,10 +335,10 @@
                                     <tbody >
                                         @foreach ($guidesModal['other_professors'] as $guide)
                                             <tr wire:key='guides-{{ $loop->iteration }}'>
-                                                <td>{{ $guide->name }}</td>
+                                                <td>{{ $guide->full_name }}</td>
                                                 <td>{{ $guide->gender }}</td>
                                                 <td>
-                                                    <button class="btn btn-sm btn-dark" wire:click='add_guide("{{ $guide->professor_id }}")'>
+                                                    <button class="btn btn-sm btn-dark" wire:click='add_guide("{{ $guide->professor->id }}")'>
                                                         @lang('forms.create')
                                                     </button>
                                                 </td>
