@@ -132,7 +132,7 @@
                                     @switch($request->type)
                                         @case('transcript')
                                             <a href="{{ route('reports.transcript', ['id' => $request->id, 'lang' => $request->language]) }}" class="btn btn-sm btn-primary">
-                                                @lang('modules.reports.print')
+                                                <i class='fa-solid fa-print'></i>
                                             </a>
                                             @break
 
