@@ -43,10 +43,10 @@ class ModeratorsCreate extends Component
 
         $email = new \SendGrid\Mail\Mail(); 
         $email->setFrom("info@maceer.systems", "Maceer admin");
-        $email->setSubject();
+        $email->setSubject("New user password");
         $email->addTo($moderator->email, $data['first_name'] . ' ' . $data['last_name']);
         $email->addContent(
-            "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+            "text/html", "here is your password <strong> $password </strong>"
         );
         $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
         try {
