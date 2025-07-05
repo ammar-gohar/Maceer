@@ -3,7 +3,7 @@
     <div class="card-body" style="overflow-x: scroll;">
         <div class="p-2 my-3 row">
             <div class="col-md-6">
-                <input type="text" name="" id="" placeholder="{{ App::isLocale('ar') ? 'بحث...' : 'Search...' }}" class="form-control fs-5">
+                <input type="text" name="" id="" placeholder="{{ App::isLocale('ar') ? 'بحث...' : 'Search...' }}" class="form-control fs-5" wire:model.live='search'>
             </div>
             <div class="dropdown col-md-1 offset-5">
                 <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
