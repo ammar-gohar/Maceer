@@ -64,9 +64,10 @@ class Receipts extends Component
                                     ->whereHas('student', fn($q) => $q
                                         ->where('academic_number', 'like', "$this->search%")
                                     )
-                                    ->orWhere('first_name', 'like', "%$this->search%")
-                                    ->orWhere('middle_name', 'like', "%$this->search%")
-                                    ->orWhere('last_name', 'like', "%$this->search%")
+                                    ->orWhereRaw(
+                                        "CONCAT_WS(' ', first_name, middle_name, last_name) LIKE ?",
+                                        ['%' . $this->search . '%']
+                                    )
                                 )
                                 ->when(!$this->search, fn($q) => $q->take(0))
                                 ->get(),
