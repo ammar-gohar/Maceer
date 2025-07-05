@@ -28,7 +28,7 @@ class Semester extends Component
             $this->end_date = $semester->end_date;
             $this->reqs_start_date = $semester->requests_start_date;
             $this->enrolls_start_date = $semester->enrollments_start_date;
-            $this->enrolls_end_date = $semester->enrolls_end_date;
+            $this->enrolls_end_date = $semester->enrollments_end_date;
         }
     }
 
