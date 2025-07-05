@@ -84,6 +84,7 @@ class CoursesEdit extends Component
             'full_mark'   => $this->full_mark,
             'level_id'    => $this->level,
             'credits'     => $this->credits,
+            'requirement' => $this->requirement,
             'type'        => $this->type,
         ]);
 
