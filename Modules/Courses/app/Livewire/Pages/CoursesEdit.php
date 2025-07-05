@@ -47,6 +47,7 @@ class CoursesEdit extends Component
         $this->type = $course->type;
         $this->credits = $course->credits;
         $this->prerequests = $course->prerequests->pluck('id')->toArray();
+        $this->requirement = $course->requirement;
         if(!$this->currentTab){
             $this->currentTab['show'] = 1;
             $this->currentTab['btn'] = __('forms.edit_prerequests');
