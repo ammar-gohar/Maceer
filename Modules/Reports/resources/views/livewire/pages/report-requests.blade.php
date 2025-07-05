@@ -131,7 +131,7 @@
                                     </a> --}}
                                     @switch($request->type)
                                         @case('transcript')
-                                            <a href="{{ route('reports.transcript', ['studentId' => $request->student_id, 'lang' => $request->language]) }}" class="btn btn-sm btn-primary">
+                                            <a href="{{ route('reports.transcript', ['id' => $request->student_id, 'lang' => $request->language]) }}" class="btn btn-sm btn-primary">
                                                 @lang('modules.reports.print')
                                             </a>
                                             @break

@@ -21,6 +21,7 @@ class Semester extends Component
         $this->start_date = \Carbon\Carbon::today()->format('Y-m-d');
         $semester = ModelsSemester::latest()->where('is_current', 1)->first();
         if($semester){
+            $this->name = $semester->name;
             $this->start_date = $semester->start_date;
             $this->end_date = $semester->end_date;
             $this->reqs_start_date = $semester->requests_start_date;
@@ -32,7 +33,7 @@ class Semester extends Component
     public function rules()
     {
         return [
-            'name' => 'bail|required|string|unique:semesters',
+            'name' => 'bail|nullable|string|unique:semesters',
             'start_date' => 'bail|required|before:end_date',
             'end_date' => 'bail|required|after:start_date',
             'reqs_start_date' => 'bail|required|before:end_date|after:start_date',
@@ -53,7 +54,7 @@ class Semester extends Component
 
     public function update_semester($id)
     {
-        $data = $this->validate();
+        $this->validate();
 
         ModelsSemester::find($id)->update([
             'start_date' => $this->start_date,

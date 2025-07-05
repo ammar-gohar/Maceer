@@ -7,7 +7,7 @@
             <h3 class="mb-3 alert alert-info">
                 @lang('forms.semester_active', ['date' => $current->end_date, 'semester' => $current->name])
             </h3>
-            <div class="row my-3">
+            <div class="my-3 row">
                 <x-form-input name="start_date" type="date" wire_model="start_date" />
                 <x-form-input name="end_date" type="date" wire_model="end_date" />
                 <x-form-input name="reqs_start_date" type="date" wire_model="reqs_start_date" />
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="button" class="btn btn-dark" wire:click='update_semester("{{ $current->id }}")' wire:confirm=>
+            <button type="button" class="btn btn-dark" wire:click='update_semester("{{ $current->id }}")' wire:confirm>
                 @lang('forms.update')
             </button>
             <button type="button" class="btn btn-danger" wire:click='end_semester("{{ $current->id }}")' wire:confirm>

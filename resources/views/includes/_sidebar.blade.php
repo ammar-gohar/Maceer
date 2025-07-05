@@ -54,18 +54,20 @@
             </ul>
         @endcan
 
-        @can('quizzes.index-student')
-            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
+        @if (Auth::user()->hasRole('Super Admin'))
+            @can('quizzes.index-student')
+                <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
-                <li class="nav-item">
-                    <a href="{{ route('quizzes.index-student') }}" class="nav-link {{ Route::is('quizzes.index-student') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa fa-file-pen"></i>
-                        <p>@lang('sidebar.quizzes.index-student')</p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ route('quizzes.index-student') }}" class="nav-link {{ Route::is('quizzes.index-student') ? 'active' : '' }}">
+                            <i class="nav-icon fa-solid fa fa-file-pen"></i>
+                            <p>@lang('sidebar.quizzes.index-student')</p>
+                        </a>
+                    </li>
 
-            </ul>
-        @endcan
+                </ul>
+            @endcan
+        @endif
 
         @canany(['reports.request', 'reports.requests.fullfilling'])
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
