@@ -9,6 +9,7 @@
                     @lang('forms.semester_active', ['date' => $current->end_date, 'semester' => $current->name])
                 </h3>
                 <div class="my-3 row">
+                    <x-form-input name="name" wire_model="name" />
                     <x-form-input name="start_date" type="date" wire_model="start_date" />
                     <x-form-input name="end_date" type="date" wire_model="end_date" />
                     <x-form-input name="reqs_start_date" type="date" wire_model="reqs_start_date" />

@@ -35,7 +35,7 @@ class Semester extends Component
     public function rules()
     {
         return [
-            // 'name' => 'bail|nullable|string|unique:semesters',
+            'name' => 'bail|required|string|unique:semesters',
             'start_date' => 'bail|required|before:end_date',
             'end_date' => 'bail|required|after:start_date',
             'reqs_start_date' => 'bail|required|before:end_date|after:start_date',
@@ -59,6 +59,7 @@ class Semester extends Component
         $this->validate();
 
         ModelsSemester::find($this->id)->update([
+            'name' => $this->name,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'requests_start_date' => $this->reqs_start_date,
