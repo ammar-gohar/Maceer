@@ -36,7 +36,7 @@
                             </div>
                         @else
                             <div class="mt-2">
-                                <img src="{{ asset($image ? 'storage/' . $image : 'favicon.png') }}" alt="User image" class="img-thumbnail" width="120" height="90">
+                                <img src="{{ asset($uploadedImage ? 'storage/' . $uploadedImage : 'favicon.png') }}" alt="User image" class="img-thumbnail" width="120" height="90">
                             </div>
                         @endif
                     </div>

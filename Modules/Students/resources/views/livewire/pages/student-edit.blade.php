@@ -36,7 +36,7 @@
                             </div>
                         @else
                             <div class="mt-2">
-                                <img src="{{ asset($image ? 'storage/' . $image : 'favicon.png') }}" alt="User image" class="img-thumbnail" width="120" height="90">
+                                <img src="{{ asset($uploadedImage ? 'storage/' . $uploadedImage : 'favicon.png') }}" alt="User image" class="img-thumbnail" width="120" height="90">
                             </div>
                         @endif
                     </div>
@@ -105,7 +105,7 @@
                 </div>
                 <!--end::Col-->
                 <!--begin::Col-->
-                <button type="button" class="btn btn-dark col-md-12 w-auto" wire:click='reset_password()' wire:confirm='{{ App::isLocale('ar') ? 'هل انت متأكد؟' : 'Are you sure?' }}' wire:target='reset_password()' wire:loading.attr='disabled'>
+                <button type="button" class="w-auto btn btn-dark col-md-12" wire:click='reset_password()' wire:confirm='{{ App::isLocale('ar') ? 'هل انت متأكد؟' : 'Are you sure?' }}' wire:target='reset_password()' wire:loading.attr='disabled'>
                     @lang('forms.reset_password')
                 </button>
                 <!--end::Col-->
