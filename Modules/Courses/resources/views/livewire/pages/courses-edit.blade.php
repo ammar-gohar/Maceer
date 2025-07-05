@@ -85,7 +85,7 @@
                                 required>
                                 <option value="university">University</option>
                                 <option value="faculty">Faculty</option>
-                                <option value="specialization">Faculty</option>
+                                <option value="specialization">Specialization</option>
                             </select>
                         </div>
                         @error('type')
