@@ -53,6 +53,9 @@ class ReportController extends Controller
     public function transcript($id, $lang = null)
     {
         $transcript = ReportRequest::find($id);
+        $transcript->update([
+            'fullfilled_at' => now(),
+        ]);
         $student = User::with(['student', 'student.level'])->find($transcript->student_id);
         $enrollments = Enrollment::with(['course', 'grade', 'semester'])->where('student_id', $student->id)->get()->groupBy('semester.name')->sortBy('semester.created_at');
 
