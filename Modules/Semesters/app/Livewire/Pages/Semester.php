@@ -35,7 +35,7 @@ class Semester extends Component
     public function rules()
     {
         return [
-            'name' => 'bail|nullable|string|unique:semesters',
+            // 'name' => 'bail|nullable|string|unique:semesters',
             'start_date' => 'bail|required|before:end_date',
             'end_date' => 'bail|required|after:start_date',
             'reqs_start_date' => 'bail|required|before:end_date|after:start_date',
