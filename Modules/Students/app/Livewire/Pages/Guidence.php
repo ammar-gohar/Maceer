@@ -162,8 +162,8 @@ class Guidence extends Component
                                     ['%' . $search . '%']
                                 )
                             )
-                            ->orderBy('name')
-                            ->get();
+                            ->get()
+                            ->sortBy('full_name');
 
         $this->guidesModal['other_professors'] = $professors;
 
