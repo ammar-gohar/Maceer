@@ -15,11 +15,7 @@ class Semester extends Model
     /**
      * The attributes that are mass assignable.
      */
-    protected $fillable = [
-        'name',
-        'start_date',
-        'end_date',
-        'is_current'
+    protected $guarded = [
     ];
 
     protected static function newFactory(): SemesterFactory

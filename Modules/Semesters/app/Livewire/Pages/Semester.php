@@ -21,6 +21,7 @@ class Semester extends Component
         $this->start_date = \Carbon\Carbon::today()->format('Y-m-d');
         $semester = ModelsSemester::latest()->where('is_current', 1)->first();
         if($semester){
+            $this->name = $semester->name;
             $this->start_date = $semester->start_date;
             $this->end_date = $semester->end_date;
             $this->reqs_start_date = $semester->requests_start_date;
