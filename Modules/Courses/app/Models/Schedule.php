@@ -48,6 +48,11 @@ class Schedule extends Model
         return $this->hasMany(Enrollment::class, 'schedule_id');
     }
 
+    public function current_enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'schedule_id')->whereHas('semester', fn($q) => $q->where('is_current', 1));
+    }
+
     protected static function newFactory(): ScheduleFactory
     {
         return ScheduleFactory::new();

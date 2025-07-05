@@ -423,6 +423,7 @@ class RolesDatabaseSeeder extends Seeder
             'reports.requests.fullfilling',
             'reports.receipt',
             'reports.receipts.register',
+            'schedule.index',
         ]);
 
 

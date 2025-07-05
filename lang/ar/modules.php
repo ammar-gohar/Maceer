@@ -66,6 +66,7 @@ return [
         'add_guide' => 'إضافة مرشد',
         'guide_students' => 'توزيع الطلّاب',
         'guide_students_success' => 'نجح توزيع الطلاب',
+        'guidence_count' => 'عدد الطلاب',
     ],
 
     'moderators' => [
@@ -116,7 +117,7 @@ return [
         'grade' => 'التقدير',
         'work_mark' => 'درجة أعمال السنة',
         'not_revealed' => 'غير مٌعلن',
-        'enrollments_count' => 'عدد الطلاب المسجلين هذا الفصل',
+        'enrollments_count' => 'عدد الطلاب المسجلين',
         'show_marks' => 'عرض كشف درجات مادة :course',
         'library' => [
             'index' => 'عرض ملفات المقرر ":course"',
@@ -258,8 +259,9 @@ return [
         'not_paied' => 'لم يدفع',
         'receipt_registered' => 'نجح تسجيل الفاتورة',
         'receipt_registered' => 'نجح إلغاء التسجيل',
-        'gpa_calculator' => 'حاسبة GPA',
+        'gpa_calculator' => 'حساب GPA',
         'signature' => 'التوقيع',
+        'course-students' => 'كشف طلاب مادة :course للفصل الدراسي :semester',
     ],
 
 ];

@@ -2,6 +2,7 @@
 
 namespace Modules\Students\Livewire\Pages;
 
+use App\Jobs\AssignGuidence;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -148,13 +149,9 @@ class Guidence extends Component
     {
         $this->guidesModal = [
             'search' => $search,
-            'guides' => User::with(['professor'])
-                            ->select([
-                                'id',
-                                DB::raw('CONCAT_WS(" ", first_name, middle_name, last_name) as name'),
-                                'gender',
-                            ])
-                            ->whereHas('professor', fn($q) => $q->where('is_guide', 1))->orderBy('name')->get(),
+            'guides' => User::withCount('guidence')
+                            ->with(['professor'])
+                            ->whereHas('professor', fn($q) => $q->where('is_guide', 1))->get()->sortBy('full_name'),
         ];
 
         $professors = User::with(['professor'])
@@ -193,24 +190,26 @@ class Guidence extends Component
 
     public function guide_students()
     {
-        $students = Student::where('total_earned_credits', '<', '180')->get()->pluck('id')->toArray();
-        $professors = User::whereHas('professor', fn($q) => $q->where('is_guide', 1))->get()->pluck('id')->toArray();
 
-        // $array = [];
-        // for ($i=0; $i < count($professors) ; $i++) {
-        //     for ($j=0; $j < count($students); $j =+ $i) {
-        //         $array[] = $students[$j];
-        //     }
-        //     Student::whereIn('id', $array)->update(['guide_id' => $professors[$i]]);
-        // }
+        Student::chunkById(50, function ($chunk) {
+            $guides = User::withCount('guidence')->whereHas('professor', fn($q) => $q->where('is_guide', 1))->orderBy('guidence_count', 'asc')->get();
+            $updates = [];
+            foreach ($chunk as $student)
+            {
+                $guide = $guides->sortBy('guidence_count')->first();
+                $updates[$guide->id][] = $student->id;
+                $guide->guidence_count++;
+            };
 
-        for ($i=0; $i < count($professors) ; $i++) {
-            for ($j=0; $j < count($students); $j =+ $i) {
-                Student::find($students[$j])->update(['guide_id' => $professors[$i]]);
-            }
-        }
+            foreach ($updates as $guideId => $studentIds) {
+                Student::whereIn('id', $studentIds)->update([
+                    'guide_id' => $guideId,
+                ]);
+            };
 
-        $this->guidesModal = [];
+        });
+
+        $this->showGuidesModal($this->guidesModal['search']);
 
         return notyf()->success(__('modules.professors.guide_students_success'));
 
@@ -222,7 +221,8 @@ class Guidence extends Component
         $usersQuery = User::query()->has('student')
         ->select([
             DB::raw('CONCAT_WS(" ", users.`first_name`, users.`middle_name`, users.`last_name`) as name'),
-            DB::raw('CONCAT_WS(" ", guides.`first_name`, guides.`middle_name`, guides.`last_name`) as guide_name'),
+            DB::raw('CONCAT_WS(" ", guides.`first_name`, guides.`last_name`) as guide_name'),
+            'users.national_id',
             'academic_number',
             'users.gender as gender',
             'students.id as student_id',
@@ -244,7 +244,7 @@ class Guidence extends Component
         return view('students::livewire.pages.guidence', [
             'students' => $users->paginate(15),
             'levels' => Level::select('id', 'name')->get(),
-            'guides' => User::has('professor')->get()->sortBy('full_name'),
+            'guides' => User::whereHas('professor', fn($q) => $q->where('is_guide', 1))->get()->sortBy('full_name'),
         ])->title(__('sidebar.students.guidence'));
     }
 }

@@ -49,9 +49,10 @@ class EnrollmentsDatabaseSeeder extends Seeder
         $schedules = Schedule::where('semester_id', $currentSemester->id)->get();
 
         foreach ($students as $student) {
-            $courses = Course::whereNotIn('id', $student->enrollments->pluck('course_id')->toArray())->whereIn('id', $schedules->pluck('course_id')->toArray())->get();
             $currentTotalCreds = 0;
             for ($i = 0; $i < 5; $i++) {
+                $courses = Course::whereNotIn('id', $student->enrollments->pluck('course_id')->toArray())->whereIn('id', $schedules->pluck('course_id')->toArray())->get();
+
                 if ($courses->isEmpty()) {
                     break;
                 }

@@ -40,58 +40,20 @@
                         <th>@lang('modules.courses.name')</th>
                         <th>@lang('modules.courses.level')</th>
                         <th>@lang('modules.courses.schedule')</th>
-                        @if(Auth::user()->hasPermissionTo('courses.enrollment') && !Auth::user()->hasRole('Super Admin'))
-                            <th>@lang('modules.halls.hall')</th>
-                        @else
-                            <th>@lang('modules.courses.enrollments_count')</th>
-                            <th></th>
-                        @endcan
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($courses as $code => $course)
+                    @foreach ($courses as $name => $course)
                         <tr class="align-middle" wire:key='course{{ $loop->iteration }}'>
                             <td class="text-center">{{ $loop->iteration }}.</td>
-                            <td class="text-center">{{ $code }}</td>
-                            <td dir="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}">{{ $course->first()->course->translated_name }}</td>
-                            <td>{{ $course->first()->course->level?->name }}</td>
-                            <td>
-                                @foreach ($course as $schedule)
-                                    {{ __("general.$schedule->day") }}: {{ $schedule->start_period }} - {{ $schedule->start_period + 1 }}
-                                    @unless ($loop->last)
-                                        <hr />
-                                    @endunless
-                                @endforeach
+                            <td class="text-center">{{ $course->course->code }}</td>
+                            <td dir="ltr">{{ $course->course->translated_name }}</td>
+                            <td>{{ $course->course->level->name }}</td>
+                            <td>{{ $course->level->name }}</td>
+                            <td>{{ $course->current_semester_schedule }}</td>
+                            <td style="white-space: nowrap;">
                             </td>
-                            @if(Auth::user()->hasPermissionTo('courses.enrollment') && !Auth::user()->hasRole('Super Admin'))
-                                <td>
-                                    @foreach ($course as $schedule)
-                                        {{ $schedule->hall->building }} - {{ $schedule->hall->floor }}
-                                        @unless ($loop->last)
-                                            <hr />
-                                        @endunless
-                                    @endforeach
-                                </td>
-                            @else
-                                <td style="white-space: nowrap;">
-                                    @foreach ($course as $schedule)
-                                        {{ $schedule->current_enrollments_count }}
-                                        @unless ($loop->last)
-                                            <hr />
-                                        @endunless
-                                    @endforeach
-                                </td>
-                                <td style="white-space: nowrap;">
-                                    @foreach ($course as $schedule)
-                                        <a target="_blank" href="{{ route('reports.coruses.students', ['scheduleId' => $schedule->id]) }}" class="btn btn-sm btn-dark">
-                                            <i class="fa-solid fa-print"></i> {{ App::isLocale('ar') ? 'قائمة الطلاب' : 'Students list' }}
-                                        </a>
-                                        @unless ($loop->last)
-                                            <hr />
-                                        @endunless
-                                    @endforeach
-                                </td>
-                            @endcan
                         </tr>
                     @endforeach
                 </tbody>
@@ -103,5 +65,8 @@
         @endif
     </div>
     <!-- /.card-body -->
+    <div class="clearfix card-footer">
+        {{ $courses->links() }}
+    </div>
 
 </x-page>

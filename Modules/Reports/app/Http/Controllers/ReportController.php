@@ -5,7 +5,9 @@ namespace Modules\Reports\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Modules\Courses\Models\Schedule;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Reports\Models\Receipt;
 use Modules\Reports\Models\ReportRequest;
@@ -53,6 +55,9 @@ class ReportController extends Controller
         $transcript = ReportRequest::find($id);
         $student = User::with(['student', 'student.level'])->find($transcript->student_id);
         $enrollments = Enrollment::with(['course', 'grade', 'semester'])->where('student_id', $student->id)->get()->groupBy('semester.name');
+
+        $lang = $lang ?: App::getLocale();
+
         return view('reports::transcript', [
             'transcript' => $transcript,
             'student' => $student,
@@ -65,6 +70,27 @@ class ReportController extends Controller
     {
         return view('reports::transcript', [
             'student' => User::with('student')->find($studentId),
+        ]);
+    }
+
+    public function schedule_list($scheduleId)
+    {
+        $schedule = Schedule::find($scheduleId);
+
+
+    }
+
+    public function course_students($scheduleId, $lang = null)
+    {
+        $enrollments = Enrollment::with(['student', 'student.student', 'course'])->where('schedule_id', $scheduleId)->get()->sortBy('student.full_name');
+        $semester = Semester::where('is_current', 1)->first();
+
+        $lang = $lang ?: App::getLocale();
+
+        return view('reports::course-students', [
+            'enrollments' => $enrollments,
+            'semester' => $semester,
+            'lang' => $lang,
         ]);
     }
 }

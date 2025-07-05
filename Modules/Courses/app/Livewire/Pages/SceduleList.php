@@ -15,7 +15,7 @@ class SceduleList extends Component
 
     public function mount()
     {
-        $this->semesterId = Semester::where('is_current', 1)->first();
+        $this->semesterId = Semester::where('is_current', 1)->first()->id;
     }
 
     public function render()
@@ -23,13 +23,29 @@ class SceduleList extends Component
 
         if(Auth::user()->hasPermissionTo('courses.enrollment'))
         {
-            $courses = Enrollment::with(['course', 'schedule', 'course.level'])->where('semester_id', $this->semesterId)->where('student_id', Auth::id())->get();
+            $scheduleIds = Enrollment::with(['course', 'schedule', 'course.level'])
+                                ->where('semester_id', $this->semesterId)
+                                ->where('student_id', Auth::id())
+                                ->get()->pluck('schedule_id')->toArray();
+
+            $courses = Schedule::with(['course', 'professor', 'course.level', 'hall'])
+                                ->where('semester_id', $this->semesterId)
+                                ->whereIn('id', $scheduleIds)
+                                ->get()
+                                ->groupBy('course.code');
+
         } else {
-            $courses = Schedule::with(['course', 'professor', 'course.level', 'hall', 'enrollments', 'enrollments.student'])->where('semester_id', $this->semesterId)->where('student_id', Auth::id())->get()->groupBy('course.translated_name');
+            $courses = Schedule::with(['course', 'professor', 'course.level', 'hall'])
+                                ->withCount('current_enrollments')
+                                ->where('semester_id', $this->semesterId)
+                                ->get()
+                                ->groupBy('course.code');
+
         }
 
         return view('courses::livewire.pages.scedule-list', [
             'courses' => $courses,
-        ]);
+        ])->title(__('sidebar.courses.schedule-list'));
+
     }
 }

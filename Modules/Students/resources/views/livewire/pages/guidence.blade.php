@@ -64,76 +64,84 @@
         </div>
         {{-- /FILTERS --}}
         @if ($students->count() > 0)
-            <table class="table table-bordered table-striped" style="overflow-x: scroll;">
-                <thead>
-                    <tr>
-                        <th class="text-center">#</th>
-                        <th>@lang('modules.students.academic_number')</th>
-                        <th>@lang('modules.students.name')</th>
-                        <th>@lang('modules.students.gender')</th>
-                        <th>@lang('modules.students.level')</th>
-                        @unless (Auth::user()->hasRole('Super Admin'))
-                            <th>@lang('modules.students.credits')</th>
-                            <th>@lang('modules.students.gpa')</th>
-                        @else
-                            <th>@lang('modules.students.guide')</th>
-                        @endunless
-                        <th>@lang('modules.students.action')</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($students as $student)
-                        <tr class="align-middle">
-                            <td class="text-center">{{ $loop->iteration }}.</td>
-                            <td>{{ $student->academic_number }}</td>
-                            <td>{{ $student->name }}</td>
-                            <td>{{ $student->gender == 'm' ? __('forms.male') : __('forms.female') }}</td>
-                            <td>{{ $student->level }}</td>
+            <div style="overflow-x: scroll;">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th>@lang('modules.students.academic_number')</th>
+                            <th>@lang('modules.students.name')</th>
+                            <th>@lang('modules.students.gender')</th>
+                            <th>@lang('modules.students.level')</th>
                             @unless (Auth::user()->hasRole('Super Admin'))
-                                <td>{{ $student->student?->total_earned_credits }}</td>
-                                <td>{{ $student->student?->gpa }}</td>
+                                <th>@lang('modules.students.credits')</th>
+                                <th>@lang('modules.students.gpa')</th>
                             @else
-                                <td>{{ $student->guide_name ?: '--'}}</td>
+                                <th>@lang('modules.students.guide')</th>
                             @endunless
-                            <td style="white-space: nowrap;">
-                                @can('students.guidence.edit')
-                                    <button class="btn btn-sm btn-danger"
-                                        wire:confirm='Are you sure you want to delete this?'
-                                        wire:click='remove_guidence("{{ $student->student_id }}")'
-                                        >
-                                            {{ App::isLocale('ar') ? 'إزالة الإرشاد' : 'Remove Guidence' }}
-                                    </button>
-                                    <button class="btn btn-sm btn-primary"
-                                        wire:click='show_modal("{{ $student->student_id }}", "{{ $student->name }}", "{{ $student->guide_id }}")'
-                                        >
-                                            {{ App::isLocale('ar') ? 'تغيير المرشد' : 'Change guide' }}
-                                    </button>
-                                @endcan
-                                @can('students.guidence')
-                                    @if (!Auth::user()->hasRole('Super Admin'))
-                                        @if ($semesterId)
-                                            @if ($student->paied_at)
-                                                <button class="btn btn-sm btn-danger"
-                                                wire:click='approve_enrollments("{{ $student->student->id }}")'
-                                                >
-                                                        {{ App::isLocale('ar') ? 'تصديق تسجيل المقررات' : 'Approve Enrollments' }}
-                                                </button>
-                                                <button class="btn btn-sm btn-primary"
-                                                    wire:click='show_enrollments_modal("{{ $student->id }}", "{{ $student->name }}")'
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($students as $student)
+                            <tr class="align-middle" style="white-space: nowrap;">
+                                <td class="text-center">{{ $loop->iteration }}.</td>
+                                <td>{{ $student->academic_number }}</td>
+                                <td>{{ $student->name }}</td>
+                                <td>{{ $student->gender == 'm' ? __('forms.male') : __('forms.female') }}</td>
+                                <td>{{ $student->level }}</td>
+                                @unless (Auth::user()->hasRole('Super Admin'))
+                                    <td>{{ $student->student?->total_earned_credits }}</td>
+                                    <td>{{ $student->student?->gpa }}</td>
+                                @else
+                                    <td>{{ $student->guide_name ?: '--'}}</td>
+                                @endunless
+                                <td>
+                                    <a href="{{ route('docs.create', ['studentId' => $student->national_id]) }}" class="btn btn-sm btn-dark" style="white-space: nowrap;">
+                                        {{ App::isLocale('ar') ? 'طباعة وثيقة' : 'Print doc' }}
+                                    </a>
+                                </td>
+                                <td style="white-space: nowrap;">
+                                    @can('students.guidence.edit')
+                                        <button class="btn btn-sm btn-danger"
+                                            wire:confirm='Are you sure you want to delete this?'
+                                            wire:click='remove_guidence("{{ $student->student_id }}")'
+                                            >
+                                                {{ App::isLocale('ar') ? 'إزالة الإرشاد' : 'Remove Guidence' }}
+                                        </button>
+                                        <button class="btn btn-sm btn-primary"
+                                            wire:click='show_modal("{{ $student->student_id }}", "{{ $student->name }}", "{{ $student->guide_id }}")'
+                                            >
+                                                {{ App::isLocale('ar') ? 'تغيير المرشد' : 'Change guide' }}
+                                        </button>
+                                    @endcan
+                                    @can('students.guidence')
+                                        @if (!Auth::user()->hasRole('Super Admin'))
+                                            @if ($semesterId)
+                                                @if ($student->paied_at)
+                                                    <button class="btn btn-sm btn-danger"
+                                                    wire:click='approve_enrollments("{{ $student->student->id }}")'
                                                     >
-                                                        {{ App::isLocale('ar') ? 'عرض المقررات المسجلة' : 'Show enrollments' }}
-                                                </button>
-                                            @else
-                                                @lang('modules.reports.not_paied')
+                                                            {{ App::isLocale('ar') ? 'تصديق تسجيل المقررات' : 'Approve Enrollments' }}
+                                                    </button>
+                                                    <button class="btn btn-sm btn-primary"
+                                                        wire:click='show_enrollments_modal("{{ $student->id }}", "{{ $student->name }}")'
+                                                        >
+                                                            {{ App::isLocale('ar') ? 'عرض المقررات المسجلة' : 'Show enrollments' }}
+                                                    </button>
+                                                @else
+                                                    @lang('modules.reports.not_paied')
+                                                @endif
                                             @endif
                                         @endif
-                                    @endif
-                                @endcan
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                    @endcan
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         @else
             <div class="text-center alert alert-secondary fw-none">
                 <h3 class="my-0 fw-normal">@lang('modules.students.empty')</h3>
@@ -282,29 +290,32 @@
                                 <h5>@lang('modules.professors.guides')</h5>
                             </div>
                             <!-- Student Info Table -->
-                            <table class="table mb-4 table-striped table-bordered table-sm">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>@lang('modules.courses.name')</th>
-                                        <th>@lang('forms.gender')</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($guidesModal['guides'] as $guide)
-                                        <tr wire:key='guides-{{ $loop->iteration }}'>
-                                            <td>{{ $guide->name }}</td>
-                                            <td>{{ $guide->gender }}</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-danger" wire:click='remove_guide("{{ $guide->professor->id }}")'>
-                                                    @lang('forms.remove')
-                                                </button>
-                                            </td>
+                            <div style="max-height: 10rem; overflow-y:auto;">
+                                <table class="table mb-4 table-striped table-bordered table-sm">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>@lang('modules.courses.name')</th>
+                                            <th>@lang('forms.gender')</th>
+                                            <th>@lang('modules.professors.guidence_count')</th>
+                                            <th></th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($guidesModal['guides'] as $guide)
+                                            <tr wire:key='guides-{{ $loop->iteration }}'>
+                                                <td>{{ $guide->full_name }}</td>
+                                                <td>{{ $guide->gender }}</td>
+                                                <td>{{ $guide->guidence_count }}</td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-danger" wire:click='remove_guide("{{ $guide->professor->id }}")'>
+                                                        @lang('forms.remove')
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <div class="row">
@@ -339,6 +350,7 @@
                         </div>
                     </div>
                     <div class="px-3 modal-footer">
+                        <span wire:loading wire:target='guide_students'>{{ App::isLocale('ar') ? 'انتظر رجاءً، قد يستغرق هذا وقتًا...' : 'Please wait, this might take a while...' }}</span>
                         <button type="button" class="btn btn-dark" wire:click='guide_students()' wire:target='guide_students' wire:loading.attr='disabled'>@lang('modules.professors.guide_students')</button>
                         <button type="button" class="btn btn-light" wire:click='close_modal()'>@lang('forms.close')</button>
                     </div>

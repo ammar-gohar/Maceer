@@ -2,7 +2,7 @@
 <tr class="align-middle">
     <td class="text-center">{{ $loop }}.</td>
     {{ $slot }}
-    <td style="white-space: nowrap;">
+    <td style="white-space: nowrap;" class="text-center">
         @can($module . '.show')
             <a href="{{ route($module . '.show', $parameter) }}" class="btn btn-sm btn-secondary">
                 <i class="fa-solid fa-eye"></i>

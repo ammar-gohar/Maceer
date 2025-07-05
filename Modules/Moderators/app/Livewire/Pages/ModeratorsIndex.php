@@ -3,6 +3,7 @@
 namespace Modules\Moderators\Livewire\Pages;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,15 +13,41 @@ class ModeratorsIndex extends Component
 
     use WithPagination;
 
+    public $sortBy = [
+        'name',
+        'asc'
+    ];
+
+    public $search = '';
+
     public function delete($id)
     {
         User::where('national_id', $id)->firstOrFail()->delete();
     }
 
+    private function filters($query) {
+
+        $query->when($this->search, function ($q) {
+            return $q->where('first_name', 'like', "%$this->search%")
+                    ->orWhere('middle_name', 'like', "%$this->search%")
+                    ->orWhere('last_name', 'like', "%$this->search%");
+        });
+
+        return $query->orderBy($this->sortBy[0], $this->sortBy[1]);
+
+    }
+
     public function render()
     {
+        $usersQuery = User::query()->has('moderator')->select([
+                DB::raw('CONCAT_WS(" ", `first_name`, `middle_name`, `last_name`) as name'),
+                'national_id',
+                'gender',
+        ])->join('moderators', 'moderators.user_id', '=' , 'users.id');
+        $users = $this->filters($usersQuery);
+
         return view('moderators::livewire.pages.moderators-index', [
-            'moderators' => User::has('moderator')->with(['moderator'])->paginate(15),
+            'moderators' => $users->paginate(15),
         ])->title(__('sidebar.moderators.index'));
     }
 }

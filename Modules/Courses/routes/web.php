@@ -11,6 +11,7 @@ use Modules\Courses\Livewire\Pages\CoursesEdit;
 use Modules\Courses\Livewire\Pages\CoursesIndex;
 use Modules\Courses\Livewire\Pages\CoursesShow;
 use Modules\Courses\Livewire\Pages\ProfessorCourses;
+use Modules\Courses\Livewire\Pages\SceduleList;
 use Modules\Courses\Livewire\Pages\Schedule;
 use Modules\Courses\Livewire\Pages\StudentCourses;
 /*
@@ -36,8 +37,8 @@ Route::group([
             ->middleware('permission:courses.schedule')
             ->name('courses.schedule');
 
-        Route::get('/schedule-list', Schedule::class)
-            ->middleware('permission:courses.schedule')
+        Route::get('/schedule-list', SceduleList::class)
+            ->middleware('permission:schedule.index|courses.student-schedule')
             ->name('courses.schedule-list');
 
         Route::get('/student-schedule', Schedule::class)

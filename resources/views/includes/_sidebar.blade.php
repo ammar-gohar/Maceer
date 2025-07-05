@@ -104,12 +104,12 @@
                         </a>
                     </li>
                 @else
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a href="{{ route('receipt.show') }}" class="nav-link {{ Route::is('receipt.show') ? 'active' : '' }}">
                             <i class="nav-icon fa-solid fa-file-chart-column"></i>
                             <p>@lang('sidebar.reports.receipt_show')</p>
                         </a>
-                    </li>
+                    </li> --}}
                 @endcan
 
             </ul>
@@ -195,7 +195,7 @@
                 {{-- end::Roles sidebar --}}
             @endcan
 
-            @canany(['courses.index', 'courses.create', 'courses.requests', 'courses.schedule', 'courses.my-courses', 'courses.enrollment', 'courses.professor.show'])
+            @canany(['courses.index', 'courses.create', 'courses.requests', 'schedule.index', 'courses.my-courses', 'courses.enrollment', 'courses.professor.show', 'courses.student-schedule'])
                 {{-- Courses sidebar --}}
                 <x-sidebar-list module="courses" icon="fa-solid fa-book-open">
                     @can('courses.index')
@@ -207,10 +207,10 @@
                     @can('courses.requests-stats')
                         <x-sidebar-item icon="fa-solid fa-list" route="courses.requests-stats" />
                     @endcan
-                    @can('courses.schedule')
+                    @can('schedule.index')
                         <x-sidebar-item icon="fa-solid fa-calendar-days" route="courses.schedule" />
                     @endcan
-                    @can('courses.schedule')
+                    @canany(['schedule.index', 'courses.student-schedule'])
                         <x-sidebar-item icon="fa-solid fa-calendar-days" route="courses.schedule-list" />
                     @endcan
                     @can('courses.enrollment')

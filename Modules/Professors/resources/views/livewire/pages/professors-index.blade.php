@@ -1,6 +1,27 @@
 <x-page title="sidebar.professors.index" module="professors" show_create_button="true">
 
     <div class="card-body">
+        {{-- FILTERS --}}
+        <div class="p-2 my-3 row" style="font-size: 1rem;">
+            <div class="col-md-3">
+                <input type="text" name="search" id="search" wire:model.live='search' placeholder="{{ App::isLocale('ar') ? 'بحث...' : 'Search...' }}" class="form-control">
+            </div>
+            <div class="form-group row col-md-5 offset-3">
+                <div class="col-md-9 d-flex">
+                    <label for="sortBy" class="fw-bold me-2" style="white-space: nowrap; font-size:1rem;">@lang('general.sort_by'):</label>
+                    <select id="sortBy" class="form-select form-control" wire:model.change='sortBy.0'>
+                        <option value="name">@lang('modules.professors.name')</option>
+                    </select>
+                </div>
+                <div class="px-0 col-md-3">
+                    <select id="sortByOptions" class="form-select form-control" wire:model.change='sortBy.1'>
+                        <option value="asc">@lang('general.sort_by_options.asc')</option>
+                        <option value="desc">@lang('general.sort_by_options.desc')</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        {{-- /FILTERS --}}
         @if ($professors->count() > 0)
             <table class="table table-bordered table-striped" style="overflow-x: scroll;">
                 <thead>

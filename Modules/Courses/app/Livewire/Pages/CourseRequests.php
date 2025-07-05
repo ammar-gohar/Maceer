@@ -15,12 +15,15 @@ class CourseRequests extends Component
     public $courses_to_enroll = [];
     public $semesterId;
     public $coursesIds;
+    public $request_end;
+    public $request_start;
 
     public function mount()
     {
-        $this->semesterId = Semester::where('is_current', 1)->first()?->id;
 
-        if (!$this->semesterId && Auth::user()->hasPermissionTo('semester')) {
+        $semester = Semester::where('is_current', 1)->first();
+
+        if (!$semester && Auth::user()->hasPermissionTo('semester')) {
             return $this->redirect('/semester');
         }
 
@@ -28,8 +31,13 @@ class CourseRequests extends Component
             return $this->redirectRoute('courses.requests-stats');
         }
 
+        $this->semesterId = $semester?->id;
+        $this->request_start = $semester?->enrollments_start_date;
+        $this->request_end = $semester?->enrollments_start_date;
+
         $this->courses_to_enroll = CourseRequest::where('student_id', Auth::user()->student->id)->pluck('course_id')->toArray();
     }
+
 
     public function add_request(string $id)
     {
@@ -82,6 +90,6 @@ class CourseRequests extends Component
 
         return view('courses::livewire.pages.course-requests', [
             'courses' => $query->get(),
-        ]);
+        ])->title(__('sidebar.courses.requests'));
     }
 }

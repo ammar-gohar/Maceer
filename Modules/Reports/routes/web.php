@@ -46,6 +46,14 @@ Route::group([
     Route::get('/receipt/{studentId}', [ReportController::class, 'receipt'])
         ->name('receipt');
 
+    Route::get('/schedule-list/{scheduleId}', [ReportController::class, 'schedule_list'])
+        ->name('schedule.list')
+        ->middleware('permission:schedule.index');
+
+    Route::get('/courses-students/{scheduleId}/{lang?}', [ReportController::class, 'course_students'])
+        ->name('coruses.students')
+        ->middleware('permission:schedule.index');
+
 });
 
 Route::get('documents/requests', ReportRequests::class)
