@@ -1,7 +1,5 @@
 <x-page title="modules.moderators.edit" module="moderators" show_index_button="true">
 
-    <x-success-message :status="$status" module="moderators" operation="update" />
-
     <!--begin::Form-->
     <form wire:submit='update()'>
         @csrf
@@ -83,7 +81,7 @@
                 </div>
                 <!--end::Col-->
                 <!--begin::Col-->
-                <button type="button" class="btn btn-dark col-md-12 w-auto" wire:click='reset_password()' wire:confirm='{{ App::isLocale('ar') ? 'هل انت متأكد؟' : 'Are you sure?' }}' wire:target='reset_password()' wire:loading.attr='disabled'>
+                <button type="button" class="w-auto btn btn-dark col-md-12" wire:click='reset_password()' wire:confirm='{{ App::isLocale('ar') ? 'هل انت متأكد؟' : 'Are you sure?' }}' wire:target='reset_password()' wire:loading.attr='disabled'>
                     @lang('forms.reset_password')
                 </button>
                 <!--end::Col-->
