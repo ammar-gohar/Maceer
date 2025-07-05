@@ -54,7 +54,7 @@ class ReportController extends Controller
     {
         $transcript = ReportRequest::find($id);
         $student = User::with(['student', 'student.level'])->find($transcript->student_id);
-        $enrollments = Enrollment::with(['course', 'grade', 'semester'])->where('student_id', $student->id)->get()->groupBy('semester.name');
+        $enrollments = Enrollment::with(['course', 'grade', 'semester'])->where('student_id', $student->id)->get()->groupBy('semester.name')->sortBy('semester.created_at');
 
         $lang = $lang ?: App::getLocale();
 

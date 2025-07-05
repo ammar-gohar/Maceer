@@ -31,11 +31,16 @@
             <div class="mb-2 col-6">
                 <strong>@lang('modules.students.total_earned_credits', locale: $lang):</strong> {{ $student->student->total_earned_credits }}
             </div>
+            @if ($request->directed_to)
+                <div class="mb-2 col-6">
+                    <strong>{{ App::isLocale('ar') ? 'مجهة إلى' : 'Directed to' }}:</strong> {{ $request->directed_to }}
+                </div>
+            @endif
         </div>
         <div class="mb-3 row">
             <!-- Student Info Table -->
             @foreach ($enrollments as $semester => $enrolls)
-                <div class="mt-4 col-6">
+                <div class="mt-4 col-12">
                     <div class="{{ !$loop->first ? 'mt-3' : '' }}">{{ $semester }}</div>
                     <table class="table mb-4 table-bordered table-sm" style="font-size: 0.75rem;">
                         <thead class="table-light">
