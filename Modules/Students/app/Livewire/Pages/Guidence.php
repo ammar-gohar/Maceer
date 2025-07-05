@@ -69,7 +69,7 @@ class Guidence extends Component
 
         $query->when($this->search, function ($q) {
             return $q->having('name', 'like', "%$this->search%")
-                    ->orHaving('guide_name', 'like', "$this->search")
+                    ->orHaving('guide_name', 'like', "%$this->search")
                     ->where('academic_number', 'like', "$this->search%");
         });
 
