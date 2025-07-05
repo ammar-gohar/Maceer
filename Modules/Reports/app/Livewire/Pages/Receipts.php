@@ -65,7 +65,7 @@ class Receipts extends Component
                                         ->where('academic_number', 'like', "$this->search%")
                                     )
                                     ->orWhereRaw(
-                                        "CONCAT_WS(' ', first_name, middle_name, last_name) LIKE ?",
+                                        "CONCAT_WS(' ', first_name, last_name) LIKE ?",
                                         ['%' . $this->search . '%']
                                     )
                                 )
