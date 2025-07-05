@@ -28,7 +28,7 @@ class StudentsIndex extends Component
 
 
         $query->when($this->search, function ($q) {
-            return $q->where('CONCAT_WS(" ", `first_name`, `middle_name`, `last_name`) as name', 'like', "%$this->search%");
+            return $q->having('name', 'like', "%$this->search%");
         });
 
         return $this->sorting($query);
