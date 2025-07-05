@@ -28,9 +28,7 @@ class ModeratorsIndex extends Component
     private function filters($query) {
 
         $query->when($this->search, function ($q) {
-            return $q->where('first_name', 'like', "%$this->search%")
-                    ->orWhere('middle_name', 'like', "%$this->search%")
-                    ->orWhere('last_name', 'like', "%$this->search%");
+            return $q->having('name', 'like', "%$this->search%");
         });
 
         return $query->orderBy($this->sortBy[0], $this->sortBy[1]);
