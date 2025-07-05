@@ -19,10 +19,10 @@
             <thead class="table-light">
                 <tr>
                     <th>#</th>
-                    <th>@lang('modules.courses.code', locale: $lang)</th>
-                    <th>@lang('modules.courses.name_en', locale: $lang)</th>
-                    <th>@lang('modules.courses.name_ar', locale: $lang)</th>
-                    <th>@lang('modules.courses.level', locale: $lang)</th>
+                    <th>@lang('modules.courses.code')</th>
+                    <th>@lang('modules.courses.name_en')</th>
+                    <th>@lang('modules.courses.name_ar')</th>
+                    <th>@lang('modules.courses.level')</th>
                 </tr>
             </thead>
             <tbody>
