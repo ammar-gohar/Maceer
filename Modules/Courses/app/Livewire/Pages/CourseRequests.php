@@ -32,7 +32,7 @@ class CourseRequests extends Component
         }
 
         $this->semesterId = $semester?->id;
-        $this->request_start = $semester?->enrollments_start_date;
+        $this->request_start = $semester?->requests_start_date;
         $this->request_end = $semester?->enrollments_start_date;
 
         $this->courses_to_enroll = CourseRequest::where('student_id', Auth::user()->student->id)->pluck('course_id')->toArray();
