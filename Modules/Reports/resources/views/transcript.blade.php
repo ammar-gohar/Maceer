@@ -31,9 +31,9 @@
             <div class="mb-2 col-6">
                 <strong>@lang('modules.students.total_earned_credits', locale: $lang):</strong> {{ $student->student->total_earned_credits }}
             </div>
-            @if ($request->directed_to)
+            @if ($transcript->directed_to)
                 <div class="mb-2 col-6">
-                    <strong>{{ App::isLocale('ar') ? 'مجهة إلى' : 'Directed to' }}:</strong> {{ $request->directed_to }}
+                    <strong>{{ App::isLocale('ar') ? 'مجهة إلى' : 'Directed to' }}:</strong> {{ $transcript->directed_to }}
                 </div>
             @endif
         </div>
