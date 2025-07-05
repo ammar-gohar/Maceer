@@ -15,29 +15,31 @@
 
         <livewire:components.show-item label="forms.level" :data="$course->level->name" />
 
-        <h5>{{ App::isLocale('ar') ? 'المتطلبات:' : 'Prerequests:' }}</h5>
-        <table class="table mb-4 table-bordered table-sm" style="font-size: 0.75rem;">
-            <thead class="table-light">
-                <tr>
-                    <th>#</th>
-                    <th>@lang('modules.courses.code')</th>
-                    <th>@lang('modules.courses.name_en')</th>
-                    <th>@lang('modules.courses.name_ar')</th>
-                    <th>@lang('modules.courses.level')</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($course->prerequests as $prerequest)
+        @if ($course->prerequests->count() > 0)
+            <h5>{{ App::isLocale('ar') ? 'المتطلبات:' : 'Prerequests:' }}</h5>
+            <table class="table mb-4 table-bordered table-sm" style="font-size: 0.75rem;">
+                <thead class="table-light">
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $prerequest->code }}</td>
-                        <td>{{ $prerequest->name }}</td>
-                        <td>{{ $prerequest->name_ar }}</td>
-                        <td>{{ $prerequest->level->name }}</td>
+                        <th>#</th>
+                        <th>@lang('modules.courses.code')</th>
+                        <th>@lang('modules.courses.name_en')</th>
+                        <th>@lang('modules.courses.name_ar')</th>
+                        <th>@lang('modules.courses.level')</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($course->prerequests as $prerequest)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $prerequest->code }}</td>
+                            <td>{{ $prerequest->name }}</td>
+                            <td>{{ $prerequest->name_ar }}</td>
+                            <td>{{ $prerequest->level->name }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
 
     </div>
     <!--end::Body-->
