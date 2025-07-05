@@ -157,7 +157,7 @@ class Guidence extends Component
         $professors = User::with(['professor'])
                             ->select([
                                 'id',
-                                'professors.id as professor_id',
+                                'professor.id as professor_id',
                                 DB::raw('CONCAT_WS(" ", first_name, middle_name, last_name) as name'),
                                 'gender',
                             ])
