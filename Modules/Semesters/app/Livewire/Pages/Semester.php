@@ -11,6 +11,7 @@ class Semester extends Component
 
     public $name;
 
+    public $id;
     public $start_date;
     public $end_date;
     public $reqs_start_date;
@@ -21,6 +22,7 @@ class Semester extends Component
         $this->start_date = \Carbon\Carbon::today()->format('Y-m-d');
         $semester = ModelsSemester::latest()->where('is_current', 1)->first();
         if($semester){
+            $this->id = $semester->id;
             $this->name = $semester->name;
             $this->start_date = $semester->start_date;
             $this->end_date = $semester->end_date;
@@ -52,11 +54,11 @@ class Semester extends Component
         notyf()->success(__('modules.semester.success.start'));
     }
 
-    public function update_semester($id)
+    public function update_semester()
     {
         $this->validate();
 
-        ModelsSemester::find($id)->update([
+        ModelsSemester::find($this->id)->update([
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'requests_start_date' => $this->reqs_start_date,

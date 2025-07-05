@@ -4,21 +4,23 @@
     @if ($current)
         <div class="card-body">
             <!--begin::Row-->
-            <h3 class="mb-3 alert alert-info">
-                @lang('forms.semester_active', ['date' => $current->end_date, 'semester' => $current->name])
-            </h3>
-            <div class="my-3 row">
-                <x-form-input name="start_date" type="date" wire_model="start_date" />
-                <x-form-input name="end_date" type="date" wire_model="end_date" />
-                <x-form-input name="reqs_start_date" type="date" wire_model="reqs_start_date" />
-                <x-form-input name="enrolls_start_date" type="date" wire_model="enrolls_start_date" />
-                <x-form-input name="enrolls_end_date" type="date" wire_model="enrolls_end_date" />
-            </div>
+            <form wire:submit='update_semester()'>
+                <h3 class="mb-3 alert alert-info">
+                    @lang('forms.semester_active', ['date' => $current->end_date, 'semester' => $current->name])
+                </h3>
+                <div class="my-3 row">
+                    <x-form-input name="start_date" type="date" wire_model="start_date" />
+                    <x-form-input name="end_date" type="date" wire_model="end_date" />
+                    <x-form-input name="reqs_start_date" type="date" wire_model="reqs_start_date" />
+                    <x-form-input name="enrolls_start_date" type="date" wire_model="enrolls_start_date" />
+                    <x-form-input name="enrolls_end_date" type="date" wire_model="enrolls_end_date" />
+                </div>
+                <button type="submit" class="btn btn-dark" wire:confirm>
+                    @lang('forms.update')
+                </button>
+            </form>
         </div>
         <div class="card-footer">
-            <button type="button" class="btn btn-dark" wire:click='update_semester("{{ $current->id }}")' wire:confirm>
-                @lang('forms.update')
-            </button>
             <button type="button" class="btn btn-danger" wire:click='end_semester("{{ $current->id }}")' wire:confirm>
                 @lang('forms.end_semester')
             </button>
