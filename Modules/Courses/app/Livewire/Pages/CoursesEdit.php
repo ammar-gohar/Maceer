@@ -44,7 +44,7 @@ class CoursesEdit extends Component
         $this->name_ar = $course->name_ar;
         $this->min_credits = $course->min_credits;
         $this->full_mark = $course->full_mark;
-        $this->level = $course->level;
+        $this->level = $course->level_id;
         $this->type = $course->type;
         $this->credits = $course->credits;
         $this->prerequests = $course->prerequests->pluck('id')->toArray();

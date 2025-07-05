@@ -72,7 +72,7 @@
                     <!--end::Col-->
                     <!--begin::Col-->
                     <div class="col-md-6">
-                        <label for="level" class="form-label">@lang('forms.requirement')</label>
+                        <label for="requirement" class="form-label">@lang('forms.requirement')</label>
                         <div class="input-group">
                             <select
                                 name="requirement"
