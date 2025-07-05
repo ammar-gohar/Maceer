@@ -155,12 +155,6 @@ class Guidence extends Component
         ];
 
         $professors = User::with(['professor'])
-                            ->select([
-                                'id',
-                                DB::raw('CONCAT_WS(" ", first_name, middle_name, last_name) as name'),
-                                'gender',
-                                'professor',
-                            ])
                             ->whereHas('professor', fn($q) => $q->where('is_guide', 0))
                             ->when($this->guidesModal['search'], fn($q) => $q
                                 ->whereRaw(
