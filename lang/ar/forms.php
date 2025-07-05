@@ -115,4 +115,5 @@ return [
     'notes' => 'الملاحظات',
     'fullfill' => 'تلبية',
     'remove' => 'أزل',
+    'prerequest' => 'متطلب',
 ];

@@ -15,7 +15,7 @@
 
         <livewire:components.show-item label="forms.level" :data="$course->level->name" />
 
-        <h5>{{ App::isLocale('ar') ? '' }}</h5>
+        <h5>{{ App::isLocale('ar') ? 'المتطلبات:' : 'Prerequests:' }}</h5>
         <table class="table mb-4 table-bordered table-sm" style="font-size: 0.75rem;">
             <thead class="table-light">
                 <tr>
