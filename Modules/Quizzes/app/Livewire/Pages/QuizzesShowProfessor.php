@@ -11,7 +11,7 @@ class QuizzesShowProfessor extends Component
     public $quiz;
     public $attempt;
     public $answers;
-    public $marks = [];
+    public $marks = [0, 0, 0, 0];
 
     public function change_mark($id, $index)
     {

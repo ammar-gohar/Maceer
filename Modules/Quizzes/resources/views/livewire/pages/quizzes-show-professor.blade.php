@@ -30,7 +30,7 @@
                                         max="{{ $question->marks }}"
                                         step="0.5"
                                         class="form-control"
-                                        wire:model.fill.number.live='marks.{{ $index }}'
+                                        wire:model.fill.number.change='marks.{{ $index }}'
                                         value="{{ $studentAnswer?->marks_obtained ?: 0 }}"
                                         style="display:inline; max-width:63px;">
                                     <span>/ {{ $question->marks }}</span>
