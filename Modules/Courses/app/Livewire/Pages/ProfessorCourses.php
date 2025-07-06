@@ -35,6 +35,7 @@ class ProfessorCourses extends Component
                                 ->where('semester_id', $this->semesterId)
                                 ->where('schedule_id', $this->shownScheduleId)
                                 ->where('course_id', $courseId)
+                                ->whereNotNull('approved_at')
                                 ->get()
                                 ->sortBy(['student.first_name', 'student.last_name']);
 
@@ -98,9 +99,11 @@ class ProfessorCourses extends Component
             'courses' => Course::with(['schedules', 'enrollments'])
                                     ->withCount('current_semester_approved_enrollments')
                                     ->has('current_semester_schedule')
-                                    // ->whereHas('current_semester_schedule', fn($q) => $q
-                                    //     ->where('professor_id', Auth::id())
-                                    // )
+                                    ->when(!Auth::user()->hasRole('Super Admin'), fn($q) => $q
+                                        ->whereHas('current_semester_schedule', fn($q) => $q
+                                            ->where('professor_id', Auth::id())
+                                        )
+                                    )
                                     ->get(),
         ])->title(__('sidebar.courses.professor-show'));
     }
