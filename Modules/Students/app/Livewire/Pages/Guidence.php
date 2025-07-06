@@ -215,6 +215,9 @@ class Guidence extends Component
     {
 
         $usersQuery = User::query()->has('student')
+        ->when(Auth::user()->hasRole('professor'), fn($q) => $q
+            ->whereHas('student', fn($q) => $q->where('guide_id', Auth::id()))
+        )
         ->select([
             DB::raw('CONCAT_WS(" ", users.`first_name`, users.`middle_name`, users.`last_name`) as name'),
             DB::raw('CONCAT_WS(" ", guides.`first_name`, guides.`last_name`) as guide_name'),
