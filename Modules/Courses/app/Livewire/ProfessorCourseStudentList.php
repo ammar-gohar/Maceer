@@ -3,6 +3,7 @@
 namespace Modules\Courses\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\App;
 use Livewire\Component;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Grades\Models\Grade;
@@ -42,13 +43,17 @@ class ProfessorCourseStudentList extends Component
 
                 $this->total = $this->midterm + $this->work + $this->final;
 
+                if($this->total > $this->enroll->course->full_mark)
+                {
+                    notyf()->error(App::isLocale('ar') ? 'عدد الدرجات أكبر من درجة المادة' : 'Total marks is more than course full mark');
+                    return;
+                }
+
                 $totalPercentage = number_format($this->total / $this->enroll->course->full_mark * 100, 2);
 
                 $grade = Grade::where('max_percentage', '>=', $totalPercentage)
                                 ->where('min_percentage', '<=', $totalPercentage)
                                 ->first();
-
-                dd($totalPercentage, $grade);
 
                 $additional = [
                     'total_mark'            => $this->total,
