@@ -19,7 +19,7 @@ class ResetPassword extends Component
     public function rules()
     {
         return [
-            'password' => ['bail', 'required', 'string', 'password'],
+            'password' => ['bail', 'required', 'string', 'current_password'],
             'new_password' => ['bail', 'required', 'string', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
         ];
     }
