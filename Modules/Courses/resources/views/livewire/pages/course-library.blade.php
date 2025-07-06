@@ -21,6 +21,7 @@
             >
                 <div class="gap-2 mb-2 d-flex align-items-center">
 
+                    <span>{{ App::isLocale('ar') ? 'يمكنك رفع الملفات حتى 10MB للملف' : 'You can upload files up to 10MB per file' }}</span>
                     <!-- Buttons -->
                     <div class="btn-group" role="group">
                         <!-- File Picker -->
@@ -109,7 +110,7 @@
                                             <a href="{{ $file->getUrl() }}" target="_blank" class="btn btn-outline-primary btn-sm">
                                                 <i class="bi bi-eye"></i>
                                             </a>
-                                            <a href="{{ $file->getUrl() }}" target="_blank" class="btn btn-outline-dark btn-sm" download>
+                                            <a href="{{ $file->path() }}" target="_blank" class="btn btn-outline-dark btn-sm" download>
                                                 <i class="bi bi-download"></i>
                                             </a>
                                         </div>

@@ -45,7 +45,7 @@ class CourseLibrary extends Component
     }
 
     protected $rules = [
-        'files.*' => 'file|max:10240', // 10MB per file
+        'files.*' => 'file|max:10240',
     ];
 
     public function updatedFiles()
