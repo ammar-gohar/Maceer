@@ -18,7 +18,7 @@
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $course->code }}</td>
                             <td class="text-center">{{ $course->name }}</td>
-                            <td class="text-center">{{ $course->current_semester_enrollments_count }}</td>
+                            <td class="text-center">{{ $course->current_semester_approved_enrollments_count }}</td>
                             <td>
                                 <a href="{{ route('courses.quizzes', ['courseId' => $course->id]) }}" class="btn btn-sm btn-primary" title="{{ App::isLocale('ar') ? 'الامتحانات' : 'Quizzes' }}">
                                     <i class="fa-solid fa-file-pen"></i>

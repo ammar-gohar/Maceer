@@ -96,7 +96,7 @@ class ProfessorCourses extends Component
 
         return view('courses::livewire.pages.professor-courses', [
             'courses' => Course::with(['schedules', 'enrollments'])
-                                    ->withCount('current_semester_enrollments')
+                                    ->withCount('current_semester_approved_enrollments')
                                     ->has('current_semester_schedule')
                                     // ->whereHas('current_semester_schedule', fn($q) => $q
                                     //     ->where('professor_id', Auth::id())

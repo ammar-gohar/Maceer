@@ -63,6 +63,13 @@ class Course extends Model implements HasMedia
         });
     }
 
+    public function current_semester_approved_enrollments()
+    {
+        return $this->hasMany(Enrollment::class)->whereHas('semester', function ($q) {
+            $q->where('is_current', 1);
+        })->whereNotNull('approved_at');
+    }
+
     public function level()
     {
         return $this->belongsTo(Level::class, 'level_id');
