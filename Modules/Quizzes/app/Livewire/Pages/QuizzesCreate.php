@@ -113,7 +113,7 @@ class QuizzesCreate extends Component
         return [
             'title'                             => 'bail|required|string',
             'description'                       => 'bail|nullable',
-            // 'start_time'                        => 'bail|required|date|after_or_equal:tomorrow',
+            'start_time'                        => 'bail|required|date',
             'end_time'                          => 'bail|required|date|after:start_time',
             'duration_minutes'                  => 'bail|required|integer|min:0',
             'questions.*.question_text'         => 'bail|required|string',
