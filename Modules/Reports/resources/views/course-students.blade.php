@@ -1,4 +1,4 @@
-<x-layouts.app title="{{ __('modules.reports.course-students', ['course' => $lang == 'ar' ? $enrollments->first()->course->name_ar : $enrollments->first()->course->name_ar, 'semester' => $semester->name], locale: $lang) }}" >
+<x-layouts.app title="{{ __('modules.reports.course-students', ['course' => $lang == 'ar' ? $course->name_ar : $course->name, 'semester' => $semester->name], locale: $lang) }}" >
     <div class="container mx-auto shadow to-print" dir="{{ $lang == 'ar' ? 'rtl' : 'ltr' }}" style="font-size: 1.25rem; position: relative;">
         <div style="position: absolute; top: 10px; left: 10px; font-size: 14px;" id="waterMark">
             <img src="{{ asset('logo.png') }}" alt="logo" style="width: 50px;" class="me-1"> | <span class="ms-1">{{ now() }}</span>
@@ -13,7 +13,7 @@
             <div class="p-2">
                 <div class="row" style="font-size: 1rem">
                     <div class="mb-2 text-center col-md-12 fs-5">
-                        <strong>{{ __('modules.reports.course-students', ['course' => $lang == 'ar' ? $enrollments->first()->course->name_ar : $enrollments->first()->course->name_ar, 'semester' => $semester->name], locale: $lang) }}</strong>
+                        <strong>{{ __('modules.reports.course-students', ['course' => $lang == 'ar' ? $course->name_ar : $course->name_ar, 'semester' => $semester->name], locale: $lang) }}</strong>
                     </div>
                 </div>
                 <div class="mb-3 row">

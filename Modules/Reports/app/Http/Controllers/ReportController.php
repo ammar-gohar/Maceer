@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Modules\Courses\Models\Course;
 use Modules\Courses\Models\Schedule;
 use Modules\Enrollments\Models\Enrollment;
 use Modules\Reports\Models\Receipt;
@@ -86,11 +87,14 @@ class ReportController extends Controller
     public function course_students($scheduleId, $lang = null)
     {
         $enrollments = Enrollment::with(['student', 'student.student', 'course'])->where('schedule_id', $scheduleId)->get()->sortBy('student.full_name')->whereNotNull('approved_at');
+        $schedule = Schedule::find($scheduleId);
+        $course = Course::find($schedule->course_id);
         $semester = Semester::where('is_current', 1)->first();
 
         $lang = $lang ?: App::getLocale();
 
         return view('reports::course-students', [
+            'course' => $course,
             'enrollments' => $enrollments,
             'semester' => $semester,
             'lang' => $lang,
