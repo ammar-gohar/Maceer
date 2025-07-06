@@ -3,6 +3,7 @@
 namespace Modules\Courses\Livewire\Pages;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -54,13 +55,13 @@ class CourseLibrary extends Component
         $this->progress = 0;
     }
 
-    public function download($path)
+    /* ---------- DELETE ---------- */
+    public function deleteMedia(int $mediaId): void
     {
-        Storage::download($path);
-        return ;
+        $this->course->deleteMedia($mediaId);
+
+        notyf()->success(App::isLocale('ar') ? 'مُسح' : 'Deleted');
     }
-
-
 
     public function startUpload()
     {

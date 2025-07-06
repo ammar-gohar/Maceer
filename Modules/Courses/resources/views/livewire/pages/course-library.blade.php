@@ -110,12 +110,12 @@
                                             <a href="{{ $file->getUrl() }}" target="_blank" class="btn btn-outline-primary btn-sm">
                                                 <i class="bi bi-eye"></i>
                                             </a>
-                                            <a href="{{ $file->getPath() }}" target="_blank" class="btn btn-outline-dark btn-sm" download>
-                                                <i class="bi bi-download"></i>
-                                            </a>
+
                                             @can('library.create')
-                                                <button wire:click='delete_file("")' target="_blank" class="btn btn-outline-danger btn-sm">
-                                                    <i class="bi bi-x"></i>
+                                                <button  class="btn btn-sm btn-outline-danger"
+                                                        wire:click="deleteMedia('{{ $file->id }}')"
+                                                        wire:confirm="Are you sure?">
+                                                    <i class="fa-solid fa-trash"></i>
                                                 </button>
                                             @endcan
                                         </div>
