@@ -85,7 +85,7 @@ class ReportController extends Controller
 
     public function course_students($scheduleId, $lang = null)
     {
-        $enrollments = Enrollment::with(['student', 'student.student', 'course'])->where('schedule_id', $scheduleId)->get()->sortBy('student.full_name');
+        $enrollments = Enrollment::with(['student', 'student.student', 'course'])->where('schedule_id', $scheduleId)->get()->sortBy('student.full_name')->whereNotNull('approved_at');
         $semester = Semester::where('is_current', 1)->first();
 
         $lang = $lang ?: App::getLocale();

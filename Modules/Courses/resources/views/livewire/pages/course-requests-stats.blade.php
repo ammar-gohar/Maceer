@@ -134,10 +134,6 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="px-3 modal-footer">
-                            <button type="submit" class="btn btn-dark">@lang('forms.create')</button>
-                            <button type="button" class="btn btn-secondary" wire:click='close_modal()'>@lang('forms.close')</button>
-                        </div>
                     </form>
                 </div>
             </div>
