@@ -53,6 +53,11 @@ class Schedule extends Model
         return $this->hasMany(Enrollment::class, 'schedule_id')->whereHas('semester', fn($q) => $q->where('is_current', 1));
     }
 
+    public function current_approved_enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'schedule_id')->whereHas('semester', fn($q) => $q->where('is_current', 1))->whereNotNull('approved_at');
+    }
+
     protected static function newFactory(): ScheduleFactory
     {
         return ScheduleFactory::new();

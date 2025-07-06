@@ -36,7 +36,7 @@ class SceduleList extends Component
 
         } else {
             $courses = Schedule::with(['course', 'professor', 'course.level', 'hall'])
-                                ->withCount('current_enrollments')
+                                ->withCount('current_approved_enrollments')
                                 ->where('semester_id', $this->semesterId)
                                 ->get()
                                 ->groupBy('course.code');
