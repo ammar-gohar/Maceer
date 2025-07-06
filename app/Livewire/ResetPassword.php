@@ -12,14 +12,14 @@ use Livewire\Component;
 class ResetPassword extends Component
 {
 
-    public $current_password;
+    public $password;
     public $new_password;
     public $new_password_confirmation;
 
     public function rules()
     {
         return [
-            'current_password' => ['bail', 'required', 'string', 'password'],
+            'password' => ['bail', 'required', 'string', 'password'],
             'new_password' => ['bail', 'required', 'string', 'confirmed', Password::min(8)->letters()->mixedCase()->numbers()->symbols()],
         ];
     }

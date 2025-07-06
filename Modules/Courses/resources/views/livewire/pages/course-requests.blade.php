@@ -31,8 +31,8 @@
                 </div>
             </div>
             <div class="mb-2 row">
-                <h6 class="col-6">@lang('modules.students.guide'):</h6>
-                <h6 class="text-danger col-6">@lang('modules.courses.enrollment_end'):</h6>
+                <h6 class="col-6">@lang('modules.students.guide'): {{ Auth::user()->student->guide }}</h6>
+                <h6 class="text-danger col-6">@lang('modules.courses.enrollment_end'): {{ Auth::user()-> }}</h6>
             </div>
         </div>
         <!--begin::Form-->

@@ -87,7 +87,7 @@
                                                     </div>
                                                 @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
                                                     <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
-                                                        <h4>@lang('forms.create')</h4>
+                                                        <h4>@lang('forms.add')</h4>
                                                     </button>
                                                 @else
                                                     <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
@@ -140,7 +140,7 @@
                                                     </div>
                                                 @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
                                                     <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
-                                                        <h4>@lang('forms.create')</h4>
+                                                        <h4>@lang('forms.add')</h4>
                                                     </button>
                                                 @else
                                                     <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
@@ -194,7 +194,7 @@
                                                     </div>
                                                 @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
                                                     <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
-                                                        <h4>@lang('forms.create')</h4>
+                                                        <h4>@lang('forms.add')</h4>
                                                     </button>
                                                 @else
                                                     <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
@@ -248,7 +248,7 @@
                                                     </div>
                                                 @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
                                                     <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
-                                                        <h4>@lang('forms.create')</h4>
+                                                        <h4>@lang('forms.add')</h4>
                                                     </button>
                                                 @else
                                                     <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
@@ -302,7 +302,7 @@
                                                     </div>
                                                 @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
                                                     <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
-                                                        <h4>@lang('forms.create')</h4>
+                                                        <h4>@lang('forms.add')</h4>
                                                     </button>
                                                 @else
                                                     <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
@@ -357,7 +357,7 @@
                                                     </div>
                                                 @elseif (!$courseEnrollment || ($courseEnrollment->final_gpa <= 1 && $courseEnrollment->final_gpa != null))
                                                     <button class="hover" wire:click='enroll_course("{{ $course->course->id }}", "{{ $course->id }}")'>
-                                                        <h4>@lang('forms.create')</h4>
+                                                        <h4>@lang('forms.add')</h4>
                                                     </button>
                                                 @else
                                                     <button class="hover btn btn-danger bg-danger" wire:click='delete_enroll_course("{{ $courseEnrollment->id }}")' wire:confirm='Are you sure?'>
