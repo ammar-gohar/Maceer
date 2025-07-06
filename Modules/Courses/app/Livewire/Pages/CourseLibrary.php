@@ -32,11 +32,11 @@ class CourseLibrary extends Component
 
         $this->course = Course::with(['media'])->where('code', $code)->first();
 
-        if(Auth::user()->hasRole('professor') && !Auth::user()->current_teaching->contains('course_id', $this->course->id)) {
+        if(Auth::user()->hasRole('professor') && !Auth::user()->current_teaching->contains('id', $this->course->id)) {
 
             return $this->redirect('/courses/professor-courses');
 
-        } else if (Auth::user()->hasRole('student') && !Auth::user()->current_enrolled_courses->contains('course_id', $this->course->id)) {
+        } else if (Auth::user()->hasRole('student') && !Auth::user()->current_enrolled_courses->contains('id', $this->course->id)) {
 
             return $this->redirect('/courses/student-courses');
 

@@ -86,7 +86,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Course::class, 'enrollments', 'student_id', 'course_id')
                     ->whereNotNull('approved_at')
-                    ->whereHas('semester', fn($q) => $q->where('is_current', 1));
+                    ->withPivot(['semester_id', 'approved_at'])
+                    ->wherePivot('approved_at', 'not', 'null')
+                    ->wherePivot('semester_id', Semester::where('is_current', 1)->first()->id);
     }
 
     // =================================================================================
