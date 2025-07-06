@@ -1,11 +1,13 @@
 <x-page title="sidebar.students.guidence" module="students">
     <div class="card-body">
         @can('students.guidence.edit')
-            <div class="row">
-                <button type="button" class="w-auto btn btn-dark" wire:click='showGuidesModal()'>
-                    @lang('modules.professors.guides')
-                </button>
-            </div>
+            @if (Auth::user()->hasRole('Super Admin'))
+                <div class="row">
+                    <button type="button" class="w-auto btn btn-dark" wire:click='showGuidesModal()'>
+                        @lang('modules.professors.guides')
+                    </button>
+                </div>
+            @endif
         @endcan
         {{-- FILTERS --}}
         <div class="p-2 my-3 row" style="font-size: 1rem;">
@@ -92,8 +94,8 @@
                                 <td>{{ $student->gender == 'm' ? __('forms.male') : __('forms.female') }}</td>
                                 <td>{{ $student->level }}</td>
                                 @unless (Auth::user()->hasRole('Super Admin'))
-                                    <td>{{ $student->student?->total_earned_credits }}</td>
-                                    <td>{{ $student->student?->gpa }}</td>
+                                    <td>{{ $student->credits }}</td>
+                                    <td>{{ $student->gpa }}</td>
                                 @else
                                     <td>{{ $student->guide_name ?: '--'}}</td>
                                 @endunless
