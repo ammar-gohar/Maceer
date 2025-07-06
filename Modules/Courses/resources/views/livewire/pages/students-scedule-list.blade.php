@@ -1,36 +1,6 @@
 <x-page title="sidebar.courses.schedule-list" module="courses">
 
     <div class="card-body" style="overflow-x: scroll;">
-        {{-- <div class="p-2 my-3 row">
-            <div class="col-md-6">
-                <input type="text" name="" id="" placeholder="{{ App::isLocale('ar') ? 'بحث...' : 'Search...' }}" class="form-control fs-5">
-            </div>
-            <div class="dropdown col-md-1 offset-5">
-                <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-filter"></i>
-                </button>
-                <div class="p-2 dropdown-menu" style="z-index: 999;">
-                    <div class="form-group">
-                        <label for="levelFilter">@lang('modules.students.level')</label>
-                        <select id="levelFilter" class="form-select form-control">
-                            <option value="">All</option>
-                            <option value="">Freshman</option>
-                            <option value="">Sophomore</option>
-                            <option value="">Junior</option>
-                            <option value="">Senior - 1</option>
-                            <option value="">Senior - 2</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <select id="trashFilter" class="form-select form-control" wire:model.change='trashFilter'>
-                            <option value="undeleted" {{ $trashFilter == 'undeleted' ? 'selected' : '' }}>@lang('filters.undeleted')</option>
-                            <option value="all" {{ $trashFilter == 'all' ? 'selected' : '' }}>@lang('filters.all')</option>
-                            <option value="trashed" {{ $trashFilter == 'trashed' ? 'selected' : '' }}>@lang('filters.trashed')</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         @if ($courses->count() > 0)
             <table class="table table-bordered table-striped">
                 <thead>
@@ -52,7 +22,10 @@
                             <td>{{ $course->course->level->name }}</td>
                             <td>{{ $course->level->name }}</td>
                             <td>{{ $course->current_semester_schedule }}</td>
-                            <td style="white-space: nowrap;">
+                            <td>
+                                <a href="{{ route('courses.library', ['code' => $course->code]) }}" class="btn btn-sm btn-warning" title="{{ App::isLocale('ar') ? 'المكتبة' : 'Library' }}">
+                                    <i class="bi bi-folder-fill"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
