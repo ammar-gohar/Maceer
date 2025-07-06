@@ -104,20 +104,22 @@
                                 </td>
                                 <td style="white-space: nowrap;">
                                     @can('students.guidence.edit')
-                                        <button class="btn btn-sm btn-danger"
-                                            wire:confirm='Are you sure you want to delete this?'
-                                            wire:click='remove_guidence("{{ $student->student_id }}")'
-                                            >
-                                                {{ App::isLocale('ar') ? 'إزالة الإرشاد' : 'Remove Guidence' }}
-                                        </button>
-                                        <button class="btn btn-sm btn-primary"
-                                            wire:click='show_modal("{{ $student->student_id }}", "{{ $student->name }}", "{{ $student->guide_id }}")'
-                                            >
-                                                {{ App::isLocale('ar') ? 'تغيير المرشد' : 'Change guide' }}
-                                        </button>
+                                        @if (Auth::user()->hasRole('Super Admin'))
+                                            <button class="btn btn-sm btn-danger"
+                                                wire:confirm='Are you sure you want to delete this?'
+                                                wire:click='remove_guidence("{{ $student->student_id }}")'
+                                                >
+                                                    {{ App::isLocale('ar') ? 'إزالة الإرشاد' : 'Remove Guidence' }}
+                                            </button>
+                                            <button class="btn btn-sm btn-primary"
+                                                wire:click='show_modal("{{ $student->student_id }}", "{{ $student->name }}", "{{ $student->guide_id }}")'
+                                                >
+                                                    {{ App::isLocale('ar') ? 'تغيير المرشد' : 'Change guide' }}
+                                            </button>
+                                        @endif
                                     @endcan
                                     @can('students.guidence')
-                                        @if (!Auth::user()->hasRole('Super Admin'))
+                                        @unless (Auth::user()->hasRole('Super Admin'))
                                             @if ($semesterId)
                                                 @if ($student->paied_at)
                                                     <button class="btn btn-sm btn-danger"
