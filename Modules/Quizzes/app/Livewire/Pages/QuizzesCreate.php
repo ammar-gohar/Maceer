@@ -48,7 +48,13 @@ class QuizzesCreate extends Component
     public function change_tab()
     {
         if($this->currentTab['show'] == 1) {
-            $this->validate();
+            $this->validate(attributes: [
+                'title',
+                'duration_minutes',
+                'start_time',
+                'end_time',
+                'description',
+            ]);
             $this->currentTab['show'] = 2;
             $this->currentTab['btn'] = __('forms.back');
         } else {
@@ -107,7 +113,7 @@ class QuizzesCreate extends Component
         return [
             'title'                             => 'bail|required|string',
             'description'                       => 'bail|nullable',
-            'start_time'                        => 'bail|required|date|after_or_equal:tomorrow',
+            // 'start_time'                        => 'bail|required|date|after_or_equal:tomorrow',
             'end_time'                          => 'bail|required|date|after:start_time',
             'duration_minutes'                  => 'bail|required|integer|min:0',
             'questions.*.question_text'         => 'bail|required|string',
