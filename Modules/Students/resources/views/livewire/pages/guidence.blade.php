@@ -123,7 +123,7 @@
                                     @can('students.guidence')
                                         @unless (Auth::user()->hasRole('Super Admin'))
                                             @if ($semesterId)
-                                                @if ($student->receipt_paied_at)
+                                                @if ($student->receipt_paied_at && $student->enrollments)
                                                     <button class="btn btn-sm btn-danger"
                                                     wire:click='approve_enrollments("{{ $student->id }}")'
                                                     >
