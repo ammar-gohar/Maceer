@@ -39,14 +39,19 @@ class ProfessorCourseStudentList extends Component
         if(in_array($prop, ['midterm', 'work', 'final'])) {
             $additional = [];
 
-            if ($this->midterm && $this->work && $this->final) {
+            if($this->midterm < 0 || $this->work < 0 || $this->final < 0)
+            {
+                return notyf()->error(App::isLocale('ar') ? 'لا يمكنك إدخال رقم بالسالب' : 'You can\'t insert a negative number');
+
+            };
+
+            if ($this->midterm >= 0 && $this->work >= 0 && $this->final >= 0) {
 
                 $this->total = $this->midterm + $this->work + $this->final;
 
                 if($this->total > $this->enroll->course->full_mark)
                 {
-                    notyf()->error(App::isLocale('ar') ? 'عدد الدرجات أكبر من درجة المادة' : 'Total marks is more than course full mark');
-                    return;
+                    return notyf()->error(App::isLocale('ar') ? 'عدد الدرجات أكبر من درجة المادة' : 'Total marks is more than course full mark');
                 }
 
                 $totalPercentage = number_format($this->total / $this->enroll->course->full_mark * 100, 2);
@@ -117,15 +122,13 @@ class ProfessorCourseStudentList extends Component
                     ]);
                 }
 
+                $this->enroll->update([
+                    'midterm_exam' => $this->midterm,
+                    'work_mark'    => $this->work,
+                    'final_exam'   => $this->final,
+                    ...$additional,
+                ]);
             };
-
-            $this->enroll->update([
-                'midterm_exam' => $this->midterm,
-                'work_mark'    => $this->work,
-                'final_exam'   => $this->final,
-                ...$additional,
-            ]);
-
         }
     }
 
