@@ -3,6 +3,7 @@
 namespace Modules\Quizzes\Livewire\Pages;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Modules\Courses\Models\Course;
 use Modules\Quizzes\Models\Attemp;

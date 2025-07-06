@@ -11,27 +11,26 @@ class QuizzesShowProfessor extends Component
     public $quiz;
     public $attempt;
     public $answers;
-    public $mark;
+    public $marks = [];
+
+    public function mount()
+    {
+        $marks = $this->answers->pluck('marks_obtained')->toArray();
+    }
 
     public function change_mark($id)
     {
-        if($this->mark){
-            $answer = Answer::with(['attempt', 'question'])->find($id)->first();
+        $answer = Answer::with(['attempt', 'question'])->find($id)->first();
 
-            $this->validate(['mark' => 'bail|required|decimal:0,2|min:0|max:' . $answer->question->marks]);
+        $this->validate(['mark' => 'bail|required|decimal:0,2|min:0|max:' . $answer->question->marks]);
 
-            $markDiff = $answer->marks_obtained - $this->mark;
-            $answer->update([
-                'marks_obtained' => $this->mark,
-            ]);
-            $answer->attempt()->update([
-                'score' => $answer->attempt->score - $markDiff,
-            ]);
-
-            return notyf()->success(__('modules.quizzes.score_updated.success'));
-        } else {
-            return notyf()->error(__('modules.quizzes.score_updated.fail'));
-        }
+        $markDiff = $answer->marks_obtained - $this->mark;
+        $answer->update([
+            'marks_obtained' => $this->mark,
+        ]);
+        $answer->attempt()->update([
+            'score' => $answer->attempt->score - $markDiff,
+        ]);
     }
 
     public function render()

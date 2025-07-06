@@ -24,18 +24,17 @@
                             <div class="d-flex">
                                 <div class="me-2">
                                     <span>@lang('modules.quizzes.score'): </span>
-                                    <input 
-                                        type="number" 
-                                        min="0" 
-                                        max="{{ $question->marks }}" 
-                                        step="0.5" 
-                                        class="form-control" 
-                                        wire:model.fill.number.live='mark' 
-                                        value="{{ $studentAnswer?->marks_obtained ?: 0 }}" 
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        max="{{ $question->marks }}"
+                                        step="0.5"
+                                        class="form-control"
+                                        wire:model.fill.number.live='marks.{{ $index }}'
                                         style="display:inline; max-width:63px;">
                                     <span>/ {{ $question->marks }}</span>
                                 </div>
-                                
+
                                 <button wire:click='change_mark(["{{ $studentAnswer?->id }}"])' class="btn btn-dark">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
