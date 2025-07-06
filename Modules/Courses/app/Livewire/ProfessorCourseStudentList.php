@@ -48,6 +48,8 @@ class ProfessorCourseStudentList extends Component
                                 ->where('min_percentage', '<=', $totalPercentage)
                                 ->first();
 
+                dd($totalPercentage, $grade);
+
                 $additional = [
                     'total_mark'            => $this->total,
                     'total_mark_percentage' => $totalPercentage,
