@@ -19,7 +19,7 @@ class QuizzesShowProfessor extends Component
 
         $this->validate(['marks.'.$index => 'bail|required|decimal:0,2|min:0|max:' . $answer->question->marks]);
 
-        dd($this->marks);
+        dd($this->marks[$index]);
 
         $markDiff = $answer->marks_obtained - $this->marks[$index];
         $answer->update([
