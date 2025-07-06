@@ -125,7 +125,7 @@
                                             @if ($semesterId)
                                                 @if ($student->receipt_paied_at)
                                                     <button class="btn btn-sm btn-danger"
-                                                    wire:click='approve_enrollments("{{ $student->student_id }}")'
+                                                    wire:click='approve_enrollments("{{ $student->id }}")'
                                                     >
                                                             {{ App::isLocale('ar') ? 'تصديق تسجيل المقررات' : 'Approve Enrollments' }}
                                                     </button>
