@@ -75,7 +75,7 @@
                             @else
                                 <td style="white-space: nowrap;">
                                     @foreach ($course as $schedule)
-                                        {{ $schedule->current_enrollments_count }}
+                                        {{ $schedule->current_approved_enrollments_count }}
                                         @unless ($loop->last)
                                             <hr />
                                         @endunless
