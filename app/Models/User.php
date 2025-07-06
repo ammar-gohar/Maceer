@@ -82,6 +82,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Enrollment::class, 'student_id')->with(['course', 'schedule'])->whereHas('semester', fn($q) => $q->where('is_current', 1));
     }
 
+    public function current_approved_enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'student_id')->with(['course', 'schedule'])->whereHas('semester', fn($q) => $q->where('is_current', 1))->whereNotNull('approved_at');
+    }
+
     public function current_enrolled_courses()
     {
         return $this->belongsToMany(Course::class, 'enrollments', 'student_id', 'course_id')

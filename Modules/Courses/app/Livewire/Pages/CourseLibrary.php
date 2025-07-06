@@ -26,7 +26,6 @@ class CourseLibrary extends Component
     {
         $this->semesterId = Semester::where('is_current', 1)->first()?->id;
 
-        dd(Auth::user()->current_enrolled_courses);
         if (!$this->semesterId && Auth::user()->hasPermissionTo('semester')) {
             return $this->redirect('/semester');
         }
@@ -37,7 +36,7 @@ class CourseLibrary extends Component
 
             return $this->redirect('/courses/professor-courses');
 
-        } else if (Auth::user()->hasRole('student') && !Auth::user()->current_enrolled_courses->contains('id', $this->course->id)) {
+        } else if (Auth::user()->hasRole('student') && !Auth::user()->current_approved_enrollments->contains('course_id', $this->course->id)) {
 
             return $this->redirect('/courses/student-courses');
 
