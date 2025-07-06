@@ -15,7 +15,7 @@ class QuizzesShowProfessor extends Component
 
     public function change_mark($id, $index)
     {
-        $answer = Answer::with(['attempt', 'question'])->find($id)->first();
+        $answer = Answer::with(['attempt', 'question'])->find($id);
 
         $this->validate(['marks.'.$index => 'bail|required|decimal:0,2|min:0|max:' . $answer->question->marks]);
 
