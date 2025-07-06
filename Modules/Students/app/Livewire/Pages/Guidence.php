@@ -132,7 +132,7 @@ class Guidence extends Component
         $this->enrollmentsModal = [
             'id' => $studentId,
             'name' => $studentName,
-            'level' => $student->student->level->name,
+            'level' => $student->student?->level?->name,
             'gpa' => $student->student->gpa,
             'enrollments' => Enrollment::
                 with(['course', 'course.level', 'schedule'])
