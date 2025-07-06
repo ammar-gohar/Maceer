@@ -15,18 +15,17 @@ class QuizzesShowProfessor extends Component
 
     public function mount()
     {
-        $marks = $this->answers->pluck('marks_obtained')->toArray();
     }
 
-    public function change_mark($id)
+    public function change_mark($id, $index)
     {
         $answer = Answer::with(['attempt', 'question'])->find($id)->first();
 
         $this->validate(['mark' => 'bail|required|decimal:0,2|min:0|max:' . $answer->question->marks]);
 
-        $markDiff = $answer->marks_obtained - $this->mark;
+        $markDiff = $answer->marks_obtained - $this->marks[$index];
         $answer->update([
-            'marks_obtained' => $this->mark,
+            'marks_obtained' => $this->marks[$index],
         ]);
         $answer->attempt()->update([
             'score' => $answer->attempt->score - $markDiff,

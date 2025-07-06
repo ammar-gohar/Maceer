@@ -31,11 +31,12 @@
                                         step="0.5"
                                         class="form-control"
                                         wire:model.fill.number.live='marks.{{ $index }}'
+                                        value="{{ $studentAnswer?->marks_obtained ?: 0 }}"
                                         style="display:inline; max-width:63px;">
                                     <span>/ {{ $question->marks }}</span>
                                 </div>
 
-                                <button wire:click='change_mark(["{{ $studentAnswer?->id }}"])' class="btn btn-dark">
+                                <button wire:click='change_mark(["{{ $studentAnswer?->id }}", {{ $index }}])' class="btn btn-dark">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
                             </div>
