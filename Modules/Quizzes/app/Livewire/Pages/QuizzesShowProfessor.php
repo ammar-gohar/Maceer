@@ -29,7 +29,7 @@ class QuizzesShowProfessor extends Component
             'score' => $answer->attempt->score - $markDiff,
         ]);
 
-        dd($answer);
+        dd($markDiff, $answer);
 
         notyf()->success(__('modules.quizzes.score_updated.success'));
 
