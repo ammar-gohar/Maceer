@@ -14,6 +14,7 @@
                 @foreach($quiz->questions as $index => $question)
                     @php
                         $studentAnswer = $answers->where('question_id', $question->id)->first();
+                        $marks[] = $studentAnswer?->marks_obtained ?: 0;
                         debugbar()->info($errors->all());
                     @endphp
                     <div class="p-3 mb-2 border rounded">
@@ -30,8 +31,7 @@
                                         max="{{ $question->marks }}"
                                         step="0.5"
                                         class="form-control"
-                                        wire:model.fill.number.change='marks.{{ $index }}'
-                                        value="{{ $studentAnswer?->marks_obtained ?: 0 }}"
+                                        wire:model.number.change='marks.{{ $index }}'
                                         style="display:inline; max-width:63px;">
                                     <span>/ {{ $question->marks }}</span>
                                 </div>
