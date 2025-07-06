@@ -32,7 +32,7 @@
             </div>
             <div class="mb-2 row">
                 <h6 class="col-6">@lang('modules.students.guide'): {{ Auth::user()->student->guide->first_name . ' ' . Auth::user()->student->guide->last_name }}</h6>
-                <h6 class="text-danger col-6">@lang('modules.courses.enrollment_end'):</h6>
+                <h6 class="text-danger col-6">@lang('modules.courses.enrollment_end'): {{ $enroll_end }}</h6>
             </div>
         </div>
         <!--begin::Form-->
