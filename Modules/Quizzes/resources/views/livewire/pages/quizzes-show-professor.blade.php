@@ -36,7 +36,7 @@
                                     <span>/ {{ $question->marks }}</span>
                                 </div>
 
-                                <button wire:click='change_mark(["{{ $studentAnswer?->id }}", {{ $index }}])' class="btn btn-dark">
+                                <button wire:click='change_mark("{{ $studentAnswer?->id }}", {{ $index }})' class="btn btn-dark">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
                             </div>

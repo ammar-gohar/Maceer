@@ -12,11 +12,7 @@ class QuizzesShowProfessor extends Component
     public $attempt;
     public $answers;
     public $marks = [];
-
-    public function mount()
-    {
-    }
-
+    
     public function change_mark($id, $index)
     {
         $answer = Answer::with(['attempt', 'question'])->find($id)->first();
