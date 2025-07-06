@@ -219,6 +219,7 @@ class Guidence extends Component
             ->whereHas('student', fn($q) => $q->where('guide_id', Auth::id()))
         )
         ->select([
+            'useres.id',
             DB::raw('CONCAT_WS(" ", users.`first_name`, users.`middle_name`, users.`last_name`) as name'),
             DB::raw('CONCAT_WS(" ", guides.`first_name`, guides.`last_name`) as guide_name'),
             'users.national_id',
