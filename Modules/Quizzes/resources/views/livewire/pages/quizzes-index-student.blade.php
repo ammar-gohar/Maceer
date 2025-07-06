@@ -84,7 +84,7 @@
                             </ul>
                         </div>
                         <div class="px-3 modal-footer">
-                            <a href="{{ route('quizzes.show-student', $showModal) }}" class="btn btn-dark">
+                            <a href="{{ route('quizzes.take-quiz', $showModal) }}" class="btn btn-dark">
                                 <i class="fa-solid fa-pen "></i>
                                 @lang('modules.quizzes.take_quiz')
                             </a>
