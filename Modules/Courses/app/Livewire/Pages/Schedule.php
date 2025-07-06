@@ -121,9 +121,16 @@ class Schedule extends Component
             'schedule_id' => $scheduleId
         ]);
 
-        $receipt = Receipt::firstOrCreate([
+        Enrollment::where('student_id', Auth::id())->where('semester_id', $this->semesterId)->update([
+            'approved_at' => null,
+        ]);
+
+        $receipt = Receipt::updateOrCreate([
             'student_id' => Auth::id(),
             'semester_id' => $this->semesterId,
+        ],[
+            'paied_at' => null,
+            'receipt_number' => null,
         ]);
 
         $receipt->update([
