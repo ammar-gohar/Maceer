@@ -76,6 +76,40 @@ class ProfessorCourseStudentList extends Component
                     };
                 }
 
+                if($student)
+                {
+                    $fGpa = $totalQulaity / $totalCredits;
+
+                    $level = Level::where('min_credits', '<=', $totalCredits)
+                                    ->orderBy('number', 'desc')
+                                    ->first();
+
+                    $max = 18;
+                    switch ($fGpa) {
+                        case $fGpa >= 3.0:
+                            $max = 21;
+                            break;
+                        case $fGpa >= 2.0:
+                            $max = 18;
+                            break;
+                        default:
+                            $max = 15;
+                            break;
+                    };
+
+                    $student->student->update([
+                        'gpa' => $fGpa,
+                        'quality_points' => $totalQulaity,
+                        'level_id' => $level->id,
+                        'unversity_elected_earned_credits' => $ueec,
+                        'faculty_elected_earned_credits' => $feec,
+                        'program_elected_earned_credits' => $peec,
+                        'core_earned_credits' => $cec,
+                        'total_earned_credits' => $totalCredits,
+                        'maximum_credits_to_enroll' => $max,
+                    ]);
+                }
+
             };
 
             $this->enroll->update([
@@ -84,40 +118,6 @@ class ProfessorCourseStudentList extends Component
                 'final_exam'   => $this->final,
                 ...$additional,
             ]);
-
-            if($student)
-            {
-                $fGpa = $totalQulaity / $totalCredits;
-
-                $level = Level::where('min_credits', '<=', $totalCredits)
-                                ->orderBy('number', 'desc')
-                                ->first();
-
-                $max = 18;
-                switch ($fGpa) {
-                    case $fGpa >= 3.0:
-                        $max = 21;
-                        break;
-                    case $fGpa >= 2.0:
-                        $max = 18;
-                        break;
-                    default:
-                        $max = 15;
-                        break;
-                };
-
-                $student->student->update([
-                    'gpa' => $fGpa,
-                    'quality_points' => $totalQulaity,
-                    'level_id' => $level->id,
-                    'unversity_elected_earned_credits' => $ueec,
-                    'faculty_elected_earned_credits' => $feec,
-                    'program_elected_earned_credits' => $peec,
-                    'core_earned_credits' => $cec,
-                    'total_earned_credits' => $totalCredits,
-                    'maximum_credits_to_enroll' => $max,
-                ]);
-            }
 
         }
     }
