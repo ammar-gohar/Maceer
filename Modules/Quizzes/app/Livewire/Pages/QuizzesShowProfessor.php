@@ -27,7 +27,7 @@ class QuizzesShowProfessor extends Component
             'score' => array_sum($this->answers->pluck('marks_obtained')->toArray()),
         ]);
 
-        dd ($this->answers->pluck('marks_obtained')->toArray(), $this->marks, $answer->attempt->score);
+        dd (array_reverse($this->answers->pluck('marks_obtained')->toArray()), $this->marks, $answer->attempt->score);
 
         notyf()->success(__('modules.quizzes.score_updated.success'));
 
