@@ -75,7 +75,7 @@
                                 </td>
                                 <td>
                                     @foreach ($course as $schedule)
-                                        <a href="{{ route('courses.library', ['code' => $schedule->course_id]) }}" class="btn btn-sm btn-warning" title="{{ App::isLocale('ar') ? 'المكتبة' : 'Library' }}">
+                                        <a href="{{ route('courses.library', ['code' => $schedule->course->code]) }}" class="btn btn-sm btn-warning" title="{{ App::isLocale('ar') ? 'المكتبة' : 'Library' }}">
                                             <i class="bi bi-folder-fill"></i>
                                         </a>
                                     @endforeach
