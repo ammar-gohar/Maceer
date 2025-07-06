@@ -35,10 +35,10 @@
                                         style="display:inline; max-width:63px;">
                                     <span>/ {{ $question->marks }}</span>
                                 </div>
-
                                 <button wire:click='change_mark("{{ $studentAnswer?->id }}", {{ $index }})' class="btn btn-dark">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
+
                             </div>
                         </div>
                         @if ($question->type === 'mcq')
