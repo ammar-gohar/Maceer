@@ -49,11 +49,11 @@ class QuizzesCreate extends Component
     {
         if($this->currentTab['show'] == 1) {
             $this->validate(attributes: [
-                'title',
-                'duration_minutes',
-                'start_time',
-                'end_time',
-                'description',
+                $this->title,
+                $this->duration_minutes,
+                $this->start_time,
+                $this->end_time,
+                $this->description,
             ]);
             $this->currentTab['show'] = 2;
             $this->currentTab['btn'] = __('forms.back');
