@@ -2,6 +2,7 @@
 
 namespace Modules\Quizzes\Livewire\Pages;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -48,13 +49,7 @@ class QuizzesCreate extends Component
     public function change_tab()
     {
         if($this->currentTab['show'] == 1) {
-            // $this->validate(attributes: [
-            //     'title',
-            //     'duration_minutes',
-            //     'start_time',
-            //     'end_time',
-            //     'description',
-            // ]);
+            $this->validate(Arr::only($this->rules(), ['title', 'description', 'start_time', 'end_time', 'duration_minutes']));
             $this->currentTab['show'] = 2;
             $this->currentTab['btn'] = __('forms.back');
         } else {
