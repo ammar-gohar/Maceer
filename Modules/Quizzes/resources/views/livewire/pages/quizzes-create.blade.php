@@ -91,8 +91,6 @@
                                             <select class="form-select" wire:model.change="questions.{{ $index }}.type">
                                                 <option value="mcq">@lang('modules.quizzes.question_type.mcq')</option>
                                                 <option value="true_false">@lang('modules.quizzes.question_type.true_false')</option>
-                                                <option value="short_answer">@lang('modules.quizzes.question_type.short_answer')</option>
-                                                <option value="long_answer">@lang('modules.quizzes.question_type.long_answer')</option>
                                             </select>
                                             @error('questions.{{ $index }}.type')
                                                 <div class="invalid-feedback">
@@ -159,21 +157,6 @@
                                                         <label for="questions.{{ $index }}.correct_answer.false" class="form-check-label"><i class="fa fa-x text-danger" aria-hidden="true"></i> @lang('modules.quizzes.false')</label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @elseif ($question['type'] === 'short_answer')
-                                            <div class="mb-3">
-                                                <label class="form-label">@lang('modules.quizzes.correct_answer')</label>
-                                                <input type="text" class="form-control" wire:model.change="questions.{{ $index }}.correct_answer">
-                                                @error('questions.{{ $index }}.correct_answer')
-                                                    <div class="invalid-feedback">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                        @elseif ($question['type'] === 'long_answer')
-                                            <div class="mb-3">
-                                                <label class="form-label">@lang('modules.quizzes.correct_answer')</label>
-                                                <textarea class="form-control" rows="3" wire:model.change="questions.{{ $index }}.correct_answer"></textarea>
                                             </div>
                                         @endif
                                     </div>

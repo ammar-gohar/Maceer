@@ -25,19 +25,8 @@
                             <div class="d-flex">
                                 <div class="me-2">
                                     <span>@lang('modules.quizzes.score'): </span>
-                                    <input
-                                        type="number"
-                                        min="0"
-                                        max="{{ $question->marks }}"
-                                        step="0.5"
-                                        class="form-control"
-                                        wire:model.number.change='marks.{{ $index }}'
-                                        style="display:inline; max-width:63px;">
-                                    <span>/ {{ $question->marks }}</span>
+                                    <span>{{ $studentAnswer?->marks_obtained }}</span>
                                 </div>
-                                <button wire:click='change_mark("{{ $studentAnswer?->id }}", {{ $index }})' class="btn btn-dark">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
 
                             </div>
                         </div>
@@ -87,11 +76,6 @@
                                     @lang('modules.quizzes.false')
                                 </h6>
                             </div>
-                        @elseif (in_array($question->type, ['short_answer', 'long_answer']))
-                            <p class="mt-2 alert {{ $studentAnswer?->is_correct ? 'alert-success' : 'alert-danger' }}">
-                                {{ $studentAnswer->answer_text }}
-                            </p>
-                        @endif
                     </div>
                 @endforeach
             </div>
