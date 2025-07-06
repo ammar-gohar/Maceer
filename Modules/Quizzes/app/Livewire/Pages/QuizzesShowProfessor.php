@@ -12,12 +12,12 @@ class QuizzesShowProfessor extends Component
     public $attempt;
     public $answers;
     public $marks = [];
-    
+
     public function change_mark($id, $index)
     {
         $answer = Answer::with(['attempt', 'question'])->find($id)->first();
 
-        $this->validate(['mark' => 'bail|required|decimal:0,2|min:0|max:' . $answer->question->marks]);
+        $this->validate(['marks.'.$index => 'bail|required|decimal:0,2|min:0|max:' . $answer->question->marks]);
 
         $markDiff = $answer->marks_obtained - $this->marks[$index];
         $answer->update([
