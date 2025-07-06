@@ -155,12 +155,22 @@ class Schedule extends Component
             'students_enrollments_number' => $schedule->students_enrollments_number - 1,
         ]);
 
-        $receipt = Receipt::where('student_id', Auth::id())->where('semester_id', $this->semesterId)->first();
+        Enrollment::where('student_id', Auth::id())->where('semester_id', $this->semesterId)->update([
+            'approved_at' => null,
+        ]);
+
+        $receipt = Receipt::updateOrCreate([
+            'student_id' => Auth::id(),
+            'semester_id' => $this->semesterId,
+        ],[
+            'paied_at' => null,
+            'receipt_number' => null,
+        ]);
 
         $receipt->update([
-            'number_credits' => $receipt->number_credits - $enrollment->course->credits,
+            'number_credits' => $receipt->number_credits + $enrollment->course->credits,
             'credit_cost' => 400,
-            'total_cost' => 400 * ($receipt->number_credits - $enrollment->course->credits),
+            'total_cost' => 400 * ($receipt->number_credits + $enrollment->course->credits),
         ]);
 
         $enrollment->delete();
