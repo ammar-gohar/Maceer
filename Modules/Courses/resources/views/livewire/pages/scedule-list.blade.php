@@ -42,6 +42,7 @@
                         <th>@lang('modules.courses.schedule')</th>
                         @if(Auth::user()->hasPermissionTo('courses.enrollment') && !Auth::user()->hasRole('Super Admin'))
                             <th>@lang('modules.halls.hall')</th>
+                            <th></th>
                         @else
                             <th>@lang('modules.courses.enrollments_count')</th>
                             <th></th>
@@ -70,6 +71,13 @@
                                         @unless ($loop->last)
                                             <hr />
                                         @endunless
+                                    @endforeach
+                                </td>
+                                <td>
+                                    @foreach ($course as $schedule)
+                                        <a href="{{ route('courses.library', ['code' => $schedule->course_id]) }}" class="btn btn-sm btn-warning" title="{{ App::isLocale('ar') ? 'المكتبة' : 'Library' }}">
+                                            <i class="bi bi-folder-fill"></i>
+                                        </a>
                                     @endforeach
                                 </td>
                             @else
