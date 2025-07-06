@@ -113,6 +113,9 @@
                                             <a href="{{ $file->path() }}" target="_blank" class="btn btn-outline-dark btn-sm" download>
                                                 <i class="bi bi-download"></i>
                                             </a>
+                                            <a href="{{ $file->getPath() }}" target="_blank" class="btn btn-outline-dark btn-sm" download>
+                                                <i class="bi bi-download"></i>
+                                            </a>
                                         </div>
 
                                         <small class="text-muted">
