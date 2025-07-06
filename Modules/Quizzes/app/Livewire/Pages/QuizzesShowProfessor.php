@@ -31,7 +31,7 @@ class QuizzesShowProfessor extends Component
 
         dd($answer);
 
-        notyf()->success(__('modules.quizzes.score_updated.success'))
+        notyf()->success(__('modules.quizzes.score_updated.success'));
 
     }
 
