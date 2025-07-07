@@ -38,7 +38,7 @@ class Semester extends Component
             'name' => 'bail|required|string|unique:semesters,id,' . $this->id,
             'start_date' => 'bail|required|before:end_date',
             'end_date' => 'bail|required|after:start_date',
-            'requests_start_date' => 'bail|required|before:end_date|after:start_date',
+            'reqs_start_date' => 'bail|required|before:end_date|after:start_date',
             'enrolls_start_date' => 'bail|required|before:end_date|after:reqs_start_date',
             'enrolls_end_date' => 'bail|required|after:enrolls_start_date|before:end_date',
         ];
