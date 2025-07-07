@@ -17,6 +17,8 @@ return [
     'male'   => 'Male',
     'sign_in' => 'Log In',
     'forgot_pswrd' => 'Forgot password?',
+    'save' => 'Save',
+    'search'=> 'searching...',
 
     'description' => 'Description',
 
@@ -32,6 +34,8 @@ return [
 
     'add_role' => 'Add new role',
     'edit_role' => 'Edit role data',
+
+    'send' => 'Send',
 
     'create' => 'Create',
     'creating' => 'Creating',
@@ -67,6 +71,9 @@ return [
     'title' => 'Title',
     'duration' => 'Duration (Minutes)',
     'start_date' => 'Start date',
+    'reqs_start_date' => 'Courses requests start date',
+    'enrolls_start_date' => 'Courses registering start date',
+    'enrolls_end_date' => 'Courses registering end date',
     'end_date' => 'End date',
     'start_semester' => 'Start semester',
     'end_semester' => 'End date',
@@ -92,5 +99,22 @@ return [
 
     'passwords' => [
         'send_email' => 'Reset',
-    ]
+    ],
+    'uploading' => 'Uploading...',
+    'image' => 'Image',
+    'image_info' => 'Image must be less than 1 MB, and with ratio (3:4)',
+    'approve' => 'Approve',
+    'reject' => 'Reject',
+
+    'current_password' => 'Current password',
+    'new_password' => 'New password',
+    'new_password_confirmation' => 'New password confirmation',
+    'reset_password' => 'Reset password',
+    'reset_password_sent' => 'An email sent for reset',
+    'password_reseted' => 'Password reseted',
+
+    'notes' => 'Notes',
+    'fullfill' => 'Fullfill',
+    'remove' => 'Remove',
+    'prerequest' => 'prerequest',
 ];

@@ -18,6 +18,8 @@ return [
     'wednesday' => 'Wednesday',
     'thursday' => 'Thursday',
     'day' => 'Today',
+
+    'unavailable_page' => 'This page is unavailable',
     'passwords' => [
         'reset' => 'Reset Password',
     ],
@@ -27,4 +29,6 @@ return [
         'asc' => 'Ascending',
         'desc' => 'Descending',
     ],
+    'print' => 'Print',
+    'rights' => 'All rights reserved',
 ];

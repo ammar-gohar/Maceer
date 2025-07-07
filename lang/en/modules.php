@@ -26,6 +26,8 @@ return [
         'success' => [
             'store' => 'Student created successfully',
             'update' => 'Student information updated successfully',
+            'guidence_removed' => 'Academic advisor removed successfully',
+            'enrollment_approved' => 'Enrollment approved successfully',
         ],
         'create' => 'Add Student',
         'show' => 'Show Student :name Information',
@@ -42,6 +44,9 @@ return [
         'action' => 'Actions',
         'guide' => 'Academic Advisor',
         'head_teacher' => 'Academic Advisor',
+        'approved_at' => 'Acceptance Date',
+        'current_gpa' => 'Current GPA',
+        'target_gpa' => 'Target GPA',
     ],
 
     'professors' => [
@@ -55,7 +60,13 @@ return [
         'edit' => 'Edit Professor Information',
         'success' => [
             'update' => 'Updated successfully',
-        ]
+            'store' => 'Professor created successfully',
+        ],
+        'guides' => 'Academic Advisers',
+        'add_guide' => 'Add Academic Adviser',
+        'guide_students' => 'Distribute Students',
+        'guide_students_success' => 'Distributed successfully',
+        'guidence_count' => 'Number of Students',
     ],
 
 
@@ -72,6 +83,7 @@ return [
 
     'courses' => [
         'course' => 'Course',
+        'name' => 'Course Name',
         'name_en' => 'Name in English',
         'name_ar' => 'Name in Arabic',
         'code' => 'Code',
@@ -117,7 +129,9 @@ return [
             'success' => 'File uploaded successfully',
             'click_to_remove' => 'Click to remove',
             'please_wait' => 'Please wait...'
-        ]
+        ],
+        'students_enrolled' => 'Students Enrolled',
+        'enrollments_ended' => 'Enrollments ended',
     ],
 
     'halls' => [
@@ -151,6 +165,7 @@ return [
     'semester' => [
         'success' => [
             'start' => 'New semester started',
+            'update' => 'Semester updated successfully',
             'end' => 'Current semester ended',
         ],
     ],
@@ -216,6 +231,38 @@ return [
         'download_schedule_zip' => 'Download Schedule Zip',
         'download_csv' => 'Download CSV',
         'generate_new' => 'Generate New Schedule',
+        'print' => 'Print',
+        'requested_at' => 'Requested At',
+        'fullfilled_at' => 'Fullfilled At',
+        'type' => 'Type',
+        'requested_at' => 'Requested At',
+        'printed_at' => 'Printed At',
+        'language' => 'Language',
+        'student' => 'Student',
+        'concern' => 'Concern',
+        'fees' => 'Fees',
+        'enrollment_fees' => 'Enrollment Fees',
+
+        'transcript' => 'Transcript',
+        'registeration_proof' => 'Registeration Proof',
+        're-garding' => 'Regarding',
+
+        'request_sent' => 'تم ارسال الطلب',
+        'fullfilling' => 'Fullfilling',
+        'fullfilled' => 'Fullfilled',
+        'not_fullfilled' => 'Not Fullfilled',
+
+        'number_credits' => 'Number of Credits',
+        'credit_cost' => 'Credit Cost',
+        'total_cost' => 'Total Cost',
+        'paied_at' => 'Paied At',
+        'receipt_number' => 'Receipt Number',
+        'not_paied' => 'Not Paied',
+        'receipt_registered' => 'Receipt Registered',
+        'receipt_registered' => 'Receipt Canceled',
+        'gpa_calculator' => 'GPA calculator',
+        'signature' => 'Signature',
+        'course-students' => 'Students of course :course in semester :semester',
     ]
     
 ];

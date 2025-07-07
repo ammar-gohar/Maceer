@@ -96,6 +96,7 @@ return [
     'include_graphs' => 'تضمين رسم بياني للطلاب',
     'include_graphs_info' => 'الرسم البياني يستغرق لكل 1000 طالب 5 دقايق',
     'csv' => 'ملف CSV',
+    
     'passwords' => [
         'send_email' => 'اعادة تعيين',
     ],
