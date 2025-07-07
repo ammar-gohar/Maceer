@@ -15,7 +15,7 @@ class SceduleList extends Component
 
     public function mount()
     {
-        $this->semesterId = Semester::where('is_current', 1)->first()->id;
+        $this->semesterId = Semester::where('is_current', 1)->first()?->id;
     }
 
     public function render()
