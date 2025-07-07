@@ -54,7 +54,7 @@ Route::group([
         ->name('courses.professor-show');
 
         Route::get('/requests-stats', CourseRequestsStats::class)
-        // ->middleware(['auth', 'permission:courses.enrollment'])
+        ->middleware(['auth', 'role:Super Admin'])
         ->name('courses.requests-stats');
 
         Route::get('/requests', CourseRequests::class)
