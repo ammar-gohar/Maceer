@@ -49,7 +49,14 @@ class Semester extends Component
 
         $data = $this->validate();
 
-        ModelsSemester::create($data);
+        ModelsSemester::create([
+            'name' => $this->name,
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'requests_start_date' => $this->reqs_start_date,
+            'enrollments_start_date' => $this->enrolls_start_date,
+            'enrollments_end_date' => $this->enrolls_end_date,
+        ]);
 
         notyf()->success(__('modules.semester.success.start'));
     }
