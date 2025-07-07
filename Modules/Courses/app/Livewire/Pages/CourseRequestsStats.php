@@ -89,6 +89,7 @@ class CourseRequestsStats extends Component
                               THEN 1 ELSE 0 END) as other_requests')
         )
         ->leftJoin('students', 'course_requests.student_id', '=', 'students.id')
+        ->where('semester_id', $this->semesterId)
         ->groupBy('course_id')
         ->orderBy('graduating_students_requests')
         ->get();

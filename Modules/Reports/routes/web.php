@@ -25,6 +25,7 @@ Route::group([
 ], function () {
     // Route::resource('reports', ReportsController::class)->names('reports');
     Route::get('/exams/generator', ExamSchedule::class)
+        ->middleware(['role:Super Admin'])
         ->name('exam.schedule.generate');
 });
 
