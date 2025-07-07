@@ -16,7 +16,7 @@ use Modules\Semesters\Livewire\Pages\Semester;
 */
 
 Route::group([
-    'middleware' => ['auth'],
+    'middleware' => ['auth', 'permission:semester.settings'],
 ], function () {
     Route::get('/semester', Semester::class)->name('semester');
 });
