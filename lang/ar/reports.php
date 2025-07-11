@@ -13,7 +13,7 @@ return [
     'registeration_proof' => 'إثبات قيد',
     're-garding' => 'التماس إعادة رصد الدرجات',
     'request_sent' => 'أُرسل طلبك',
-    'fullfilled' => 'لم يُلبَّ بعد',
+    'fullfilled' => 'تم تلبية طبلك',
     'not_fullfilled' => 'لم يُلبَّ بعد',
 
     'number_credits' => 'عدد الساعات المعتمدة',

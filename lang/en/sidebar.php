@@ -29,6 +29,7 @@ return [
         'transfer' => 'Add transfered student',
         'edit'   => 'Edit a student',
         'guidence' => 'Academic advision',
+        'enrollments' => 'Enrollments',
     ],
 
     'roles' => [
@@ -39,16 +40,19 @@ return [
     ],
 
     'courses' => [ 
-    'title'  => 'Courses',
-    'index'   => 'View Courses',
-    'create' => 'Add Course',
-    'edit'   => 'Edit Course',
-    'schedule' => 'Course Schedule',
-    'student-schedule' => 'Registered Courses Schedule',
-    'requests' => 'Course Requests',
-    'my-courses' => 'My Courses',
-    'student-show' => 'Current Semester Courses',
-    'professor-show' => 'Teaching Courses',
+        'title'  => 'Courses',
+        'index'   => 'View Courses',
+        'create' => 'Add Course',
+        'edit'   => 'Edit Course',
+        'schedule' => 'Course Schedule',
+        'schedule-list' => 'List of Courses',
+        'student-schedule' => 'Registered Courses Schedule',
+        'requests' => 'Course Requests',
+        'my-courses' => 'My Courses',
+        'student-show' => 'Current Semester Courses',
+        'professor-show' => 'Teaching Courses',
+        'requests-stats' => 'Course Requests Stats',
+        'all-enrollments' => 'All Enrollments',
     ],
 
     'halls' => [
@@ -66,6 +70,14 @@ return [
         'edit' => 'Edit Exam',
         'index' => 'View Course Exams',
         'index-student' => 'View Exams',
+    ],
+
+    'reports' => [
+        'request' => 'Request Report',
+        'requests' => 'Reports Requests',
+        'index' => 'Reports Requests',
+        'receipt_register' => 'Receipt Register',
+        'docs_print' => 'Print Reports',
     ],
 
     'exam_schedule_generate' => 'Exam Schedule Generator',
