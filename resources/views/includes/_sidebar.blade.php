@@ -146,7 +146,7 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
 
                 <li class="nav-item">
-                    <a href="{{ route('assistant') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">
+                    <a href="{{ route('assistant') }}" class="nav-link">
                         <i class="nav-icon fas fa-graduation-cap"></i>
                         <p>@lang('sidebar.assistant')</p>
                     </a>
