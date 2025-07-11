@@ -34,7 +34,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-palette"></i>
+                        <i class="nav-icon fa-solid fa-house"></i>
                         <p>@lang('general.home')</p>
                     </a>
                 </li>
@@ -46,7 +46,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('semester') }}" class="nav-link {{ Route::is('semester') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-calendar-gear"></i>
+                        <i class="nav-icon fa-solid fa-calendar-days"></i>
                         <p>@lang('sidebar.semester')</p>
                     </a>
                 </li>
@@ -74,7 +74,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('docs.index') }}" class="nav-link {{ Route::is('docs.index') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-file-chart-column"></i>
+                        <i class="nav-icon fa-solid fa-file-lines"></i>
                         <p>@lang('sidebar.reports.index')</p>
                     </a>
                 </li>
@@ -87,7 +87,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('docs.create') }}" class="nav-link {{ Route::is('docs.create') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa-file-chart-column"></i>
+                        <i class="nav-icon fa-solid fa-file-circle-plus"></i>
                         <p>@lang('sidebar.reports.docs_print')</p>
                     </a>
                 </li>
@@ -101,7 +101,7 @@
                 @can('reports.receipts.register')
                     <li class="nav-item">
                         <a href="{{ route('receipt.register') }}" class="nav-link {{ Route::is('receipt.register') ? 'active' : '' }}">
-                            <i class="nav-icon fa-solid fa-file-chart-column"></i>
+                            <i class="nav-icon fa-solid fa-file-invoice"></i>
                             <p>@lang('sidebar.reports.receipt_register')</p>
                         </a>
                     </li>
@@ -122,7 +122,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('exam.schedule.generate') }}" class="nav-link {{ Route::is('exam.schedule.generate') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa fa-file-pen"></i>
+                        <i class="nav-icon fa-solid fa fa-clipboard-list"></i>
                         <p>@lang('sidebar.exam_schedule_generate')</p>
                     </a>
                 </li>
@@ -142,6 +142,17 @@
 
             </ul>
         @endcan
+
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-according="fa-solid false">
+
+                <li class="nav-item">
+                    <a href="{{ route('assistant') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-graduation-cap"></i>
+                        <p>@lang('sidebar.assistant')</p>
+                    </a>
+                </li>
+
+            </ul>
 
             @canany(['moderators.index', 'moderators.create'])
                 {{-- Moderators sidebar --}}
@@ -180,7 +191,7 @@
                     @endcan
                     @unless ((Auth::user()->professor && !Auth::user()->professor->is_guide))
                         @can('students.guidence')
-                            <x-sidebar-item icon="fa-solid fa-user-plus" route="students.guidence" />
+                            <x-sidebar-item icon="fa-solid fa-people-group" route="students.guidence" />
                         @endcan
                     @endunless
                 </x-sidebar-list>

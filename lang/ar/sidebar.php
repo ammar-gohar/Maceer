@@ -81,5 +81,6 @@ return [
     ],
 
     'exam_schedule_generate' => 'إنشاء جدول الامتحانات',
+    'assistant' => 'اللائحة',
 
 ];

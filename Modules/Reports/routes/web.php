@@ -44,6 +44,10 @@ Route::group([
         ->name('transcript')
         ->middleware('permission:reports.requests.fullfilling');
 
+    Route::get('/registration_proof/{id}/{lang?}', [ReportController::class, 'proof'])
+        ->name('proof')
+        ->middleware('permission:reports.requests.fullfilling');
+
     Route::get('/receipt/{studentId}', [ReportController::class, 'receipt'])
         ->name('receipt');
 

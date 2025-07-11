@@ -5,6 +5,7 @@
 <x-layouts.app title="{{ $title }}" >
     <div class="container mx-auto shadow to-print" dir="{{ $lang == 'ar' ? 'rtl' : 'ltr' }}" style="font-size: 1.25rem; position: relative;">
         <div style="position: absolute; top: 10px; left: 10px; font-size: 14px;" id="waterMark">
+            <span class="ms-1">{{ Auth::user()->full_name }}</span> |
             <img src="{{ asset('logo.png') }}" alt="logo" style="width: 50px;" class="me-1"> | <span class="ms-1">{{ now() }}</span>
         </div>
         <div id="printButton" class="p-5">

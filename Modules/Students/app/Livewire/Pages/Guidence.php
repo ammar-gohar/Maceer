@@ -223,7 +223,7 @@ class Guidence extends Component
             DB::raw('CONCAT_WS(" ", users.`first_name`, users.`middle_name`, users.`last_name`) as name'),
             DB::raw('CONCAT_WS(" ", guides.`first_name`, guides.`last_name`) as guide_name'),
             'users.national_id',
-            'academic_number',
+            'students.academic_number as academic_number',
             'users.gender as gender',
             'students.id as student_id',
             'students.guide_id as guide_id',

@@ -72,6 +72,8 @@ class CoursesCreate extends Component
     public function add_course()
     {
 
+        $this->validate();
+
         $course = Course::create([
             'code'        => $this->code,
             'name'        => $this->name,

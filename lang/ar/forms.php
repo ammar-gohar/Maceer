@@ -23,7 +23,7 @@ return [
     'description' => 'الوصف',
 
     'level' => 'المرحلة:',
-    'gpa' => 'GPA:',
+    'gpa' => 'المعدل:',
     'total_earned_credits' => 'إجمالي الساعات المكتسبة:',
 
     'add_student' => 'إضافة طالب جديد',
@@ -116,4 +116,5 @@ return [
     'fullfill' => 'تلبية',
     'remove' => 'أزل',
     'prerequest' => 'متطلب',
+    'academic_number' => 'الرقم الأكاديمي:',
 ];

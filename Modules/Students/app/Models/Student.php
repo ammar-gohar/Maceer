@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\Courses\Models\Course;
 use Modules\Enrollments\Models\Enrollment;
+use Modules\Grades\Models\Grade;
 use Modules\Levels\Models\Level;
 use Modules\Reports\Models\Receipt;
 use Modules\Students\Database\Factories\StudentFactory;
@@ -44,6 +45,11 @@ class Student extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getGradeAttribute()
+    {
+        return Grade::where('gpa', '<=', $this->gpa)->orderBy('created_at', 'asc')->first();
     }
 
     protected static function newFactory(): StudentFactory

@@ -21,11 +21,11 @@
 
         <livewire:components.show-item label="forms.gender" :data="$professor->gender == 'm' ? __('forms.male') : __('forms.female')" />
 
+
+        <livewire:reset-password>
+            <!--end::Body-->
+
     </div>
-
-    <livewire:reset-password>
-    <!--end::Body-->
-
 </x-page>
 
 </x-layouts.app>

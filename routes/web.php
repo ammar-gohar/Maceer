@@ -19,3 +19,7 @@ Route::get('/language/{lang?}', function($lang){
     };
     return back();
 });
+
+Route::get('assistant', function() {
+    return view('chatbot');
+})->name('assistant');

@@ -100,4 +100,23 @@ class ReportController extends Controller
             'lang' => $lang,
         ]);
     }
+
+    public function proof($id, $lang = null)
+    {
+        $request = ReportRequest::find($id);
+        $student = User::with(['enrollments', 'enrollments.course'])->find($request->student_id);
+        $semester = Semester::where('is_current', 1)->first();
+
+        if(!$semester){
+            $semester = Semester::find($student->enrollments->sortByDesc('created_at')->first()->semester_id);
+        };
+        
+        return view('reports::registeration_proof', [
+            'student' => $student,
+            'semester' => $semester,
+            'lang' => $lang,
+            'request' => $request,
+        ]);
+
+    }
 }

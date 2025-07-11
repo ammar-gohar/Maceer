@@ -16,7 +16,6 @@
                 <select name="type" id="type" wire:model.change='type' class="mt-2 form-select">
                     <option value="transcript">@lang('modules.reports.transcript')</option>
                     <option value="registeration_proof">@lang('modules.reports.registeration_proof')</option>
-                    <option value="re-garding">@lang('modules.reports.re-garding')</option>
                 </select>
             </div>
             <div class="my-2">

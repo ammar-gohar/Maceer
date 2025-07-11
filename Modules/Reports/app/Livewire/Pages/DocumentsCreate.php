@@ -3,6 +3,7 @@
 namespace Modules\Reports\Livewire\Pages;
 
 use App\Models\User;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -33,7 +34,7 @@ class DocumentsCreate extends Component
         $request = ReportRequest::create([
             'type' => $this->type,
             'student_id' => $student->id,
-            'language' => $this->language,
+            'language' => $this->language ?? App::getLocale(),
             'directed_to' => $this->concern,
             'notes' => $this->notes,
             'requested_at' => null,
@@ -48,7 +49,10 @@ class DocumentsCreate extends Component
                 break;
 
             case 'registeration_proof':
-                # code...
+                return $this->redirectRoute('reports.proof', [
+                    'id' => $request->id,
+                    'lang' => $request->language,
+                ]);
                 break;
 
             case 're-garding':

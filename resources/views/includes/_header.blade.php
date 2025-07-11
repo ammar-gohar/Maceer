@@ -71,7 +71,7 @@
 
             <!--begin::Menu Footer-->
             <li class="user-footer">
-                <a class="btn btn-secondary btn-flat">@lang('general.profile')</a>
+                <a href="{{ route('home') }}" class="btn btn-secondary btn-flat">@lang('general.profile')</a>
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
                     <button class="btn btn-default btn-flat float-end d-inline">@lang('general.logout')</button>

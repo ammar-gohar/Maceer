@@ -1,0 +1,27 @@
+{
+  "name": "ece-chatbot",
+  "version": "1.0.0",
+  "description": "A bilingual chatbot for Electrical and Computer Engineering program information",
+  "main": "chatbot.js",
+  "scripts": {
+    "start": "node chatbot.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "chatbot",
+    "education",
+    "engineering",
+    "arabic",
+    "english",
+    "bilingual"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

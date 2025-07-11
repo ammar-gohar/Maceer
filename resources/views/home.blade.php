@@ -21,10 +21,10 @@
 
         <livewire:components.show-item label="forms.gender" :data="$professor->gender == 'm' ? __('forms.male') : __('forms.female')" />
 
-    </div>
+        <livewire:reset-password>
+        <!--end::Body-->
 
-    <livewire:reset-password>
-    <!--end::Body-->
+    </div>
 
 </x-page>
 

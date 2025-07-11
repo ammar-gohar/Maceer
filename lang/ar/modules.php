@@ -18,12 +18,13 @@ return [
     ],
 
     'students' => [
+        'national_id' => 'الرقم القومي',
         'name' => 'اسم الطالب',
         'gender' => 'النوع',
         'credits' => 'الساعات المكتسبة',
         'level' => 'المرحلة',
         'academic_number' => 'الرقم الأكاديمي',
-        'gpa' => 'GPA',
+        'gpa' => 'المعدل',
         'success' => [
             'store' => 'نجح إنشاء طالب جديد',
             'update' => 'نجح تعديل بيانات الطالب',
@@ -45,8 +46,9 @@ return [
         'guide' => 'المرشد الأكاديمي',
         'head_teacher' => 'المرشد الأكاديمي',
         'approved_at' => 'تاريخ الموافقة على تسجيل المقررات',
-        'current_gpa' => 'GPA الحالي',
-        'target_gpa' => 'GPA المستهدف',
+        'current_gpa' => 'المعدل الحالي',
+        'target_gpa' => 'المعدل المطلوب',
+        'annual_gpa' => 'المعدل السنوي',
     ],
 
     'professors' => [
@@ -163,6 +165,8 @@ return [
     ],
 
     'semester' => [
+        'semester' => 'الفصل الدراسي',
+        'year' => 'العام',
         'success' => [
             'start' => 'بُدء فصل دراسي جديد',
             'update' => 'حُدّث الفصل الدراسي',

@@ -12,6 +12,8 @@
 
         <livewire:components.show-item label="forms.name" :data="$student->full_name" />
 
+        <livewire:components.show-item label="forms.academic_number" :data="$student->student->academic_number" />
+
         <livewire:components.show-item label="forms.national_id" :data="$student->national_id" />
 
         <livewire:components.show-item label="forms.email" :data="$student->email" />
