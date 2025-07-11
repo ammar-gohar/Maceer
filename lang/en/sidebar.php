@@ -81,5 +81,6 @@ return [
     ],
 
     'exam_schedule_generate' => 'Exam Schedule Generator',
+    'assistant' => 'Assistant',
 
 ];
