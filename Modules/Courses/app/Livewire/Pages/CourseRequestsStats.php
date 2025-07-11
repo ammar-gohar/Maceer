@@ -100,4 +100,7 @@ class CourseRequestsStats extends Component
             'professors' => User::Has('professor')->orderBy('first_name')->get(),
         ]);
     }
+
+    public function reset(...$prop)
+    {}
 }

@@ -117,4 +117,5 @@ return [
     'fullfill' => 'Fullfill',
     'remove' => 'Remove',
     'prerequest' => 'prerequest',
+    'add' => 'Add',
 ];

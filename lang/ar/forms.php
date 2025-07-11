@@ -118,4 +118,5 @@ return [
     'remove' => 'أزل',
     'prerequest' => 'متطلب',
     'academic_number' => 'الرقم الأكاديمي:',
+    'add' => 'اضافة',
 ];

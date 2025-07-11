@@ -78,4 +78,7 @@ class CourseRequests extends Component
             'courses' => $query->get(),
         ])->title(__('sidebar.courses.requests'));
     }
+
+    public function reset(...$prop)
+    {}
 }
