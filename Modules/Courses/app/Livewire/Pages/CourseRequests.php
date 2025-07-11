@@ -69,23 +69,7 @@ class CourseRequests extends Component
     public function render()
     {
 
-        $query = Course::query()->with(['level', 'prerequests', 'prerequests.enrollments', 'enrollments'])
-        ->whereDoesntHave('enrollments', fn($q) => $q
-            ->where('student_id', Auth::user()->id)
-            ->where('final_gpa', '>=', 1.00)
-        )
-        ->whereHas('level', fn($q) => $q
-            ->where('number', '<=', Auth::user()->student->level->number)
-        )
-        ->where(fn($q) => $q
-            ->whereDoesntHave('prerequests')
-            ->orWhereHas('prerequests', fn($q) => $q
-                ->whereHas('enrollments', fn($q) => $q
-                    ->where('student_id', Auth::user()->id)
-                    ->where('final_gpa', '>=', 1.00)
-                )
-            )
-        )->orderBy('code', 'asc');
+        $query = Course::query()->with(['level', 'prerequests', 'prerequests.enrollments', 'enrollments'])->orderBy('code', 'asc');
 
         $this->coursesIds = $query->pluck('id')->toArray();
 
