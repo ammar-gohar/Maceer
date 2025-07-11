@@ -77,7 +77,7 @@ function calculateGpa() {
 
     // إنشاء جدول النتائج
     let table = `
-        <table class="mt-2">
+        <table class="mt-2 table table-striped">
             <tr>
                 <th>الترم</th>
                 <th>عدد الساعات</th>

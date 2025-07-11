@@ -135,7 +135,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('gpa.calculator') }}" class="nav-link {{ Route::is('gpa.calculator') ? 'active' : '' }}">
-                        <i class="nav-icon fa-solid fa fa-file-pen"></i>
+                        <i class="nav-icon fa-solid fa fa-calculator"></i>
                         <p>@lang('modules.reports.gpa_calculator')</p>
                     </a>
                 </li>
