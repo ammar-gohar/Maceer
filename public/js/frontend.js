@@ -173,7 +173,7 @@ class ChatbotFrontend {
 
         // Get bot response
         try {
-            const response = await fetch('http://localhost:3001/api/chat', {
+            const response = await fetch('https://maceer.systems:3001/api/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ message })
