@@ -12,11 +12,6 @@
         @else
             <div class="container my-3">
                 <div class="mb-2 row">
-                    <a href="{{ route('reports.current.enrollment', ['semesterId' => $semesterId, 'studentId' => Auth::id()]) }}" target="_blank" class="w-auto btn btn-dark">
-                        <i class="fa-solid fa-print"></i>
-                    </a>
-                </div>
-                <div class="mb-2 row">
                     <h5 class="col-6"><strong>@lang('modules.students.gpa'):</strong> {{ Auth::user()->student->gpa }}</h5>
                     <h5 class="col-6"><strong>@lang('modules.students.total_earned_credits'):</strong> {{ Auth::user()->student->total_earned_credits }}</h5>
                 </div>
