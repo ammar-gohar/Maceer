@@ -18,10 +18,12 @@ return [
     ],
 
     'students' => [
+        'national_id' => 'National ID',
         'name' => 'Student Name',
         'gender' => 'Gender',
         'credits' => 'Earned Credit Hours',
         'level' => 'Level',
+        'academic_number' => 'Academic Number',
         'gpa' => 'GPA',
         'success' => [
             'store' => 'Student created successfully',
@@ -36,7 +38,6 @@ return [
         'empty' => 'No students to display',
         'credits_to_enroll' => 'Remaining Credits Allowed for Enrollment',
         'total_earned_credits' => 'Total Earned Credits',
-        'head_professor' => 'Academic Advisor',
         'core_earned_credits' => 'Completed Core Credits',
         'university_elected_earned_credits' => 'Completed University Requirement Credits',
         'faculty_elected_earned_credits' => 'Completed Faculty Requirement Credits',
@@ -47,6 +48,7 @@ return [
         'approved_at' => 'Acceptance Date',
         'current_gpa' => 'Current GPA',
         'target_gpa' => 'Target GPA',
+        'annual_gpa' => 'Annual GPA',
     ],
 
     'professors' => [
@@ -163,6 +165,8 @@ return [
     ],
 
     'semester' => [
+        'semester' => 'Semester',
+        'year' => 'Year',
         'success' => [
             'start' => 'New semester started',
             'update' => 'Semester updated successfully',
