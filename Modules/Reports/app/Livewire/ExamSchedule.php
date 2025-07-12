@@ -105,7 +105,7 @@ class ExamSchedule extends Component
         }
 
         $students = User::with(['current_enrolled_courses'])->has('student')->has('current_enrollments')->get();
-
+// dd($students->last()->current_enrollments);
         if(!Storage::exists('exam_schedules')){
             Storage::createDirectory('exam_schedules');
         }
@@ -114,7 +114,7 @@ class ExamSchedule extends Component
             $csv = fopen(Storage::path('exam_schedules/') . Carbon::now()->format('m_Y') . '.csv', 'w');
             foreach ($students as $student) {
                 foreach ($student->current_enrolled_courses as $course) {
-                    fputcsv($csv, [$student->full_name, $course->name], ';', '');
+                    fputcsv($csv, [$student->full_name, $course->name], ';', '"');
                 }
             }
             fclose($csv);
@@ -123,6 +123,8 @@ class ExamSchedule extends Component
             $csv = $this->csv;
             $csv = Storage::putFileAs('exam_schedules', $csv, $csv->getClientOriginalName());
         };
+
+        dd($students, $csv);
 
         $start_date      = $data['start_date'];
         $end_date        = $data['end_date'];
