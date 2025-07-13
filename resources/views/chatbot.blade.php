@@ -3,152 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECE Program Assistant</title>
-    <link rel="icon" href="{{ asset('favicon.png') }}" type="image/x-icon">
-    <link rel="stylesheet" href="{{ asset("css/chat-styles.css") }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Electrical Engineering Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.assistant .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 11px;
+            color: #999;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .chat-input-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+
+        .send-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .send-button:hover {
+            transform: scale(1.05);
+        }
+
+        .send-button:active {
+            transform: scale(0.95);
+        }
+
+        .welcome-message {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 12px 16px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            max-width: 70%;
+            margin-bottom: 15px;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .help-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+
+        .help-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .chat-container {
+                height: 100vh;
+                border-radius: 0;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h1>ECE Program Assistant</h1>
-                </div>
-                <div class="language-toggle" style="display: flex; gap: 1rem;">
-                    <button id="langToggle" class="lang-btn">
-                        <span id="currentLang">English</span>
-                        <i class="fas fa-globe"></i>
-                    </button>
-                    <button class="lang-btn">
-                        <a href="{{ route('home') }}">home</a>
-                    </button>
-                </div>
-            </div>
-        </header>
+    <div class="chat-container">
+        <div class="chat-header">
+            <button class="help-button" onclick="showHelp()">مساعدة / Help</button>
+            مساعد برنامج الهندسة الكهربية والحاسبات
+            <br>
+            Electrical and Computer Engineering Program Assistant
+        </div>
 
-        <!-- Chat Container -->
-        <div class="chat-container">
-            <div class="chat-header">
-                <div class="chat-title">
-                    <i class="fas fa-robot"></i>
-                    <span id="chatTitle">Electrical & Computer Engineering Assistant</span>
-                </div>
-                <div class="chat-subtitle" id="chatSubtitle">
-                    Ask me anything about the ECE program at Menoufia University
-                </div>
-            </div>
-
-            <!-- Messages Area -->
-            <div class="messages-container" id="messagesContainer">
-                <!-- Welcome Message -->
-                <div class="message bot-message">
-                    <div class="message-avatar">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="message-content">
-                        <div class="message-text">
-                            <p>🎓 Welcome to the Electrical and Computer Engineering Program Assistant!</p>
-                            <p>I can help you with:</p>
-                            <ul>
-                                <li>📚 Program information and requirements</li>
-                                <li>📖 Course details and prerequisites</li>
-                                <li>📝 Registration policies and GPA requirements</li>
-                                <li>📋 Academic policies and grading system</li>
-                                <li>👨‍🏫 Student services and advising</li>
-                                <li>💰 Fees and payment information</li>
-                            </ul>
-                            <p>Try asking about: <strong>program</strong>, <strong>courses</strong>, <strong>registration</strong>, or type a course code like <strong>ECE-C101</strong></p>
-                        </div>
-                        <div class="message-time" id="welcomeTime"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="quick-actions" id="quickActions">
-                <button class="quick-btn" data-query="program">Program Info</button>
-                <button class="quick-btn" data-query="courses">Courses</button>
-                <button class="quick-btn" data-query="registration">Registration</button>
-                <button class="quick-btn" data-query="gpa">GPA Info</button>
-                <button class="quick-btn" data-query="help">Help</button>
-            </div>
-
-            <!-- Input Area -->
-            <div class="input-container">
-                <div class="input-wrapper">
-                    <input type="text" id="messageInput" placeholder="Type your question here..." autocomplete="off">
-                    <button id="sendButton" class="send-btn">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-                <div class="input-hint">
-                    <i class="fas fa-lightbulb"></i>
-                    <span id="inputHint">Press Enter to send or use quick action buttons above</span>
-                </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="welcome-message">
+                مرحباً! يمكنك سؤالي عن البرنامج، المقررات، المتطلبات، وغيرها...
+                <br>
+                Hello! You can ask me about the program, courses, requirements, and more...
             </div>
         </div>
 
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h3>Quick Topics</h3>
-                <button class="close-sidebar" id="closeSidebar">
-                    <i class="fas fa-times"></i>
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+
+        <div class="chat-input-container">
+            <form class="chat-input-form" id="chatForm">
+                <input
+                    type="text"
+                    class="chat-input"
+                    id="chatInput"
+                    placeholder="اكتب رسالتك هنا... / Type your message here..."
+                    autocomplete="off"
+                >
+                <button type="submit" class="send-button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                        <polygon points="22,2 15,22 11,13 2,9"></polygon>
+                    </svg>
                 </button>
-            </div>
-            <div class="sidebar-content">
-                <div class="topic-section">
-                    <h4>Program Information</h4>
-                    <button class="topic-btn" data-query="program">Program Details</button>
-                    <button class="topic-btn" data-query="credits">Credit Hours</button>
-                    <button class="topic-btn" data-query="duration">Program Duration</button>
-                    <button class="topic-btn" data-query="requirements">Admission Requirements</button>
-                </div>
-
-                <div class="topic-section">
-                    <h4>Academic</h4>
-                    <button class="topic-btn" data-query="registration">Registration</button>
-                    <button class="topic-btn" data-query="gpa">GPA Information</button>
-                    <button class="topic-btn" data-query="semester">Semester Info</button>
-                    <button class="topic-btn" data-query="grades">Grading System</button>
-                </div>
-
-                <div class="topic-section">
-                    <h4>Courses</h4>
-                    <button class="topic-btn" data-query="courses">All Courses</button>
-                    <button class="topic-btn" data-query="prerequisites">Prerequisites</button>
-                    <button class="topic-btn" data-query="ECE-C101">Digital Logic</button>
-                    <button class="topic-btn" data-query="ECE-C102">Computer Programming</button>
-                </div>
-
-                <div class="topic-section">
-                    <h4>Policies</h4>
-                    <button class="topic-btn" data-query="attendance">Attendance Policy</button>
-                    <button class="topic-btn" data-query="policies">Academic Policies</button>
-                    <button class="topic-btn" data-query="withdrawal">Withdrawal Policy</button>
-                </div>
-
-                <div class="topic-section">
-                    <h4>Services</h4>
-                    <button class="topic-btn" data-query="advisor">Academic Advisor</button>
-                    <button class="topic-btn" data-query="training">Industrial Training</button>
-                    <button class="topic-btn" data-query="project">Graduation Project</button>
-                    <button class="topic-btn" data-query="fees">Fees Information</button>
-                </div>
-            </div>
+            </form>
         </div>
-
-        <!-- Mobile Menu Button -->
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fas fa-bars"></i>
-        </button>
     </div>
 
-    {{-- <script src="/chatbot.js"></script> --}}
-    <script src="{{ asset("js/frontend.js") }}"></script>
+    <script src="{{ asset("js/chatbot.js") }}"></script>
+    <script>
+        // Initialize chatbot
+        const chatbot = new StudentChatbot();
+        const chatMessages = document.getElementById('chatMessages');
+        const chatForm = document.getElementById('chatForm');
+        const chatInput = document.getElementById('chatInput');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        // Add initial help message
+        setTimeout(() => {
+            addMessage(chatbot.getHelpMessage(), 'assistant');
+        }, 1000);
+
+        // Handle form submission
+        chatForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const userInput = chatInput.value.trim();
+
+            if (!userInput) return;
+
+            // Add user message
+            addMessage(userInput, 'user');
+            chatInput.value = '';
+
+            // Show typing indicator
+            showTypingIndicator();
+
+            // Simulate processing delay
+            setTimeout(() => {
+                hideTypingIndicator();
+
+                // Get chatbot response
+                const response = chatbot.getResponse(userInput);
+                addMessage(response, 'assistant');
+
+                // Check if user wants to exit
+                if (chatbot.keywords.exit.some(keyword => userInput.toLowerCase().includes(keyword))) {
+                    setTimeout(() => {
+                        alert('Thank you for using the chatbot!');
+                        window.close();
+                    }, 2000);
+                }
+            }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+        });
+
+        // Add message to chat
+        function addMessage(content, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.innerHTML = content.replace(/\n/g, '<br>');
+
+            const messageTime = document.createElement('div');
+            messageTime.className = 'message-time';
+            messageTime.textContent = new Date().toLocaleTimeString();
+
+            messageDiv.appendChild(messageContent);
+            messageDiv.appendChild(messageTime);
+
+            chatMessages.appendChild(messageDiv);
+
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            typingIndicator.style.display = 'block';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Hide typing indicator
+        function hideTypingIndicator() {
+            typingIndicator.style.display = 'none';
+        }
+
+        // Show help
+        function showHelp() {
+            addMessage(chatbot.getHelpMessage(), 'assistant');
+        }
+
+        // Handle Enter key
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                chatForm.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // Focus input on load
+        window.addEventListener('load', () => {
+            chatInput.focus();
+        });
+    </script>
 </body>
 </html>

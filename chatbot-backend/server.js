@@ -16,5 +16,5 @@ app.post('/api/chat', (req, res) => {
 
 const PORT = 3001;
 app.listen(PORT, () => {
-  console.log(`🤖 Chatbot API running at https://maceer.systems:${PORT}`);
+  console.log(`🤖 Chatbot API running at http://localhost:${PORT}`);
 });
