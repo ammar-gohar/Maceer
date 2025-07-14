@@ -41,7 +41,7 @@
                                             <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                             <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
-                                            <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
+                                            <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }} / {{ $course->max_enrollments_number }})</span>
                                             <button class="hover" wire:click='show_modal(["saturday", {{ $i }}, "{{ $course->id }}"])'>
                                                 <h4>@lang('forms.edit')</h4>
                                             </button>
@@ -67,7 +67,7 @@
                                             <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                             <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
-                                            <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
+                                            <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }} / {{ $course->max_enrollments_number }})</span>
                                             <button class="hover" wire:click='show_modal(["sunday", {{ $i }}, "{{ $course->id }}"])'>
                                                 <h4>@lang('forms.edit')</h4>
                                             </button>
@@ -94,7 +94,7 @@
                                                 <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                                 <p>{{ $course->professor->full_name }}</p>
                                                 <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
-                                                <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
+                                                <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }} / {{ $course->max_enrollments_number }})</span>
                                                 <button class="hover" wire:click='show_modal(["monday", {{ $i }}, "{{ $course->id }}"])'>
                                                     <h4>@lang('forms.edit')</h4>
                                                 </button>
@@ -121,7 +121,7 @@
                                             <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                             <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
-                                            <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
+                                            <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }} / {{ $course->max_enrollments_number }})</span>
                                             <button class="hover" wire:click='show_modal(["tuesday", {{ $i }}, "{{ $course->id }}"])'>
                                                 <h4>@lang('forms.edit')</h4>
                                             </button>
@@ -148,7 +148,7 @@
                                             <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                             <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
-                                            <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
+                                            <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }} / {{ $course->max_enrollments_number }})</span>
                                             <button class="hover" wire:click='show_modal(["wednesday", {{ $i }}, "{{ $course->id }}"])'>
                                                 <h4>@lang('forms.edit')</h4>
                                             </button>
@@ -176,7 +176,7 @@
                                             <h4>{{ $course->course->translated_name }} ({{ $course->course->level->name }})</h4>
                                             <p>{{ $course->professor->full_name }}</p>
                                             <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
-                                            <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number }})</span>
+                                            <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }} / {{ $course->max_enrollments_number }})</span>
                                             <button class="hover" wire:click='show_modal(["thursday", {{ $i }}, "{{ $course->id }}"])'>
                                                 <h4>@lang('forms.edit')</h4>
                                             </button>

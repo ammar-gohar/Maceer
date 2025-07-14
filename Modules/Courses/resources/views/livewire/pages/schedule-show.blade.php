@@ -74,7 +74,7 @@
 
                                                     <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                                                    <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
+                                                    <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
 
                                                     @if ($courseEnrollment && $courseEnrollment->final_gpa)
                                                         <span>({{ $courseEnrollment->final_gpa }})</span>
@@ -127,7 +127,7 @@
 
                                                     <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                                                    <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
+                                                    <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
 
                                                     @if ($courseEnrollment && $courseEnrollment->final_gpa)
                                                         <span>({{ $courseEnrollment->final_gpa }})</span>
@@ -181,7 +181,7 @@
 
                                                     <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                                                    <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
+                                                    <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
 
                                                     @if ($courseEnrollment && $courseEnrollment->final_gpa)
                                                         <span>({{ $courseEnrollment->final_gpa }})</span>
@@ -235,7 +235,7 @@
 
                                                     <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                                                    <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
+                                                    <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
 
                                                     @if ($courseEnrollment && $courseEnrollment->final_gpa)
                                                         <span>({{ $courseEnrollment->final_gpa }})</span>
@@ -289,7 +289,7 @@
 
                                                     <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                                                    <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
+                                                    <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
 
                                                     @if ($courseEnrollment && $courseEnrollment->final_gpa)
                                                         <span>({{ $courseEnrollment->final_gpa }})</span>
@@ -344,7 +344,7 @@
 
                                                     <span>{{ $course->hall->name . ' - ' .  $course->hall->building . ' - ' . $course->hall->floor }}</span>
 
-                                                    <span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
+                                                    <br><span>{{ App::isLocale('ar') ?  'المقاعد:' : 'Seats:' }} ({{ $course->max_enrollments_number - $course->students_enrollments_number }})</span>
 
                                                     @if ($courseEnrollment && $courseEnrollment->final_gpa)
                                                         <span>({{ $courseEnrollment->final_gpa }})</span>

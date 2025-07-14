@@ -79,6 +79,8 @@ class CourseRequests extends Component
         ])->title(__('sidebar.courses.requests'));
     }
 
-    public function reset(...$prop)
-    {}
+    public function reset_inputs()
+    {
+        $this->reset($this->courses_to_enroll);
+    }
 }

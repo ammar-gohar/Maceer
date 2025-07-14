@@ -94,7 +94,7 @@
                     <span wire:loading wire:target='save_requests'>@lang('forms.submitting')</span>
                     <span wire:loading.remove wire:target='save_requests'>@lang('forms.submit')</span>
                 </button>
-                <button type="reset" class="border btn btn-light" wire:click='reset()'>@lang('forms.reset')</button>
+                <button type="reset" class="border btn btn-light" wire:click='reset_inputs()'>@lang('forms.reset')</button>
             </div>
             <!--end::Footer-->
         </form>
