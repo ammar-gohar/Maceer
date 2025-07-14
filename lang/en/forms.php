@@ -117,5 +117,7 @@ return [
     'fullfill' => 'Fullfill',
     'remove' => 'Remove',
     'prerequest' => 'prerequest',
+    'academic_number' => 'Academic number:',
+    'total_earned_credits' => 'Total earned credits:',
     'add' => 'Add',
 ];
