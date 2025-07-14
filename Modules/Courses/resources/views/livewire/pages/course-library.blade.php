@@ -10,7 +10,6 @@
             </div>
         </div>
     @else
-        @can('library.create')
             <div
                 class="px-4 card-header row"
                 x-data="{ progress: 0 }"
