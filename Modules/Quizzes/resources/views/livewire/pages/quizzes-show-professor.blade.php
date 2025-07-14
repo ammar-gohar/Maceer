@@ -76,6 +76,7 @@
                                     @lang('modules.quizzes.false')
                                 </h6>
                             </div>
+                        @endif
                     </div>
                 @endforeach
             </div>
