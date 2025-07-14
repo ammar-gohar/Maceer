@@ -10,6 +10,7 @@
             </div>
         </div>
     @else
+        @if (Auth::user()->hasRole('professor'))
             <div
                 class="px-4 card-header row"
                 x-data="{ progress: 0 }"
@@ -110,13 +111,13 @@
                                                 <i class="bi bi-eye"></i>
                                             </a>
 
-                                            @can('library.create')
+                                            @if(Auth::user()->hasRole('professor'))
                                                 <button  class="btn btn-sm btn-outline-danger"
                                                         wire:click="deleteMedia('{{ $file->id }}')"
                                                         wire:confirm="Are you sure?">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </button>
-                                            @endcan
+                                            @endif
                                         </div>
 
                                         <small class="text-muted">
