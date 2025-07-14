@@ -134,6 +134,8 @@
                                                         >
                                                             {{ App::isLocale('ar') ? 'عرض المقررات المسجلة' : 'Show enrollments' }}
                                                     </button>
+                                                @elseif($student->receipt_paied_at && $student->enrollments && $student->enrollments->first()->approved_at)
+                                                    {{ App::isLocalet('ar') ? 'مُصدق في:' : 'Approved at: ' }}{{ $student->enrollments->first()->approved_at }}
                                                 @else
                                                     @lang('modules.reports.not_paied')
                                                 @endif
