@@ -27,6 +27,7 @@ class Schedule extends Component
     public $students_enrolled;
     public $student_enrolled_credits;
     public $enrollments_end_date;
+    public $enrollments_start_date;
 
     public function mount()
     {
@@ -38,6 +39,7 @@ class Schedule extends Component
         } else {
             $this->semesterId = $lastesSemester->id;
             $this->enrollments_end_date = $lastesSemester->enrollments_end_date;
+            $this->enrollments_start_date = $lastesSemester->enrollments_start_date;
         };
 
     }
