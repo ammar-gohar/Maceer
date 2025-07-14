@@ -78,7 +78,7 @@
                     </div>
                 @endif
             </div>
-        @endcan
+        @endif
         <!--end::Header-->
 
         <div class="card-body" style="overflow-x: scroll;">
